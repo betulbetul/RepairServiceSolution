@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E2366276-17D4-4EE7-974C-EA72F2FBA873}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ThemeForWebSite</RootNamespace>
+    <AssemblyName>ThemeForWebSite</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\fontawesome-webfont.eot" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\fontawesome-webfont.woff" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\FontAwesome.otf" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\accordions.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\blockquotes.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\blog.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\alerts.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\badges.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\bootstrap.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\breadcrumbs.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\button-groups.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\buttons.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\carousel.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\close.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\code.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\component-animations.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\dropdowns.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\forms.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\glyphicons.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\grid.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\input-groups.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\jumbotron.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\labels.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\list-group.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\media.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\mixins.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\modals.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\navbar.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\navs.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\normalize.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\pager.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\pagination.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\panels.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\popovers.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\print.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\progress-bars.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\responsive-utilities.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\scaffolding.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\tables.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\theme.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\thumbnails.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\tooltip.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\type.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\utilities.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\wells.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\carousels.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\font-awesome.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\glyphicons.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\hornav.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\mixins.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\nexus.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\pages.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\panels.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\portfolio.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\progress-bars.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\responsive-nav.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\sidebar-menu.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\social-icons.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\tabs.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\template.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\testimonials.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\thumbs-gallery.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\typo.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\utility-classes.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\variables.less" />
+    <None Include="Enlighten Free Website Template - Free-CSS.com\PSD\logo.psd" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\css\bootstrap.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\css\style.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\favicon.ico" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\img\html_layout.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\img\showcase-bg.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\img\template_showcase.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\js\bootstrap.min.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\assets\js\jquery.min.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\Documentation\index.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\css\animate.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\css\bootstrap.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\css\font-awesome.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\css\nexus.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\css\responsive.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\image1.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\image2.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\image3.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\image4.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\thumbs\thumb1.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\thumbs\thumb2.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\thumbs\thumb3.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\blog\thumbs\thumb4.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\closelabel.gif" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\fillers\aboutme.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\fillers\filler1.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\fillers\filler2.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\fillers\filler3.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\fillers\filler4.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\frontpage\image1.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\frontpage\image2.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\frontpage\image3.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\frontpage\image4.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\frontpage\responsive_homepage.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\hr.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\link.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\loading.gif" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\logo.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\menu_arrow.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\nextlabel.gif" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image1.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image10.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image11.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image12.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image2.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image3.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image4.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image5.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image6.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image7.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image8.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\portfolio\image9.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\prevlabel.gif" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\profiles\37.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\profiles\53.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\profiles\78.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\profiles\84.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\profiles\87.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\profiles\99.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\sample_bg.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\loading.gif" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\next.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\pagination.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\prev.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\slide1.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\slide2.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\slide3.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\slideshow\slide4.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\aim.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\apple.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\behance.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\blogger.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\cargo.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\delicious.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\deviantart.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\digg.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\dopplr.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\dribbble.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\email.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\ember.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\evernote.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\facebook.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\flickr.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\forrst.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\github.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\google.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\googleplus.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\gowalla.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\grooveshark.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\html5.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\icloud.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\lastfm.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\linkedin.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\metacafe.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\mixx.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\myspace.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\netvibes.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\newsvine.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\orkut.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\paypal.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\picasa.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\pinterest.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\plurk.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\posterous.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\reddit.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\rss.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\skype.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\stumbleupon.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\technorati.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\tumblr.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\twitter.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\vimeo.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\wordpress.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\yahoo.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\yelp.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\youtube.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\zerply.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\social_icons\zootool.png" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\theteam\image1.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\theteam\image2.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\theteam\image3.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image01.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image02.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image03.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image04.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image05.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image06.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image07.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image08.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\image09.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image01.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image02.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image03.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image04.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image05.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image06.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image07.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image08.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\img\thumbsgallery\thumbs\image09.jpg" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\bootstrap.min.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\jquery.isotope.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\jquery.min.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\jquery.slicknav.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\jquery.sticky.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\jquery.visible.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\modernizr.custom.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\scripts.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\js\slimbox2.js" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\assets\less\bootstrap\bootstrap.css" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\blank-page.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\blog-list.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\blog-single.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\contact.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-accordions-tabs.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-animate-on-scroll.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-buttons.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-carousels.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-grid.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-icons-font-awesome.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-icons-glyphicons.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-icons-social.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-icons.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-labels.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-pagination.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-panels.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-progress-bars.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-testimonials.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-typo-basic.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\features-typo-blockquotes.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\index.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-404.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-about-me.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-about-us.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-faq.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-full-width.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-left-sidebar.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-login.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-right-sidebar.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-services.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\pages-sign-up.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\portfolio-2-column.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\portfolio-3-column.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\portfolio-4-column.html" />
+    <Content Include="Enlighten Free Website Template - Free-CSS.com\HTML\portfolio-6-column.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

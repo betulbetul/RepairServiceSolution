@@ -1,0 +1,13 @@
+﻿@using RepairService.Entity.Kisi
+@model List<Musteri>
+
+@{
+    ViewBag.Title = "Musteriler";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+
+
+@{
+    Html.RenderAction("tumMusterilerResult", "Partials");
+}

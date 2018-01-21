@@ -1,0 +1,84 @@
+﻿@using RepairService.Entity.Enums
+@model ServisKaydiViewModel
+@{
+    ViewBag.Title = "ArizaKaydiOlustur";
+    Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
+}
+
+<div class="container">
+    <div class="row margin-vert-30">
+        @using (Html.BeginForm("ArizaKaydiOlustur", "Home", FormMethod.Post, new { @class = "from-horizontal",
+             enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            if (ViewBag.ServisNo != null)
+            {
+                <div>
+                    <div class="form-group col-md-10">
+                        <h3 class="text-danger"> Servis Kaydınız Oluşturulmuştur.</h3> <br />
+                        <h4 class="text-info"> Servis Numaranız: @ViewBag.ServisNo</h4>
+                        <span class="small text-info"> Not: Servis Kaydı bilgileriniz email olarak gönderilmiştir.</span> <br />
+                        <span>  @Html.ActionLink("Anasayfaya gitmek için tıklayınız...", "Index", "Home",new {@class="btn btn-lg btn-primary" }) </span>
+                    </div>
+
+                </div>
+            }
+            else
+            {
+                @Html.ValidationSummary()
+                <div class="col-md-6">
+                    <div class="form-group col-md-10">
+                        <h3>Servis / Arıza Kaydı Formu</h3>
+                    </div>
+
+
+                    <div class="form-group col-md-12">
+                        @Html.Label("Arıza Türü") <br />
+                        @Html.DropDownListFor(x => x.ArizaTurAdi, (List<SelectListItem>)ViewBag.ArizaTurleri, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.Label("Cihaz Türü") <br />
+                        @Html.DropDownListFor(x => x.CihazTuru, (List<SelectListItem>)ViewBag.cihazTurleri, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.Label("Cihaz Markası") <br />
+                        @Html.TextBoxFor(x => x.CihazMarka, new { @class = "form-control", placeholder = "Lütfen cihazın markasını yazınız..." })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.Label("Cihaz Modeli") <br />
+                        @Html.TextBoxFor(x => x.CihazModel, new { @class = "form-control", placeholder = "Lütfen cihazın modelini yazınız..." })
+                    </div>
+                    <div class="form-group col-md-12">
+                        @Html.Label("Arıza Açıklaması") <br />
+                        @Html.TextAreaFor(x => x.musteriArizaTanimi, new { @class = "form-control", placeholder = "Lütfen cihazın arızasıyla ilgili kısa açıklama yazınız..." })
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        @Html.Label("Arıza ile İlgili Fotoğraflar") <br />
+                        @*<span class="small"> 1-2 tane fotoğraf eklemeniz yeterli olacaktır..</span>*@
+                        @Html.TextBoxFor(x => x.Dosyalar, new { @class = "form-control", type = "file", multiple = true })
+                    </div>
+                    <div class="form-group col-md-offset-8">
+                        <button type="submit" class="btn btn-success btn-lg"> GÖNDER</button>
+                    </div>
+                    @Html.HiddenFor(x => x.MusteriUserID)
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="form-group col-md-12">
+                            <h3>     Konumunuzu Haritadan Seçiniz... </h3> <div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+    </div>
+</div>

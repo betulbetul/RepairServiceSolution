@@ -1,0 +1,78 @@
+﻿
+<div id="hornav" class="container no-padding">
+    <div class="row">
+        <div class="col-md-12 no-padding">
+            <div class="pull-right visible-lg">
+                <ul id="hornavmenu" class="nav navbar-nav">
+                    <li>
+                        @if (HttpContext.Current.User.IsInRole("Admin"))
+                        {
+                        <li>
+                            <span class="navbar-brand active fa-user">HOŞGELDİN ADMİN</span>
+
+                        </li>
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink("Hoşgeldin " + MembershipTools.GetNameSurname(), "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                            </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("Admin"))
+                        {
+                            <li> @Html.ActionLink("Admin Panel", "Index", "Admin") </li>
+                            //  Html.RenderAction("Index", "Admin");
+
+
+                        }
+
+
+                        @if (HttpContext.Current.User.IsInRole("Operator"))
+                        {
+                            <li> @Html.ActionLink("Operator Panel", "Index", "Operator")</li>
+                            //  Html.RenderAction("Index", "Admin");
+
+
+                        }
+
+
+                        @if (HttpContext.Current.User.IsInRole("TecnicalPerson"))
+                        {
+                            <li>   @Html.ActionLink("Teknisyen Panel", "Index", "Teknisyen") </li>
+                            //  Html.RenderAction("Index", "Admin");
+
+
+                        }
+
+                        <li>
+                            <a href="@Url.Action("Index","Home")" class="fa-home">Home</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Hizmetlerimiz","Home")" class="fa-th">Hizmetlerimiz</a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Iletisim","Home")" class="fa-comment">İletişim</a>
+                        </li>
+
+
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink("Profilim", "Profil", "Account")
+                            </li>
+                            <li>@Html.ActionLink("Çıkış Yap", "Logout", "Account")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Giriş Yap", "Login", "Account")</li>
+                            <li>@Html.ActionLink("Kayıt Ol", "Register", "Account")</li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

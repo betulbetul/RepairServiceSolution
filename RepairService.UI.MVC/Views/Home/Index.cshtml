@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "Home | Anasayfa";
+    Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
+}
+<div id="content">
+    <div class="container no-padding">
+        <div class="row">
+
+            <hr />
+
+            <!-- Carousel Slideshow -->
+            <div id="carousel-example" class="carousel slide" data-ride="carousel">
+                <!-- Carousel Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example" data-slide-to="1"></li>
+                    <li data-target="#carousel-example" data-slide-to="2"></li>
+                </ol>
+                <div class="clearfix"></div>
+                <!-- End Carousel Indicators -->
+                <!-- Carousel Images -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img src="~/assets/img/slideshow/tv1.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="~/assets/img/slideshow/tv4.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="~/assets/img/slideshow/tv3.jpg">
+                    </div>
+                    <div class="item">
+                        <img src="~/assets/img/slideshow/smartTV_4.jpg">
+                    </div>
+                </div>
+                <!-- End Carousel Images -->
+                <!-- Carousel Controls -->
+                <a class="left carousel-control" href="#carousel-example" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+                <!-- End Carousel Controls -->
+            </div>
+            <!-- End Carousel Slideshow -->
+        </div>
+    </div>
+    <div class="container background-gray-lighter">
+        <div class="row">
+            <h2 class="animate fadeIn text-center margin-top-50"> Hoşgeldiniz</h2>
+            <hr class="margin-top-15">
+            <p class="animate fadeIn text-center">
+                Smart TV ile ilgili problemler servisimizde çözüme kavuşuyor.
+                <br>Güvenilir ve hızlı bir servis için doğru yerdesiniz.
+            </p>
+            <p class="text-center animate fadeInUp margin-bottom-50">
+                @Html.ActionLink("SERVİS KAYDI OLUŞTUR", "ArizaKaydiOlustur", "Home", new
+           {
+               @class = "btn btn-lg btn-primary"
+           })
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row margin-vert-30">
+            <!-- Main Text -->
+            <div class="col-md-9">
+                <h2> Smart TV nedir? </h2>
+                <p>
+                    Smart TV'lerle ilgili ilk patent, 1994'te alınmış. Smart TV işlevlerinin TV'lerde ortaya çıkması ise 5 yıl sürmüş. Bugün genellikle internete bağlı hizmetlerle çalışan, bilgisayarlara - daha doğrusu mobil cihazlara - benzer işlevler sunan TV'lere Smart TV deniyor.
+                </p>
+                <h2>Teknik Servis Kalitesi</h2>
+
+                <p>
+                    Smart TV Repair Service olarak siz müşterilerimize servis için en hızlı cevapları verecek bir sistemle çalışıyoruz.
+                    <strong>Yerinde servis olanağı ile </strong> televizyonunuzu yerinden bile hareket ettirmenize gerek kalmıyor. Servis olanaklarından yararlanmak için <strong> <em>sadece servis kaydı oluşturmanız bizim için yeterli... </em> </strong> Operatörümüz servis kaydını teknisyenimize iletiyor ve en kısa zamanda direk olarak sizin yanınızda servis hizmetimiz gerçekleşiyor. Siz değerli müşterilerimize daha iyi hizmet vermek için buradayız.
+                </p>
+                <img class="visible-lg animate fadeInUp" style="bottom: -50px; position: relative; left: 85px; margin-top: -20px;" src="~/assets/img/frontpage/responsivehomepage.png" alt="">
+            </div>
+            <!-- End Main Text -->
+            <!-- Side Column -->
+            <div class="col-md-3">
+                <h3 class="title"> Servis Çalışma Satlerimiz</h3>
+                <p>
+                    <h3> Haftaiçi </h3>
+                </p>
+                <h6 style="margin: 0;">Pazartesi - Cuma</h6>
+                <h4 style="margin: 0;">08:00 - 18:30 </h4>
+                <p>
+                    <h3> Haftasonu </h3>
+                </p>
+                <h6 style="margin: 0;">Cumartesi</h6>
+                <h4 style="margin: 0;">10:00 - 15:00</h4>
+                <hr>
+            </div>
+            <!-- End Side Column -->
+        </div>
+    </div>
+    <div class="container background-gray-lighter">
+        <div class="row row-no-margin">
+            <!-- Portfolio -->
+            <ul class="portfolio-group">
+                <!-- Portfolio Item -->
+                <li class="portfolio-item col-sm-3 col-xs-6 no-padding">
+                    <a href="#">
+                        <h3>Müşteri Memnuniyeti</h3>
+                        <figure class="animate fadeInLeft animated">
+                            <img alt="image1" src="~/assets/img/frontpage/image1.png">
+                            <figcaption>
+                                <span style="color:#212121; ">Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui et everti tamquam suavitate mea.</span>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </li>
+                <!-- //Portfolio Item// -->
+                <!-- Portfolio Item -->
+                <li class="portfolio-item col-sm-3 col-xs-6 no-padding">
+                    <a href="#">
+                        <h3>Servis Kalitesi</h3>
+                        <figure class="animate fadeInLeft animated">
+                            <img alt="image2" src="~/assets/img/frontpage/image2.png">
+                            <figcaption>
+                                <span style="color:#212121; ">Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui et everti tamquam suavitate mea.</span>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </li>
+                <!-- //Portfolio Item// -->
+                <!-- Portfolio Item -->
+                <li class="portfolio-item col-sm-3 col-xs-6 no-padding">
+                    <a href="#">
+                        <h3>Placerat facer possim</h3>
+                        <figure class="animate fadeInLeft animated">
+                            <img alt="image3" src="~/assets/img/frontpage/image3.png">
+                            <figcaption>
+                                <span style="color:#212121; ">Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui et everti tamquam suavitate mea.</span>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </li>
+                <!-- //Portfolio Item// -->
+                <!-- Portfolio Item -->
+                <li class="portfolio-item col-sm-3 col-xs-6 no-padding">
+                    <a href="#">
+                        <h3>Placerat facer possim</h3>
+                        <figure class="animate fadeInLeft animated">
+                            <img alt="image4" src="~/assets/img/frontpage/image4.png">
+                            <figcaption>
+                                <span style="color:#212121; ">Vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui et everti tamquam suavitate mea.</span>
+                            </figcaption>
+                        </figure>
+                    </a>
+                </li>
+                <!-- //Portfolio Item// -->
+            </ul>
+            <!-- End Portfolio -->
+        </div>
+    </div>
+</div>

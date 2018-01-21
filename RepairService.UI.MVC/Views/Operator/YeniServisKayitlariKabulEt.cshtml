@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "YeniServisKayitlariKabulEt";
+    Layout = "~/Views/Shared/_LayoutPageOperator.cshtml";
+}
+<div class="row">
+    @if ((bool)TempData["Sonuc"])
+    {
+        <h4>@TempData["ServisNo"] numarali servis kaydının operatörü belirlenmiştir. Operator: @TempData["Operator"].</h4>
+    }
+
+</div>

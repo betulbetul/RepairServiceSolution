@@ -1,0 +1,49 @@
+﻿@model RegisterViewModel
+@{
+    ViewBag.Title = "TeknisyenEkle";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2>Teknisyen Ekle</h2>
+
+<!--Register Box-->
+<div class="col-md-12">
+    <span class="text-danger">@Html.ValidationSummary()</span>
+    @using (Html.BeginForm("TeknisyenEkle", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4> @ViewBag.Sonuc</h4>
+        <h4>@ViewBag.randomSifre</h4>
+        <hr />
+        <label>Tc No</label>
+        @Html.TextBoxFor(x => x.TcNo, new { @class = "form-control margin-bottom-10" })
+        <label>Adınız</label>
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control margin-bottom-10" })
+        <label>Soyadınız</label>
+        @Html.TextBoxFor(x => x.Surname, new { @class = "form-control margin-bottom-10" })
+        <label>
+            Email Adresi
+            <span class="color-red">*</span>
+        </label>
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control margin-bottom-10", type = "email" })
+
+        <label>
+            Kullanıcı Adı
+            <span class="color-red">*</span>
+        </label>
+
+            @Html.TextBoxFor(x => x.Username, new { @class = "form-control margin-bottom-10" })
+
+            <div class="row">
+                <div class="col-sm-offset-9">
+                    <button type="submit" class="btn btn-default btn-lg">KAYDET</button>
+                </div>
+            </div>
+
+            <!--Model iel gelen random Şifre gönderilir-->
+
+            @Html.HiddenFor(x => x.Password)
+            @Html.HiddenFor(x => x.ConfirmPassword)
+    }
+
+</div>

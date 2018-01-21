@@ -1,0 +1,8 @@
+﻿#pre_header p {
+    color: darkred;
+}
+
+    #pre_header p:hover {
+        color: red;
+        font-size: 18px;
+    }

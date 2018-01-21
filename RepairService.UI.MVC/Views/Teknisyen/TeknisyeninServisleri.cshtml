@@ -1,0 +1,52 @@
+﻿@model List<ServisKaydi>
+@{
+    ViewBag.Title = "TeknisyeninServisleri";
+    Layout = "~/Views/Shared/_LayoutPageTeknisyen.cshtml";
+}
+
+@*@using (Html.BeginForm("TeknisyenServisDetayIslemi", "Operator", FormMethod.Post, new { @class = "form-horizontal" }))
+{*@
+    <div class="row">
+        <h3 class="col-md-12">Teknisyenin Servisleri</h3>
+        <table class="table table-dark">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Servis ID</th>
+                    <th scope="col">ServisNumarası</th>
+                    <th scope="col">Müşteri TCNo</th>
+                    <th scope="col">Müşteri AdSoyad</th>
+                    <th scope="col">Fiyat</th>
+                    <th scope="col">Müşteri Fiyatı OnayladıMı</th>
+                    <th scope="col">Servis Durum</th>
+                    <th scope="col">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int sayac = 0;
+                }
+
+                @foreach (var item in Model)
+                {
+                    sayac++;
+                    <tr>
+                        <td scope="row">@sayac</td>
+                        <td scope="row">@item.Id</td>
+                        <td scope="row">@item.ServisNumarasi</td>
+                        <td scope="row">@item.Musteri.TcNo</td>
+                        <td scope="row">@(item.Musteri.ApplicationUser.Name + " " + item.Musteri.ApplicationUser.Surname)</td>
+                        <td scope="row">@item.Fiyat </td>
+                        <td scope="row">@item.MusteriUcretiOnayladiMi </td>
+                        <td scope="row">@item.Durumu</td>
+                        <td scope="row">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="location.href='@Url.Action("TeknisyenServisDetayIslemi", "Teknisyen",new { id=item.Id})'">DETAYLARA GİT</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    </div>
+                    

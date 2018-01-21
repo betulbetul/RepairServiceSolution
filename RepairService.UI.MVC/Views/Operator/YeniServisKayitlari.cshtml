@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "YeniServisKayitlari";
+    Layout = "~/Views/Shared/_LayoutPageOperator.cshtml";
+}
+
+<div class="row">
+    <h3 class="col-md-12">Tüm Servis Kayıtları</h3>
+    @using (Html.BeginForm("YeniServisKayitlari", "Operator", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table table-dark">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">ServisNumarası</th>
+                    <th scope="col">Müşteri TCNo</th>
+                    <th scope="col">Müşteri UserName</th>
+                    <th scope="col">Müşteri AdSoyad</th>
+                    <th scope="col">Müşteri Arıza Tanımı</th>
+                    <th scope="col">Fiyat</th>
+                    <th scope="col">Müşteri Fiyatı OnayladıMı</th>
+                    <th scope="col">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int sayac = 0;
+                }
+
+                @foreach (var item in Model)
+                {
+                    sayac++;
+                    <tr>
+                        <td scope="row">@sayac</td>
+                        <td scope="row">@item.ServisNumarasi</td>
+                        <td scope="row">@item.Musteri.TcNo</td>
+                        <td scope="row">@item.Musteri.ApplicationUser.UserName</td>
+                        <td scope="row">@(item.Musteri.ApplicationUser.Name + " " + item.Musteri.ApplicationUser.Surname)</td>
+                        <td scope="row">@item.MusteriArizaTanimi </td>
+                        <td scope="row">@item.Fiyat </td>
+                        <td scope="row">@item.MusteriUcretiOnayladiMi </td>
+                        <td scope="row">
+                            @Html.ActionLink("KABUL ET", "YeniServisKayitlariKabulEt", "Operator", new { id = item.Id }, new { @class = "btn btn-blue btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+                    }
+
+</div>

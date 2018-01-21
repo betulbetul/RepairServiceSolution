@@ -1,0 +1,91 @@
+﻿@using RepairService.Entity.Enums
+@model List<ServisKaydi>
+
+<!-- Begin Sidebar Menu -->
+<div class="col-md-3">
+    <ul class="list-group sidebar-nav" id="sidebar-nav">
+        <!-- Müşteriler -->
+
+        <li class="list-group-item list-toggle">
+            <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-typography">Müşteriler</a>
+            <ul id="collapse-typography" class="collapse">
+                <li>
+                    <a href="@Url.Action("Musteriler", "Admin")">
+                        <i class="fa fa-users"></i> Tüm Müşteriler
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("MusteriDetay", "Admin")">
+                        <i class="fa fa-search"></i>Müşteri Ara
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Müşteriler -->
+        <!-- Operatorler ve Teknisyenler -->
+        <li class="list-group-item list-toggle">
+            <a class="accordion-toggle" href="#collapse-components" data-toggle="collapse">Operatörler ve Teknisyenler</a>
+            <ul id="collapse-components" class="collapse">
+                <li>
+                    <a href="features-labels.html">
+                        <i class="fa fa-columns"></i>Tüm Operatorler
+                    </a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("OperatorEkle","Admin")">
+                        <i class="fa fa-user"></i> Operator Ekle
+                    </a>
+                </li>
+
+                <li>
+                    <a href="features-panels.html">
+                        <i class="fa fa-columns"></i> Tüm Teknisyenler
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("TeknisyenEkle","Admin")">
+                        <i class="fa fa-user"></i> Teknisyen Ekle
+                    </a>
+                </li>
+
+            </ul>
+        </li>
+        <!-- End Operatorler & Teknisyenler -->
+        <!-- Arıza Kayıtları -->
+        <li class="list-group-item list-toggle">
+            <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-icons">Arıza Kayıtları</a>
+            <ul id="collapse-icons" class="collapse">
+                <li>
+                    <span class="badge badge-u">@Model.Count(x => x.Durumu == ArizaDurum.onayBekliyor)</span>                    <a href="@Url.Action("YeniServisKayitlari","Admin")">
+                        <i class="fa fa-chevron-circle-right"></i>Yeni Kayıtlar
+                    </a>
+                </li>
+                <li>
+                    <a href="features-icons-font-awesome.html">
+                        <i class="fa fa-chevron-circle-right"></i>Arıza Kaydı Ara
+                    </a>
+                </li>
+                <li>
+                    <span class="badge badge-u">@Model.Count(x => x.Durumu != ArizaDurum.Cozuldu || x.Durumu!=ArizaDurum.onayBekliyor)</span>
+                    <a href="features-icons-social.html">
+                        <i class="fa fa-chevron-circle-right"></i>Çözüm Bekleyen Kayıtlar
+                    </a>
+                </li>
+                <li>
+                    <span class="badge badge-u">@Model.Count(x => x.Durumu == ArizaDurum.Cozuldu)</span>
+                    <a href="features-icons-glyphicons.html">
+                        <i class="fa fa-chevron-circle-right"></i>Çözümlenen Kayıtlar
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Arıza Kayıtları -->
+        <!-- Grid System -->
+        <li class="list-group-item">
+            <a href="features-grid.html">Grid System</a>
+        </li>
+        <!-- End Grid System -->
+    </ul>
+</div>
+<!-- End Sidebar Menu -->
