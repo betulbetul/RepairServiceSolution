@@ -21,6 +21,9 @@ namespace RepairService.Entity.Models.Cihaz
         public int ArizaTuruId { get; set; }
         public int? FaturaId { get; set; }
         public string ServisNumarasi { get; set; }
+        [StringLength(10, ErrorMessage = "Telefon numaranızı başında sıfır olmadan 10 haneli olacak şekilde yazınız.")] //216 666 66 66 // 536 666 66 66
+        public string Telefon { get; set; }
+        public string AcikAdres { get; set; }
 
         [MinLength(5, ErrorMessage = "Arıza kaydı ile ilgili açıklama yazmalısınız!")]
         public string MusteriArizaTanimi { get; set; }

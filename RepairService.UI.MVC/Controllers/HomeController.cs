@@ -86,7 +86,9 @@ namespace RepairService.UI.MVC.Controllers
                         Fiyat = 0m,
                         EklenmeTarihi = DateTime.Now,
                         KonumLat = model.KonumLat,
-                        KonumLng = model.KonumLng
+                        KonumLng = model.KonumLng,
+                        AcikAdres=model.AcikAdres,
+                        Telefon=model.Telefon
                     };
                     new ServisKaydiRepo().Insert(yeniServisKaydi);
                     yeniServisKaydi.ServisNumarasi = servisNo;
@@ -116,7 +118,9 @@ namespace RepairService.UI.MVC.Controllers
                         MusteriUcretiOnayladiMi = false,
                         Fiyat = 0m,
                         KonumLat = model.KonumLat,
-                        KonumLng = model.KonumLng
+                        KonumLng = model.KonumLng,
+                        AcikAdres = model.AcikAdres,
+                        Telefon = model.Telefon
                     };
                     new ServisKaydiRepo().Insert(yeniServisKaydi);
                     yeniServisKaydi.ServisNumarasi = servisNo;

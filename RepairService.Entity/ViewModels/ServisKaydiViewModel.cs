@@ -18,8 +18,9 @@ namespace RepairService.Entity.ViewModels
         public string TeknisyenUserID { get; set; }
         public string ServisNumarasi { get; set; }
 
-        [MinLength(5, ErrorMessage = "Arıza kaydı ile ilgili tanım yazmalısınız!")]
-
+        [StringLength(10,ErrorMessage ="Telefon numaranızı başında sıfır olmadan 10 haneli olacak şekilde yazınız.")] //216 666 66 66 // 536 666 66 66
+        public string Telefon { get; set; }
+        public string AcikAdres { get; set; }
         public string CihazTuru { get; set; } //Tablodan gelecek (Smart Tv ya da kumanda)  
 
         public string CihazMarka { get; set; } //Müşteri kendisi yazacak 
@@ -27,7 +28,7 @@ namespace RepairService.Entity.ViewModels
         public string CihazModel { get; set; } // Müşteri kendisi yazacak 
 
         public ArizaTurleri ArizaTurAdi { get; set; } //Tablodan gelecek (Yazılımsal ya da Donanimsal) 
-
+        [MinLength(5, ErrorMessage = "Arıza kaydı ile ilgili tanım yazmalısınız!")]
         public string musteriArizaTanimi { get; set; } //Müşteri kendisi yazacak
         public decimal Fiyat { get; set; } = 0m;
         public bool MusteriUcretiOnayladiMi { get; set; } = false;
