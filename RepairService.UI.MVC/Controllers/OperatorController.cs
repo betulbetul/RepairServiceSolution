@@ -75,56 +75,65 @@ namespace RepairService.UI.MVC.Controllers
 
             return View(operatorServisler); // Operatore ait tüm servisler
         }
-        public ActionResult TeknisyeneServisKaydiGonder()
+        public ActionResult TeknisyeneServisKaydiGonder(string servisNo, string tekUser)
         {
-            var userStore = MembershipTools.NewUserStore();
-            var userManager = new UserManager<ApplicationUser>(userStore);
-            var user = userManager.FindById(HttpContext.User.Identity.GetUserId()) ?? null;
-            var operaSonuc = new OperatorRepo().GetAll().FirstOrDefault(x => x.UserID == user.Id);
-            //Teknisyeni olmayan operatöre ait servisler
-            var operatorServisler = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo && x.TeknisyenTCNo == null).ToList();
-
-            //Boştaki teknisyenleri gönder
-            var tumServisler = new ServisKaydiRepo().GetAll().ToList();
-            var tumTeknisyenler = new TeknisyenRepo().GetAll().ToList();
-            List<Teknisyen> bostakiTeknisyenler = tumTeknisyenler;
-            for (int i = 0; i < tumTeknisyenler.Count; i++)
+            var operatorServisler = new List<ServisKaydi>();
+            if (servisNo != null && tekUser != null)
+                ViewBag.Sonuclar = $"{servisNo} için teknisyen ataması yapıldı. Teknisyen: {tekUser}";
+            else
             {
-                for (int k = 0; k < tumServisler.Count; k++)
-                {
-                    if (tumServisler[k].TeknisyenTCNo == tumTeknisyenler[i].TcNo)
-                    {
-                        if (tumServisler[i].Durumu != Entity.Enums.ArizaDurum.Cozuldu)
-                            bostakiTeknisyenler.Remove(tumTeknisyenler[i]);
+                var userStore = MembershipTools.NewUserStore();
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var user = userManager.FindById(HttpContext.User.Identity.GetUserId()) ?? null;
+                var operaSonuc = new OperatorRepo().GetAll().FirstOrDefault(x => x.UserID == user.Id);
+                //Teknisyeni olmayan operatöre ait servisler
+                operatorServisler = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo && x.TeknisyenTCNo == null).ToList();
 
+                //Boştaki teknisyenleri gönder
+                var tumServisler = new ServisKaydiRepo().GetAll().ToList();
+                var tumTeknisyenler = new TeknisyenRepo().GetAll().ToList();
+                List<Teknisyen> bostakiTeknisyenler = tumTeknisyenler;
+                for (int i = 0; i < tumTeknisyenler.Count; i++)
+                {
+                    for (int k = 0; k < tumServisler.Count; k++)
+                    {
+                        if (tumServisler[k].TeknisyenTCNo == tumTeknisyenler[i].TcNo)
+                        {
+                            if (tumServisler[k].Durumu != Entity.Enums.ArizaDurum.Cozuldu)
+                                bostakiTeknisyenler.Remove(tumTeknisyenler[i]);
+
+                        }
                     }
                 }
+                var bosTek = new List<SelectListItem>();
+                bostakiTeknisyenler.ForEach(x => bosTek.Add(new SelectListItem()
+                {
+                    Text = x.ApplicationUser.UserName,
+                    Value = x.userID.ToString()
+                }));
+                ViewBag.BosTeknisyenler = bosTek;
+                return View(operatorServisler);  //Teknisyeni olmayan operatöre ait servisler
             }
-            var bosTek = new List<SelectListItem>();
-            bostakiTeknisyenler.ForEach(x => bosTek.Add(new SelectListItem()
-            {
-                Text = x.ApplicationUser.UserName,
-                Value = x.userID.ToString()
-            }));
-            ViewBag.BosTeknisyenler = bosTek;
-
-
-            return View(operatorServisler);  //Teknisyeni olmayan operatöre ait servisler
-
+            return View(operatorServisler);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> TeknisyeneServisKaydiGonder(ServisKaydi gelenModel)
+        [HttpGet]
+        public async Task<ActionResult> TeknisyeneServisKaydiAta(int servisId, string teknisyenId)
         {
+            //Servisi Bul
             ServisKaydiRepo repoServisKaydi = new ServisKaydiRepo();
-            var servis = repoServisKaydi.GetById(gelenModel.Id);
+            var servis = repoServisKaydi.GetById(servisId);
             if (servis == null)
                 return RedirectToAction("TeknisyeneServisKaydiGonder");
-            servis.TeknisyenTCNo = gelenModel.Teknisyen.TcNo;
+            //Teknisyeni Bul
+            var teknisyen = new TeknisyenRepo().GetAll().FirstOrDefault(x => x.userID == teknisyenId);
+            if (teknisyen == null)
+                return RedirectToAction("TeknisyeneServisKaydiGonder");
+            servis.TeknisyenTCNo = teknisyen.TcNo;
+            servis.Durumu = Entity.Enums.ArizaDurum.teknisyeneAktarildi;
             await repoServisKaydi.UpdateAsync();
-            ViewBag.Teknisyen = servis.Teknisyen.ApplicationUser.UserName;
-            ViewBag.ServisNumarasi = servis.ServisNumarasi;
-            return View();
+
+            return RedirectToAction("TeknisyeneServisKaydiGonder", "Operator", new { servisNo = servis.ServisNumarasi, tekUser = teknisyen.ApplicationUser.UserName });
         }
     }
 
