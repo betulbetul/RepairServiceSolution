@@ -29,12 +29,12 @@
                     <div class="col-md-12">
                         <h5 class="text-danger"> <b>Servis Numarası: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
                         <h5 class="text-danger"> <b>Servis ID: </b> <span style="color:black;"> @Model.ServisId</span></h5> <br />
-
                         <h5 class="text-danger"> <b>Arıza Türü: </b> <span style="color:black;"> @Model.ArizaTurAdi</span></h5> <br />
                         <h5 class="text-danger"> <b>Cihaz Türü: </b> <span style="color:black;"> @Model.CihazTuru</span></h5> <br />
                         <h5 class="text-danger"> <b>Marka: </b> <span style="color:black;"> @Model.CihazMarka</span></h5> <br />
                         <h5 class="text-danger"> <b>Model: </b> <span style="color:black;"> @Model.CihazModel</span></h5> <br />
                         <h5 class="text-danger"> <b>Müşteri Açıklaması: </b> <span style="color:black;"> @Model.musteriArizaTanimi</span></h5> <br />
+
                         @if (Model.Fiyat > 0)
                         {
                             <h5 class="text-danger"> <b>Servis Ücreti: </b> <span style="color:black;"> @Model.Fiyat</span></h5> <br />
@@ -88,15 +88,17 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <div id="sample-1d">
-                <div id="map" style="height:500px">
+            <div id="sample-1d" class="tab-pane fade in">
+                <h5 class="text-danger"> <b>Müşteri Telefon: </b> <span style="color:black;"> @Model.Telefon</span></h5> <br />
+                <h5 class="text-danger"> <b>Müşteri Açık Adres: </b> <span style="color:black;"> @Model.AcikAdres</span></h5> <br />
 
+                <div id="map">
                 </div>
-                    @Html.HiddenFor(x => x.KonumLat, new { id = "lat" })
-                    @Html.HiddenFor(x => x.KonumLng, new { id = "long" })
+                @Html.HiddenFor(x => x.KonumLat, new { id = "lat" })
+                @Html.HiddenFor(x => x.KonumLng, new { id = "long" })
 
 
-                </div>
+            </div>
         </div>
     </div>
     <!-- End Tab v1 -->

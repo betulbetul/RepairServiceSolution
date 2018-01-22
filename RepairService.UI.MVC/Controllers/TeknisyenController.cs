@@ -62,7 +62,9 @@ namespace RepairService.UI.MVC.Controllers
                 KonumLat = servisKaydi.KonumLat,
                 KonumLng = servisKaydi.KonumLng,
                 TeknisyenAciklamasi = string.Empty,
-                ServisNumarasi = servisKaydi.ServisNumarasi
+                ServisNumarasi = servisKaydi.ServisNumarasi,
+                AcikAdres=servisKaydi.AcikAdres,
+                Telefon=servisKaydi.Telefon
                 //fotoğraflar
             };
             var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == servisKaydi.Id).ToList();
@@ -106,7 +108,9 @@ namespace RepairService.UI.MVC.Controllers
                 KonumLat = servisKaydi.KonumLat,
                 KonumLng = servisKaydi.KonumLng,
                 TeknisyenAciklamasi = string.Empty,
-                ServisNumarasi = servisKaydi.ServisNumarasi
+                ServisNumarasi = servisKaydi.ServisNumarasi,
+                AcikAdres = servisKaydi.AcikAdres,
+                Telefon = servisKaydi.Telefon
                 //fotoğraflar
             };
             var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == servisKaydi.Id).ToList();
