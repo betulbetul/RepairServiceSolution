@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace RepairService.Entity.Models.Cihaz
 {
     [Table("ServisKaydiIslemleri")]
-    public class ServisKaydiIslem : AraTemel<int, int> // Kendisi ve ArizaKaydi
+    public class ServisKaydiIslem : Temel<int> // Kendisi ve ArizaKaydi
     {
         public string Aciklama { get; set; }
+        public int ServisId { get; set; }
 
-        [ForeignKey("Id2")]
+        [ForeignKey("ServisId")]
         public virtual ServisKaydi ServisKaydi { get; set; }
     }
 

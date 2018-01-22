@@ -7,8 +7,11 @@
 
 <div class="container">
     <div class="row margin-vert-30">
-        @using (Html.BeginForm("ArizaKaydiOlustur", "Home", FormMethod.Post, new { @class = "from-horizontal",
-             enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("ArizaKaydiOlustur", "Home", FormMethod.Post, new
+        {
+            @class = "from-horizontal",
+            enctype = "multipart/form-data"
+        }))
         {
             @Html.AntiForgeryToken()
             if (ViewBag.ServisNo != null)
@@ -70,8 +73,11 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-group col-md-12">
-                            <h3>     Konumunuzu Haritadan Seçiniz... </h3> <div>
+                            <h3>     Konumunuzu Haritadan Seçiniz... </h3>
+                            <div id="map" style="height:500px">
                             </div>
+                            @Html.HiddenFor(x => x.KonumLat, new { id = "lat" })
+                            @Html.HiddenFor(x => x.KonumLng, new { id = "long" })
 
                         </div>
 
@@ -82,3 +88,78 @@
         }
     </div>
 </div>
+
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSxepBaABo8eKxMxHGL_eRqVD90opEdQ" type="text/javascript"></script>
+<script type="text/javascript">
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    else {
+        alert("Tarayıcınız lokasyon desteklemiyor!...")
+    }
+    function showPosition(pos) {
+        console.log(pos);
+        var latlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+        var latcoor = pos.coords.latitude;
+        var lngcoor = pos.coords.longitude;
+        var options = {
+            zoom: 12,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            draggableCursor: "crosshair",
+            scrollwheel: true,
+            streetViewControl: false
+        };
+        var map = new google.maps.Map(document.getElementById("map"), options);
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            title: "Bulunduğunuz Konum"
+        });
+        google.maps.event.addListener(map, "click", function (location) {
+            GetLocationInfo(location.latLng);
+        });
+        var initListener;
+
+        function GetLocationInfo(latlng) {
+            if (latlng != null) {
+                ShowLatLong(latlng);
+                UpdateStreetView(latlng);
+
+            }
+        }
+        function GotoLatLong() {
+            if ($("#lat").val() != "" && $("#long").val() != "") {
+                var lat = $("#lat").val();
+                var long = $("#long").val();
+                var latLong = new google.maps.LatLng(lat, long);
+                ShowLatLong(latLong);
+                map.setCenter(latLong);
+                UpdateStreetView(latLong);
+            }
+        }
+
+        function ShowLatLong(latLong) {
+            // show the lat/long
+            if (marker != null) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                position: latLong,
+                map: map
+            });
+
+            latcoor = latLong.lat();
+            lngcoor = latLong.lng();
+        }
+        $("#lat").val(latcoor);
+        $("#long").val(lngcoor);
+    }
+
+      /*$("#address").val((ReverseGeocode(latLong.lat(), latLong.lng(), '#address')));
+                $("#adresX").val(ReverseGeocode(latLong.lat(), latLong.lng(), '#adresX'));*/
+        //BULUNULAN LOKASYONU ALMA
+
+</script>

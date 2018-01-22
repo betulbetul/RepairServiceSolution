@@ -85,7 +85,8 @@ namespace RepairService.UI.MVC.Controllers
                         Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
                         Fiyat = 0m,
                         EklenmeTarihi = DateTime.Now,
-
+                        KonumLat = model.KonumLat,
+                        KonumLng = model.KonumLng
                     };
                     new ServisKaydiRepo().Insert(yeniServisKaydi);
                     yeniServisKaydi.ServisNumarasi = servisNo;
@@ -102,7 +103,6 @@ namespace RepairService.UI.MVC.Controllers
             else
             {
                 //Cihazmodel tablosunda bu cihazdan zaten varsa...
-
                 try
                 {
                     yeniServisKaydi = new ServisKaydi()
@@ -114,8 +114,9 @@ namespace RepairService.UI.MVC.Controllers
                         EklenmeTarihi = DateTime.Now,
                         MusteriArizaTanimi = model.musteriArizaTanimi,
                         MusteriUcretiOnayladiMi = false,
-                        Fiyat = 0m
-
+                        Fiyat = 0m,
+                        KonumLat = model.KonumLat,
+                        KonumLng = model.KonumLng
                     };
                     new ServisKaydiRepo().Insert(yeniServisKaydi);
                     yeniServisKaydi.ServisNumarasi = servisNo;
@@ -131,27 +132,30 @@ namespace RepairService.UI.MVC.Controllers
             //Dosyaları da kayıt edecek...
             if (model.Dosyalar.Any())
             {
+
                 foreach (var dosya in model.Dosyalar)
                 {
-                    string fileName = Path.GetFileNameWithoutExtension(dosya.FileName);
-                    string extName = Path.GetExtension(dosya.FileName);
-                    fileName = SiteSettings.UrlFormatConverter(fileName);
-                    fileName += Guid.NewGuid().ToString().Replace("-", "");
-                    var directoryPath = Server.MapPath($"~/ServicePictures/{user.UserName}/{yeniServisKaydi.ServisNumarasi}");
-                    var filePath = Server.MapPath($"~/ServicePictures/{user.UserName}/{servisNo}/") + fileName + extName;
-                    if (!Directory.Exists(directoryPath))
-                        Directory.CreateDirectory(directoryPath);
-                    dosya.SaveAs(filePath);
-                    ResimBoyutlandir(600, 600, filePath);
-                    await new DosyaRepo().InsertAsync(new Dosya()
+                    if (dosya != null && dosya.ContentType.Contains("image") && dosya.ContentLength > 0)
                     {
-                        DosyaYolu = @"/ServicePictures/" + user.UserName + "/" + yeniServisKaydi.ServisNumarasi + "/" + fileName + extName,
-                        Uzanti = extName.Substring(1),
-                        arizaId = yeniServisKaydi.Id,
-                        EklenmeTarihi = DateTime.Now
-                    });
+                        string fileName = Path.GetFileNameWithoutExtension(dosya.FileName);
+                        string extName = Path.GetExtension(dosya.FileName);
+                        fileName = SiteSettings.UrlFormatConverter(fileName);
+                        fileName += Guid.NewGuid().ToString().Replace("-", "");
+                        var directoryPath = Server.MapPath($"~/ServicePictures/{user.UserName}/{yeniServisKaydi.ServisNumarasi}");
+                        var filePath = Server.MapPath($"~/ServicePictures/{user.UserName}/{servisNo}/") + fileName + extName;
+                        if (!Directory.Exists(directoryPath))
+                            Directory.CreateDirectory(directoryPath);
+                        dosya.SaveAs(filePath);
+                        ResimBoyutlandir(600, 600, filePath);
+                        await new DosyaRepo().InsertAsync(new Dosya()
+                        {
+                            DosyaYolu = @"/ServicePictures/" + user.UserName + "/" + yeniServisKaydi.ServisNumarasi + "/" + fileName + extName,
+                            Uzanti = extName.Substring(1),
+                            arizaId = yeniServisKaydi.Id,
+                            EklenmeTarihi = DateTime.Now
+                        });
+                    }
                 }
-                
             }
             //Mail gönder
             await SiteSettings.SendMail(new MailModel()

@@ -76,16 +76,42 @@ namespace RepairService.UI.MVC.Controllers
             var servisKaydi = repoServisKaydi.GetAll().Where(x => gelenModel.ServisId == x.Id).FirstOrDefault();
             servisKaydi.Fiyat = gelenModel.Fiyat;
             if (servisKaydi.Fiyat > 0)
+            {
                 servisKaydi.Durumu = Entity.Enums.ArizaDurum.musteriOnayiBekleniyor;
-            repoServisKaydi.Update();
+                repoServisKaydi.Update();
+            }
             //işlemi ilişkili tabloya kaydet
             ServisKaydiIslem islem = new ServisKaydiIslem();
-            islem.Id2 = servisKaydi.Id;
+            islem.ServisId = servisKaydi.Id;
             islem.Aciklama = gelenModel.TeknisyenAciklamasi;
             islem.EklenmeTarihi = DateTime.Now;
             new ServisKaydiIslemRepo().Insert(islem);
             ViewBag.servisNumarasi = servisKaydi.ServisNumarasi;
-            return View();
+            //Modeli doldur ve geri gönder
+            ServisKaydiViewModel model = new ServisKaydiViewModel()
+            {
+                ServisId = servisKaydi.Id,
+                ArizaTurAdi = servisKaydi.ArizaTuru.TurAdi,
+                CihazMarka = servisKaydi.CihazModel.MarkaAdi,
+                CihazModel = servisKaydi.CihazModel.ModelAdi,
+                CihazTuru = servisKaydi.CihazModel.CihazTuru.Tur,
+                musteriArizaTanimi = servisKaydi.MusteriArizaTanimi,
+                MusteriUcretiOnayladiMi = servisKaydi.MusteriUcretiOnayladiMi,
+                Durumu = servisKaydi.Durumu,
+                TeknisyenUserID = servisKaydi.Teknisyen.userID,
+                OperatorUserID = servisKaydi.Operator.UserID,
+                MusteriUserID = servisKaydi.Musteri.UserID,
+                Fiyat = servisKaydi.Fiyat,
+                EklenmeTarihi = servisKaydi.EklenmeTarihi,
+                KonumLat = servisKaydi.KonumLat,
+                KonumLng = servisKaydi.KonumLng,
+                TeknisyenAciklamasi = string.Empty,
+                ServisNumarasi = servisKaydi.ServisNumarasi
+                //fotoğraflar
+            };
+            var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == servisKaydi.Id).ToList();
+            dosyalar.ForEach(x => model.FotoUrList.Add($"{x.DosyaYolu}"));
+            return View(model);
         }
     }
 
