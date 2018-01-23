@@ -1,0 +1,84 @@
+﻿@model List<ServisKaydi>
+@{
+    ViewBag.Title = "MusteriServisKayitlari";
+    Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
+}
+<div class="container">
+    <div class="row margin-vert-30 col-md-12">
+
+        @using (Html.BeginForm("MusteriServisKayitlari", "Home"))
+        {
+                <!-- Primary Blockquote -->
+            <blockquote>
+                <p>
+                    <em>"Size ait @Model.Count adet servis kaydı bulunmaktadır. </em>
+                </p>
+                @*<small>
+                        Someone famous in
+                        <cite title="Source Title">Source Title</cite>
+                    </small>*@
+            </blockquote>
+    <!-- End Primary Blockquote -->
+            <br />
+            for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- Info Panel -->
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Servis Numarası: @Model[i].ServisNumarasi</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li>
+                                        <h4>@Model[i].ArizaTuru.TurAdi bir arıza </h4>
+                                    </li>
+                                    <li> <h4>Tür: @Model[i].CihazModel.CihazTuru.Tur </h4></li>
+                                    <li> <h4> Marka:@Model[i].CihazModel.MarkaAdi  / Model: @Model[i].CihazModel.ModelAdi</h4></li>
+                                    <li> <h4>@Model[i].EklenmeTarihi.ToShortDateString() tarihinde oluşturulmuştur. </h4></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- End Info Panel -->
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content">
+                            <div class="tab-pane active in fade" id="faq">
+                                <div class="panel-group" id="accordion">
+                                    <!-- FAQ Item -->
+                                    <div class="panel panel-default panel-faq">
+                                        <div class="panel-heading">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-2">
+                                                <h4 class="panel-title">
+                                                    Deneme
+                                                    <span class="pull-right">
+                                                        <i class="glyphicon glyphicon-plus"></i>
+                                                    </span>
+                                                </h4>
+                                            </a>
+                                        </div>
+                                        <div id="faq-sub-2" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                deneme
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End FAQ Item -->
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr />
+            }
+        }
+
+    </div>
+
+</div>

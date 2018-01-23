@@ -61,120 +61,121 @@ namespace RepairService.UI.MVC.Controllers
             var musteri = new MusteriRepo().GetAll().Where(x => x.UserID == HttpContext.User.Identity.GetUserId()).FirstOrDefault();
             var userManager = MembershipTools.NewUserManager();
             var user = userManager.FindById(HttpContext.User.Identity.GetUserId());
+            ServisKaydi yeniServisKaydi = new ServisKaydi();
             string servisNo = RandomServisKaydıNumarasiOlustur();
-            ServisKaydi yeniServisKaydi = null;
-            if (cihazModel == null)
-            {
-                try
-                {
-                    CihazModel yeniCihazModel = new CihazModel()
-                    {
-                        MarkaAdi = model.CihazMarka,
-                        ModelAdi = model.CihazModel,
-                        CihazTuruId = cihazTuru.Id,
-                        EklenmeTarihi = DateTime.Now
-                    };
-                    new CihazModelRepo().Insert(yeniCihazModel);
-                    yeniServisKaydi = new ServisKaydi()
-                    {
-                        MusteriTCNo = musteri.TcNo,
-                        ArizaTuruId = arizaTuru.Id,
-                        CihazModelId = yeniCihazModel.Id,
-                        MusteriArizaTanimi = model.musteriArizaTanimi,
-                        MusteriUcretiOnayladiMi = false,
-                        Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
-                        Fiyat = 0m,
-                        EklenmeTarihi = DateTime.Now,
-                        KonumLat = model.KonumLat,
-                        KonumLng = model.KonumLng,
-                        AcikAdres=model.AcikAdres,
-                        Telefon=model.Telefon
-                    };
-                    new ServisKaydiRepo().Insert(yeniServisKaydi);
-                    yeniServisKaydi.ServisNumarasi = servisNo;
-                    await new ServisKaydiRepo().UpdateAsync();
-                    ViewBag.ServisNo = yeniServisKaydi.ServisNumarasi;
-                }
-                catch (Exception ex)
-                {
-
-                    throw;
-                }
-
-            }
+            //servisNo kontrol edilsin.
+            if (new ServisKaydiRepo().GetAll().Where(x => x.ServisNumarasi == servisNo).Any())
+                servisNo = RandomServisKaydıNumarasiOlustur();
             else
             {
-                //Cihazmodel tablosunda bu cihazdan zaten varsa...
-                try
+                if (cihazModel == null)
                 {
-                    yeniServisKaydi = new ServisKaydi()
+                    try
                     {
-                        MusteriTCNo = musteri.TcNo,
-                        ArizaTuruId = arizaTuru.Id,
-                        CihazModelId = cihazModel.Id,
-                        Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
-                        EklenmeTarihi = DateTime.Now,
-                        MusteriArizaTanimi = model.musteriArizaTanimi,
-                        MusteriUcretiOnayladiMi = false,
-                        Fiyat = 0m,
-                        KonumLat = model.KonumLat,
-                        KonumLng = model.KonumLng,
-                        AcikAdres = model.AcikAdres,
-                        Telefon = model.Telefon
-                    };
-                    new ServisKaydiRepo().Insert(yeniServisKaydi);
-                    yeniServisKaydi.ServisNumarasi = servisNo;
-                    await new ServisKaydiRepo().UpdateAsync();
-                    ViewBag.ServisNo = yeniServisKaydi.ServisNumarasi;
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-            }
-            //Dosyaları da kayıt edecek...
-            if (model.Dosyalar.Any())
-            {
-
-                foreach (var dosya in model.Dosyalar)
-                {
-                    if (dosya != null && dosya.ContentType.Contains("image") && dosya.ContentLength > 0)
-                    {
-                        string fileName = Path.GetFileNameWithoutExtension(dosya.FileName);
-                        string extName = Path.GetExtension(dosya.FileName);
-                        fileName = SiteSettings.UrlFormatConverter(fileName);
-                        fileName += Guid.NewGuid().ToString().Replace("-", "");
-                        var directoryPath = Server.MapPath($"~/ServicePictures/{user.UserName}/{yeniServisKaydi.ServisNumarasi}");
-                        var filePath = Server.MapPath($"~/ServicePictures/{user.UserName}/{servisNo}/") + fileName + extName;
-                        if (!Directory.Exists(directoryPath))
-                            Directory.CreateDirectory(directoryPath);
-                        dosya.SaveAs(filePath);
-                        ResimBoyutlandir(600, 600, filePath);
-                        await new DosyaRepo().InsertAsync(new Dosya()
+                        CihazModel yeniCihazModel = new CihazModel()
                         {
-                            DosyaYolu = @"/ServicePictures/" + user.UserName + "/" + yeniServisKaydi.ServisNumarasi + "/" + fileName + extName,
-                            Uzanti = extName.Substring(1),
-                            arizaId = yeniServisKaydi.Id,
+                            MarkaAdi = model.CihazMarka,
+                            ModelAdi = model.CihazModel,
+                            CihazTuruId = cihazTuru.Id,
                             EklenmeTarihi = DateTime.Now
-                        });
+                        };
+                        new CihazModelRepo().Insert(yeniCihazModel);
+                        yeniServisKaydi = new ServisKaydi()
+                        {
+                            MusteriTCNo = musteri.TcNo,
+                            ArizaTuruId = arizaTuru.Id,
+                            CihazModelId = yeniCihazModel.Id,
+                            MusteriArizaTanimi = model.musteriArizaTanimi,
+                            MusteriUcretiOnayladiMi = false,
+                            Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
+                            Fiyat = 0m,
+                            EklenmeTarihi = DateTime.Now,
+                            KonumLat = model.KonumLat,
+                            KonumLng = model.KonumLng,
+                            AcikAdres = model.AcikAdres,
+                            Telefon = model.Telefon
+                        };
+                        new ServisKaydiRepo().Insert(yeniServisKaydi);
+                        yeniServisKaydi.ServisNumarasi = servisNo;
+                        await new ServisKaydiRepo().UpdateAsync();
+                        ViewBag.ServisNo = yeniServisKaydi.ServisNumarasi;
+                    }
+                    catch (Exception ex)
+                    {
+
+                        throw;
+                    }
+
+                }
+                else
+                {
+                    //Cihazmodel tablosunda bu cihazdan zaten varsa...
+                    try
+                    {
+                        yeniServisKaydi = new ServisKaydi()
+                        {
+                            MusteriTCNo = musteri.TcNo,
+                            ArizaTuruId = arizaTuru.Id,
+                            CihazModelId = cihazModel.Id,
+                            Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
+                            EklenmeTarihi = DateTime.Now,
+                            MusteriArizaTanimi = model.musteriArizaTanimi,
+                            MusteriUcretiOnayladiMi = false,
+                            Fiyat = 0m,
+                            KonumLat = model.KonumLat,
+                            KonumLng = model.KonumLng,
+                            AcikAdres = model.AcikAdres,
+                            Telefon = model.Telefon
+                        };
+                        new ServisKaydiRepo().Insert(yeniServisKaydi);
+                        yeniServisKaydi.ServisNumarasi = servisNo;
+                        await new ServisKaydiRepo().UpdateAsync();
+                        ViewBag.ServisNo = yeniServisKaydi.ServisNumarasi;
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
                     }
                 }
+                //Dosyaları da kayıt edecek...
+                if (model.Dosyalar.Any())
+                {
+
+                    foreach (var dosya in model.Dosyalar)
+                    {
+                        if (dosya != null && dosya.ContentType.Contains("image") && dosya.ContentLength > 0)
+                        {
+                            string fileName = Path.GetFileNameWithoutExtension(dosya.FileName);
+                            string extName = Path.GetExtension(dosya.FileName);
+                            fileName = SiteSettings.UrlFormatConverter(fileName);
+                            fileName += Guid.NewGuid().ToString().Replace("-", "");
+                            var directoryPath = Server.MapPath($"~/ServicePictures/{user.UserName}/{yeniServisKaydi.ServisNumarasi}");
+                            var filePath = Server.MapPath($"~/ServicePictures/{user.UserName}/{servisNo}/") + fileName + extName;
+                            if (!Directory.Exists(directoryPath))
+                                Directory.CreateDirectory(directoryPath);
+                            dosya.SaveAs(filePath);
+                            ResimBoyutlandir(600, 600, filePath);
+                            await new DosyaRepo().InsertAsync(new Dosya()
+                            {
+                                DosyaYolu = @"/ServicePictures/" + user.UserName + "/" + yeniServisKaydi.ServisNumarasi + "/" + fileName + extName,
+                                Uzanti = extName.Substring(1),
+                                arizaId = yeniServisKaydi.Id,
+                                EklenmeTarihi = DateTime.Now
+                            });
+                        }
+                    }
+                }
+                //Mail gönder
+                await SiteSettings.SendMail(new MailModel()
+                {
+                    To = user.Email,
+                    Subject = "SmartTV Repair Service - Servis Kaydı",
+                    Message = $"Merhaba {user.Name} {user.Surname} <br/>Servis Kaydı Referans Numaranız: {servisNo}<b>"
+                });
             }
-            //Mail gönder
-            await SiteSettings.SendMail(new MailModel()
-            {
-                To = user.Email,
-                Subject = "SmartTV Repair Service - Servis Kaydı",
-                Message = $"Merhaba {user.Name} {user.Surname} <br/>Servis Kaydı Referans Numaranız: {servisNo}<b>"
-            });
 
-            return View();
-        }
 
-        public ActionResult MusteriServisKayitGetir(string id)
-        {
-            // Servis Detaylarından id ye göre müşterinin servis kayıtlarını getirecek 
             return View();
         }
 
@@ -203,5 +204,26 @@ namespace RepairService.UI.MVC.Controllers
             return View(new IletisimMailModel());
         }
 
+        [Authorize(Roles = "Customer")]
+
+        public ActionResult MusteriServisKayitlari()
+        {
+            //Musteri
+            var userManager = MembershipTools.NewUserManager();
+            var user = userManager.FindById(HttpContext.User.Identity.GetUserId());
+            //Musteriye ait servis kayıtları
+            var serviskayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Musteri.UserID == user.Id).ToList();
+            List<ServisKaydiIslem> servisKaydiTeknisyenIslemleriList = new List<ServisKaydiIslem>();
+            List<Dosya> servisKaydiDosyalari = new List<Dosya>();
+            foreach (var item in serviskayitlari)
+            {
+                //tum serviskaydi teknisyen işlemleri listesi
+                servisKaydiTeknisyenIslemleriList = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == item.Id).ToList();
+                servisKaydiDosyalari = new DosyaRepo().GetAll().Where(x => x.arizaId == item.Id).ToList();
+            }
+            ViewBag.TeknisyenIslemleri = servisKaydiTeknisyenIslemleriList;
+            ViewBag.ServisKaydiDosyalari = servisKaydiDosyalari;
+            return View(serviskayitlari);
+        }
     }
 }

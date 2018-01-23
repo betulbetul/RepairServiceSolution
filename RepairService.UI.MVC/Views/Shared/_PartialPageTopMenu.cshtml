@@ -55,7 +55,10 @@
                         <li>
                             <a href="@Url.Action("Iletisim","Home")" class="fa-comment">İletişim</a>
                         </li>
-
+                        @if (HttpContext.Current.User.IsInRole("Customer"))
+                        {
+                            <li>@Html.ActionLink("Servis Kayıtlarım", "MusteriServisKayitlari", "Home", new { @class= " fa-puzzle-piece" })</li>
+                        }
 
                         @if (HttpContext.Current.User.Identity.IsAuthenticated)
                         {

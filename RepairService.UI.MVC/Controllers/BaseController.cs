@@ -63,17 +63,8 @@ namespace RepairService.UI.MVC.Controllers
         {
             //SRVS...
             Random rnd = new Random();
-            int sayi = rnd.Next(100, 999);
-            char[] metin = Guid.NewGuid().ToString().Replace("-", "").ToArray();
-            string sifre = string.Empty;
-            for (int i = 0; i < metin.Length; i++)
-            {
-                if (sifre.Length == 4) break;
-                if (char.IsLetter(metin[i]))
-                    sifre += metin[i].ToString();
-            }
-            sifre += sayi;
-            return $"SRVS"+sifre.ToUpper();
+            int sayi = rnd.Next(100000, 999999);
+            return $"SRVS" + sayi;
         }
 
     }
