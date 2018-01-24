@@ -28,10 +28,9 @@ namespace RepairService.UI.MVC.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-
             var userManager = MembershipTools.NewUserManager();
             var userStore = MembershipTools.NewUserStore();
-            var checkUserTC = userStore.Context.Set<Musteri>().FirstOrDefault(x => x.TcNo==model.TcNo)?.TcNo;
+            var checkUserTC = userStore.Context.Set<Musteri>().FirstOrDefault(x => x.TcNo == model.TcNo)?.TcNo;
             if (checkUserTC != null)
             {
                 ModelState.AddModelError(string.Empty, "Bu TC Numarası daha önceden kayıt edilmiştir!");
@@ -41,6 +40,13 @@ namespace RepairService.UI.MVC.Controllers
             if (checkUserName != null)
             {
                 ModelState.AddModelError(string.Empty, "Bu kullanıcı adı başka bir üye tarafından alınmıştır!");
+                return View(model);
+            }
+            //Email tekrar etmesin! 
+            var checkUserEmail = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.Email == model.Email)?.Email;
+            if (checkUserEmail != null)
+            {
+                ModelState.AddModelError(string.Empty, "Bu email adresi sisteme zaten kayıtlıdır. Şifrenizi unuttuysanız Şifremi unuttum ile yeni şifre edinebilirsiniz.!");
                 return View(model);
             }
             var checkUser = userManager.FindByName(model.Username);
@@ -57,7 +63,7 @@ namespace RepairService.UI.MVC.Controllers
                 Surname = model.Surname,
                 Email = model.Email,
                 UserName = model.Username,
-                ActivationCode=activationCode
+                ActivationCode = activationCode
             };
 
             var sonuc = userManager.Create(user, model.Password);
@@ -70,15 +76,7 @@ namespace RepairService.UI.MVC.Controllers
                 }
                 else
                 {
-                    userManager.AddToRole(user.Id, IdentityRoles.Customer.ToString());
-                    // Müşteri modele ekleme yapılacak...
-                    var yeniMusteri = new Musteri()
-                    {
-                        UserID = user.Id,
-                        TcNo = model.TcNo
-                    };
-                    MusteriRepo musteriRepo = new MusteriRepo();
-                    int musteriSonuc = musteriRepo.Insert(yeniMusteri);
+                    userManager.AddToRole(user.Id, IdentityRoles.Passive.ToString());
                     string siteUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
                     await SiteSettings.SendMail(new MailModel()
@@ -88,9 +86,7 @@ namespace RepairService.UI.MVC.Controllers
                         Message = $"Merhaba {user.Name} {user.Surname} <br/>Hesabınızı aktifleştirmek için <b><a href='{siteUrl}/Account/Activation?code={activationCode}'>Aktivasyon Kodu</a></b> tıklayınız."
                     });
                     return RedirectToAction("Login", "Account", new { userName = $"{user.UserName}" });
-
                 }
-                
             }
             else
             {
@@ -184,16 +180,25 @@ namespace RepairService.UI.MVC.Controllers
             {
                 var userStore = MembershipTools.NewUserStore();
                 var userManager = new UserManager<ApplicationUser>(userStore);
-
                 var user = userManager.FindById(HttpContext.User.Identity.GetUserId());
+                //Aynı kullanıcı adından veya aynı emailden olmayacak şekilde güncelleştirebilir.
+                var checkUserName = userManager.Users.Where(x => x.UserName == model.Username && x.Id != user.Id).Count();
+                if (checkUserName > 0)
+                {
+                    ViewBag.UserNameSonuc = "Bu kullanıcı adı başka biri tarafından kullanılmaktadır. Lütfen yeniden deneyiniz ya da mevcut kullanıcı adınızı kullanmaya devam ediniz";
+                }
+                var checkEmail = userManager.Users.Where(x => x.Email == model.Email && x.Id != user.Id).Count();
+                if (checkEmail > 0)
+                {
+                    ViewBag.EmailSonuc = "Bu email adresi başka kullanıcı adına sistemimizde zaten kayıtlıdır. Lütfen tekrar deneyiniz veya mevcut email adresinizi kullanmaya devam ediniz.";
+                }
                 user.Name = model.Name;
                 user.Surname = model.Surname;
                 user.Email = model.Email;
+                user.UserName = model.Username;
                 await userStore.UpdateAsync(user);
                 await userStore.Context.SaveChangesAsync();
-
-                ViewBag.sonuc = "Bilgileriniz güncelleşmiştir";
-
+                ViewBag.Sonuc = "Bilgileriniz güncelleşmiştir";
                 var model2 = new ProfileViewModel()
                 {
                     Email = user.Email,
@@ -205,11 +210,14 @@ namespace RepairService.UI.MVC.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.sonuc = ex.Message;
+                ViewBag.Sonuc = ex.Message;
                 return View(model);
             }
         }
-
+        public ActionResult UpdatePassword(string username)
+        {
+            return View();
+        }
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -280,7 +288,7 @@ namespace RepairService.UI.MVC.Controllers
                 return RedirectToAction("RecoverPassword");
             }
         }
-        
+
         #region Aktivasyon Activitation
         [HttpGet]
         public async Task<ActionResult> Activation(string code)

@@ -1,10 +1,8 @@
 ﻿@model RegisterViewModel
-
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
 }
-
 <div class="container">
     <br />
     <div class="row margin-vert-30">
@@ -23,7 +21,6 @@
                     </p>
                 </div>
                 <hr />
-
                 <label>Tc No</label>
                 @Html.TextBoxFor(x => x.TcNo, new { @class = "form-control margin-bottom-10" })
                 <label>Adınız</label>
@@ -35,18 +32,14 @@
                     <span class="color-red">*</span>
                 </label>
                 @Html.TextBoxFor(x => x.Email, new { @class = "form-control margin-bottom-10", type = "email" })
-
                 <label>
                     Kullanıcı Adı
                     <span class="color-red">*</span>
                 </label>
-
                 @Html.TextBoxFor(x => x.Username, new { @class = "form-control margin-bottom-10" })
-
                 <!-------->
                 <div class="row">
                     <div class="col-sm-6">
-
                         <label>
                             Şifre
                             <span class="color-red">*</span>
@@ -59,32 +52,16 @@
                             Şifre Tekrar
                             <span class="color-red">*</span>
                         </label>
-
                         @Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "form-control margin-bottom-10", type = "password" })
                         <span class="text-danger">@Html.ValidationMessageFor(x => x.ConfirmPassword)</span>
                     </div>
-
                 </div>
-
                 <div class="row">
                     <div class="col-sm-offset-9">
                         <button type="submit" class="btn btn-default btn-lg">Kayıt Ol</button>
-
-
                     </div>
-
                 </div>
-
-
-
-
-
-
             }
-
-
         </div>
-
     </div>
-
 </div>

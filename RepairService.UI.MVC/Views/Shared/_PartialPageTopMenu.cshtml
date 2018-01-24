@@ -62,7 +62,11 @@
                         @if (HttpContext.Current.User.Identity.IsAuthenticated)
                         {
                             <li>
-                                @Html.ActionLink("Profilim", "Profil", "Account")
+                                <span class="fa-gears">Profilim</span>
+                                <ul>
+                                    <li>@Html.ActionLink("Profile Git", "Profil", "Account") </li>
+                                    <li>@Html.ActionLink("Şifremi Değiştir", "UpdatePassword", "Account")</li>
+                                </ul>
                             </li>
                             <li>@Html.ActionLink("Çıkış Yap", "Logout", "Account")</li>
                         }

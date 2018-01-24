@@ -12,7 +12,8 @@ namespace RepairService.Entity.Enums
         Operator = 1,
         TecnicalPerson = 2,
         Customer = 3,
-        Passive = 4
+        Passive = 4,
+        Active = 5
     }
 
     public enum ArizaDurum

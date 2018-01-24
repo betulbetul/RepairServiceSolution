@@ -156,7 +156,6 @@
     <Content Include="assets\img\link.png" />
     <Content Include="assets\img\loading.gif" />
     <Content Include="assets\img\logo.png" />
-    <Content Include="assets\img\logom.png" />
     <Content Include="assets\img\menu_arrow.png" />
     <Content Include="assets\img\nextlabel.gif" />
     <Content Include="assets\img\portfolio\image1.jpg" />
@@ -414,6 +413,7 @@
     <Content Include="Views\Teknisyen\TeknisyenServisDetayIslemi.cshtml" />
     <Content Include="Views\Home\MusteriServisKayitlari.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
+    <Content Include="Views\Account\UpdatePassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

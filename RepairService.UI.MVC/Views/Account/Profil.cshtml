@@ -1,9 +1,55 @@
 ﻿@model ProfileViewModel
 @{
-    ViewBag.Title = "Profil | " + (Model.Name + " " + Model.Surname);
+    ViewBag.Title = "Profil";
     Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
 }
-
-<div class="container padding-vert-30">
-    <h2> Profilinize Hoşgeldiniz.</h2>
+<div class="row">
+    <div class="container padding-vert-30 margin-top-10">
+        <span class="text-danger">@Html.ValidationSummary()</span>
+        @using (Html.BeginForm("Profil", "Account", FormMethod.Post, new { @class = "from-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            if (ViewBag.UserNameSonuc != null || ViewBag.EmailSonuc != null)
+            {
+                <h4 class="col-md-12"><b>@ViewBag.UserNameSonuc</b></h4> <br />
+                <h4 class="col-md-12"><b>@ViewBag.EmailSonuc</b></h4> <br />
+            }
+            else
+            {
+                if (ViewBag.Sonuc != null)
+                {
+                      <!-- Default Blockquote -->
+                    <blockquote>
+                        <p>
+                            <h4 class="col-md-12"><em>@ViewBag.Sonuc</em></h4> <br />
+                        </p>
+                    </blockquote>
+                     <!-- End Default Blockquote -->
+                }
+                else
+                {
+                    <h4 class="col-md-12">Bilgilerinizi değiştirip, güncelle butonuna tıklayabilirsiniz...</h4> <br /> <br />
+                }
+                <div class="form-group col-md-6">
+                    @Html.Label("Kullanıcı Adınız")
+                    @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })  <br />
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.Label("Email Adresiniz")
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" }) <br />
+                </div>
+                    <div class="form-group col-md-6">
+                        @Html.Label("Adınız")
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" }) <br />
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.Label("Soyadınız")
+                        @Html.TextBoxFor(x => x.Surname, new { @class = "form-control" }) <br />
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" value="Guncelle" class="btn btn-lg btn-blue"><b>Profilimi Güncelle</b></button>
+                    </div>
+            }
+        }
+    </div>
 </div>
