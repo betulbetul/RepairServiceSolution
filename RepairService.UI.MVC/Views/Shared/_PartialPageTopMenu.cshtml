@@ -23,7 +23,7 @@
                         @if (HttpContext.Current.User.IsInRole("Admin"))
                         {
                             <li> @Html.ActionLink("Admin Panel", "Index", "Admin") </li>
-                       }
+                        }
 
 
                         @if (HttpContext.Current.User.IsInRole("Operator"))
@@ -54,7 +54,9 @@
                         </li>
                         @if (HttpContext.Current.User.IsInRole("Customer"))
                         {
-                            <li>@Html.ActionLink("Servis Kayıtlarım", "MusteriServisKayitlari", "Home", new { @class = " fa-puzzle-piece" })</li>
+                            <li>
+                                <a href="@Url.Action("MusteriServisKayitlari", "Home")" class="fa-puzzle-piece">Servis Kayıtlarım</a>
+                            </li>
                         }
 
                         @if (HttpContext.Current.User.Identity.IsAuthenticated)

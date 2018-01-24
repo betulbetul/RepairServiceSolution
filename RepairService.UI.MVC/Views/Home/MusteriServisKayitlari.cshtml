@@ -92,3 +92,38 @@
                 </div>
             }
         }
+        </div>
+
+        <div class="row">
+            <div class="text-center">
+                <ul class="pagination">
+                    <li><a href="@Url.Action("MusteriServisKayitlari", "Home", new { page=ViewBag.Suan-1})" id="pageprevius">&laquo;</a></li>
+                    @for (int i = 1; i <= (int)ViewBag.ToplamSayfa; i++)
+                    {
+                        <li>
+                            <a href="@Url.Action("MusteriServisKayitlari","Home",new { page=i})">
+                                @i
+                            </a>
+                        </li>
+                    }
+                    <li>
+                    <li><a href="@Url.Action("MusteriServisKayitlari", "Home", new { page=ViewBag.Suan-1})" id="pagenext">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>>
+ 
+
+
+    @section ScriptsCustomer{
+        <script>
+    var suan =@ViewBag.Suan;
+    var toplam =@ViewBag.ToplamSayfa;
+    if (suan == 1)
+    {
+        $("#pageprevius").removeAttr("href");
+    }
+    if (suan == toplam)
+        $("#pagenext").removeAttr("href");
+        </script>
+    }
+    </div>

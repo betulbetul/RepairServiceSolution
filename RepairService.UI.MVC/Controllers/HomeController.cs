@@ -18,6 +18,8 @@ namespace RepairService.UI.MVC.Controllers
 {
     public class HomeController : BaseController
     {
+        const int customerPageSize = 6;
+
         // GET: Home
         public ActionResult Index()
         {
@@ -206,13 +208,16 @@ namespace RepairService.UI.MVC.Controllers
 
         [Authorize(Roles = "Customer")]
 
-        public ActionResult MusteriServisKayitlari()
+        public ActionResult MusteriServisKayitlari(int? page = 1)
         {
             //Musteri
             var userManager = MembershipTools.NewUserManager();
             var user = userManager.FindById(HttpContext.User.Identity.GetUserId());
             //Musteriye ait servis kayıtları
-            var serviskayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Musteri.UserID == user.Id).ToList();
+            var serviskayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Musteri.UserID == user.Id)
+                 .Skip((page.Value < 1 ? 1 : page.Value - 1) * customerPageSize)
+                .Take(customerPageSize)
+                .ToList();
             List<ServisKaydiIslem> servisKaydiTeknisyenIslemleriList = new List<ServisKaydiIslem>();
             List<Dosya> servisKaydiDosyalari = new List<Dosya>();
             foreach (var item in serviskayitlari)
@@ -223,6 +228,9 @@ namespace RepairService.UI.MVC.Controllers
             }
             ViewBag.TeknisyenIslemleri = servisKaydiTeknisyenIslemleriList;
             ViewBag.ServisKaydiDosyalari = servisKaydiDosyalari;
+            var total = new ServisKaydiRepo().GetAll().Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)customerPageSize);
+            ViewBag.Suan = page;
             return View(serviskayitlari);
         }
     }
