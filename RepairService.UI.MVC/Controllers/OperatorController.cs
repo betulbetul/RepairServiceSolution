@@ -15,21 +15,31 @@ using System.Web.Mvc;
 
 namespace RepairService.UI.MVC.Controllers
 {
-
-
     // Sadece Operator erişebilir. // 
     [Authorize(Roles = "Operator")]
 
     public class OperatorController : Controller
     {
+        const int pageSize = 24;
+
         // GET: Operator
         public ActionResult Index()
         {
+
             return View();
         }
-        public ActionResult Musteriler()
+        public ActionResult Musteriler(int? page = 1)
         {
-            return View();
+            MusteriRepo repoMusteri = new MusteriRepo();
+            var musteriler = repoMusteri.GetAll()
+                .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var total = repoMusteri.GetAll().Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+            ViewBag.Suan = page;
+            return View(musteriler);
         }
         public ActionResult YeniServisKayitlari()
         {

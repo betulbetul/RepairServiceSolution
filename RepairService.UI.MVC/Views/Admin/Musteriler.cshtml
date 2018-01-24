@@ -6,8 +6,83 @@
     Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
 }
 
+<div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Tüm Müşteriler</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-dark">
+                    <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">TC No</th>
+                            <th scope="col">Kullanıcı Adı</th>
+                            <th scope="col">Ad</th>
+                            <th scope="col">Soyad</th>
+                            <th scope="col">İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int sayac = 0;
+                        }
+
+                        @foreach (var item in Model)
+                        {
+                            sayac++;
+                            <tr>
+                                <td scope="row">@sayac</td>
+                                <td scope="row">@item.TcNo</td>
+                                <td scope="row">@item.ApplicationUser.UserName</td>
+                                <td scope="row">@item.ApplicationUser.Name</td>
+                                <td scope="row">@item.ApplicationUser.Surname</td>
+                                <td scope="row"> @Html.ActionLink("Servis Kayitlarına Git", "MusteriServisKayitGetir", "Home", new { id = item.ApplicationUser.Id }, new { @class = "btn btn-danger btn-sm" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="text-center">
+            <ul class="pagination">
+                <li><a href="@Url.Action("Musteriler", "Admin", new { page=ViewBag.Suan-1})" id="pageprevius">&laquo;</a></li>
+                @for (int i = 1; i <= (int)ViewBag.ToplamSayfa; i++)
+                {
+                    <li>
+                        <a href="@Url.Action("Musteriler","Admin",new { page=i})">
+                            @i
+                        </a>
+                    </li>
+                }
+                <li>
+                <li><a href="@Url.Action("Musteriler", "Admin", new { page=ViewBag.Suan-1})" id="pagenext">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>>
+</div>
 
 
-@{
-    Html.RenderAction("tumMusterilerResult", "Partials");
+@section Scripts{
+    <script>
+    var suan =@ViewBag.Suan;
+    var toplam =@ViewBag.ToplamSayfa;
+    if (suan == 1)
+    {
+        $("#pageprevius").removeAttr("href");
+    }
+    if (suan == toplam)
+        $("#pagenext").removeAttr("href");
+    </script>
 }
+
+
+
+
+
+

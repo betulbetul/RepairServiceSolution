@@ -16,14 +16,24 @@ namespace RepairService.UI.MVC.Controllers
     [Authorize(Roles = "TecnicalPerson")]
     public class TeknisyenController : Controller
     {
+        const int pageSize = 24;
         // GET: Teknisyen
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Musteriler()
+        public ActionResult Musteriler(int? page = 1)
         {
-            return View();
+            MusteriRepo repoMusteri = new MusteriRepo();
+            var musteriler = repoMusteri.GetAll()
+                .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var total = repoMusteri.GetAll().Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+            ViewBag.Suan = page;
+            return View(musteriler);
         }
 
         [HttpGet]
@@ -63,8 +73,8 @@ namespace RepairService.UI.MVC.Controllers
                 KonumLng = servisKaydi.KonumLng,
                 TeknisyenAciklamasi = string.Empty,
                 ServisNumarasi = servisKaydi.ServisNumarasi,
-                AcikAdres=servisKaydi.AcikAdres,
-                Telefon=servisKaydi.Telefon
+                AcikAdres = servisKaydi.AcikAdres,
+                Telefon = servisKaydi.Telefon
                 //fotoğraflar
             };
             var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == servisKaydi.Id).ToList();

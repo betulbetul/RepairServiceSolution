@@ -13,6 +13,7 @@ namespace RepairService.UI.MVC.Controllers
 
     public class PartialsController : Controller
     {
+        const int pageSize = 24;
 
         public PartialViewResult preHeaderResult()
         {
@@ -35,12 +36,6 @@ namespace RepairService.UI.MVC.Controllers
         public PartialViewResult footerResult()
         {
             return PartialView("_PartialPageFooter");
-        }
-        public PartialViewResult tumMusterilerResult()
-        {
-            MusteriRepo repoMusteri = new MusteriRepo();
-            var musteriler = repoMusteri.GetAll().ToList();
-            return PartialView("_PartialPageTumMusteriler", musteriler);
         }
         public PartialViewResult adminSideBarMenuResult()
         {

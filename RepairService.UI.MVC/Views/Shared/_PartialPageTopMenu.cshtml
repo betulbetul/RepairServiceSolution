@@ -23,10 +23,7 @@
                         @if (HttpContext.Current.User.IsInRole("Admin"))
                         {
                             <li> @Html.ActionLink("Admin Panel", "Index", "Admin") </li>
-                            //  Html.RenderAction("Index", "Admin");
-
-
-                        }
+                       }
 
 
                         @if (HttpContext.Current.User.IsInRole("Operator"))
@@ -57,7 +54,7 @@
                         </li>
                         @if (HttpContext.Current.User.IsInRole("Customer"))
                         {
-                            <li>@Html.ActionLink("Servis Kayıtlarım", "MusteriServisKayitlari", "Home", new { @class= " fa-puzzle-piece" })</li>
+                            <li>@Html.ActionLink("Servis Kayıtlarım", "MusteriServisKayitlari", "Home", new { @class = " fa-puzzle-piece" })</li>
                         }
 
                         @if (HttpContext.Current.User.Identity.IsAuthenticated)
@@ -72,8 +69,6 @@
                             <li>@Html.ActionLink("Giriş Yap", "Login", "Account")</li>
                             <li>@Html.ActionLink("Kayıt Ol", "Register", "Account")</li>
                         }
-
-
                     </ul>
                 </div>
             </div>
