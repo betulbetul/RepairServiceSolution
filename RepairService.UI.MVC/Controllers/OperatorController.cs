@@ -20,12 +20,11 @@ namespace RepairService.UI.MVC.Controllers
 
     public class OperatorController : Controller
     {
-        const int pageSize = 24;
+        const int pageSize = 12;
 
         // GET: Operator
         public ActionResult Index()
         {
-
             return View();
         }
         public ActionResult Musteriler(int? page = 1)
@@ -41,10 +40,16 @@ namespace RepairService.UI.MVC.Controllers
             ViewBag.Suan = page;
             return View(musteriler);
         }
-        public ActionResult YeniServisKayitlari()
+        public ActionResult YeniServisKayitlari(int? page = 1)
         {
             //onay bekliyor olan servis kayıtları 
-            var yeniServisKayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.onayBekliyor).ToList();
+            var yeniServisKayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.onayBekliyor)
+                .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            var total = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.onayBekliyor).Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+            ViewBag.Suan = page;
             return View(yeniServisKayitlari);
         }
         public async Task<ActionResult> YeniServisKayitlariKabulEt(int? id)
@@ -74,18 +79,23 @@ namespace RepairService.UI.MVC.Controllers
             return View();
         }
 
-        public ActionResult OperatorunServisleri()
+        public ActionResult OperatorunServisleri(int? page = 1)
         {
             var userStore = MembershipTools.NewUserStore();
             var userManager = new UserManager<ApplicationUser>(userStore);
             var user = userManager.FindById(HttpContext.User.Identity.GetUserId()) ?? null;
             var operaSonuc = new OperatorRepo().GetAll().FirstOrDefault(x => x.UserID == user.Id);
             // Operatore ait tüm servisler
-            var operatorServisler = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo).ToList();
-
+            var operatorServisler = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo)
+                 .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            var total = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo).Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+            ViewBag.Suan = page;
             return View(operatorServisler); // Operatore ait tüm servisler
         }
-        public ActionResult TeknisyeneServisKaydiGonder(string servisNo, string tekUser)
+        public ActionResult TeknisyeneServisKaydiGonder(string servisNo, string tekUser, int? page = 1)
         {
             var operatorServisler = new List<ServisKaydi>();
             if (servisNo != null && tekUser != null)
@@ -97,7 +107,10 @@ namespace RepairService.UI.MVC.Controllers
                 var user = userManager.FindById(HttpContext.User.Identity.GetUserId()) ?? null;
                 var operaSonuc = new OperatorRepo().GetAll().FirstOrDefault(x => x.UserID == user.Id);
                 //Teknisyeni olmayan operatöre ait servisler
-                operatorServisler = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo && x.TeknisyenTCNo == null).ToList();
+                operatorServisler = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo && x.TeknisyenTCNo == null)
+                     .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
                 //Boştaki teknisyenleri gönder
                 var tumServisler = new ServisKaydiRepo().GetAll().ToList();
@@ -122,6 +135,9 @@ namespace RepairService.UI.MVC.Controllers
                     Value = x.userID.ToString()
                 }));
                 ViewBag.BosTeknisyenler = bosTek;
+                var total = new ServisKaydiRepo().GetAll().Where(x => x.OperatorTCNo == operaSonuc.TcNo && x.TeknisyenTCNo == null).Count();
+                ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+                ViewBag.Suan = page;
                 return View(operatorServisler);  //Teknisyeni olmayan operatöre ait servisler
             }
             return View(operatorServisler);

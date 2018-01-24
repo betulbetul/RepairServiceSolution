@@ -244,45 +244,44 @@ namespace RepairService.UI.MVC.Controllers
                 throw;
             }
         }
-
+        [HttpGet]
         public ActionResult RecoverPassword()
         {
             return View();
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RecoverPassword(string email)
+        //[HttpPost]
+        public async Task<ActionResult> RecoverthePassword(string userName /*string email*/)
         {
             var userStore = MembershipTools.NewUserStore();
             var userManager = new UserManager<ApplicationUser>(userStore);
             try
             {
-                var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.Email == email);
+                var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.UserName == userName);
                 if (sonuc == null)
                 {
-                    ViewBag.sonuc = "E mail adresiniz sisteme kayıtlı değil";
+                    ViewBag.sonuc = "Sistemde kayıtlı değilsiniz. Lütfen önce kayıt olunuz.";
                     return View();
                 }
                 var randomPass = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
                 await userStore.SetPasswordHashAsync(sonuc, userManager.PasswordHasher.HashPassword(randomPass));
+                await userStore.UpdateAsync(sonuc);
                 await SiteSettings.SendMail(new MailModel()
                 {
                     To = sonuc.Email,
                     Subject = "Şifreniz Değişti",
                     Message = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/>Yeni Şifreniz : <b>{randomPass}</b>"
                 });
-                ViewBag.sonuc = "Email adresinize yeni şifreniz gönderilmiştir";
-                return View();
+                ViewBag.Sonuc = "Email adresinize yeni şifreniz gönderilmiştir";
+                return RedirectToAction("RecoverPassword");
             }
             catch (Exception ex)
             {
-                ViewBag.sonuc = "Sistemsel bir hata oluştu. Tekrar deneyiniz " + ex.Message;
-                return View();
+                ViewBag.Sonuc = "Sistemsel bir hata oluştu. Tekrar deneyiniz " + ex.Message;
+                return RedirectToAction("RecoverPassword");
             }
         }
         
         #region Aktivasyon Activitation
-
         [HttpGet]
         public async Task<ActionResult> Activation(string code)
         {
@@ -320,8 +319,6 @@ namespace RepairService.UI.MVC.Controllers
             });
             return View();
         }
-
-
         #endregion
     }
 

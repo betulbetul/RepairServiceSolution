@@ -413,6 +413,7 @@
     <Content Include="Views\Teknisyen\TeknisyeninServisleri.cshtml" />
     <Content Include="Views\Teknisyen\TeknisyenServisDetayIslemi.cshtml" />
     <Content Include="Views\Home\MusteriServisKayitlari.cshtml" />
+    <Content Include="Views\Account\RecoverPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

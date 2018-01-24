@@ -231,6 +231,7 @@ namespace RepairService.UI.MVC.Controllers
             var total = new ServisKaydiRepo().GetAll().Count();
             ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)customerPageSize);
             ViewBag.Suan = page;
+            ViewBag.Total = new ServisKaydiRepo().GetAll().Where(x => x.Musteri.UserID == user.Id).ToList().Count();
             return View(serviskayitlari);
         }
     }
