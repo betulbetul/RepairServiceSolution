@@ -6,6 +6,7 @@ using RepairService.BLL.Settings;
 using RepairService.Entity.Enums;
 using RepairService.Entity.IdentityModels;
 using RepairService.Entity.Kisi;
+using RepairService.Entity.Models.Kisi;
 using RepairService.Entity.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -77,6 +78,14 @@ namespace RepairService.UI.MVC.Controllers
                 else
                 {
                     userManager.AddToRole(user.Id, IdentityRoles.Passive.ToString());
+                    //İlk kayıt olurken Pasif modele ekleme yapılacak...
+                    var yeniPasifKisi = new Pasif()
+                    {
+                        UserID = user.Id,
+                        TcNo = model.TcNo
+                    };
+                    PasifRepo pasifKisiRepo = new PasifRepo();
+                    int pasifSonuc = pasifKisiRepo.Insert(yeniPasifKisi);
                     string siteUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
                     await SiteSettings.SendMail(new MailModel()
@@ -99,10 +108,6 @@ namespace RepairService.UI.MVC.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                if (HttpContext.User.IsInRole("Passive"))
-                {
-                    ViewBag.sonuc = "Sistemi kullanabilmeniz için eposta adresinizi aktifleştirmeniz gerekmektedir.";
-                }
                 var url = ReturnUrl.Split('/');
                 // admin/kullaniciduzenle/5
                 // admin/kullanicilar
@@ -122,10 +127,16 @@ namespace RepairService.UI.MVC.Controllers
             if (!ModelState.IsValid)
                 return View(model);
             var userManager = MembershipTools.NewUserManager();
+            var roleManager = MembershipTools.NewRoleManager();
             var user = await userManager.FindAsync(model.Username, model.Password);
             if (user == null)
             {
                 ModelState.AddModelError(string.Empty, "Kullanıcı adını ve şifreyi doğru girdiğinizden emin olunuz.");
+                return View(model);
+            }
+            if (user.Roles.FirstOrDefault().RoleId == roleManager.FindByName("Passive").Id)
+            {
+                ViewBag.sonuc = "Sistemi kullanabilmeniz için üyeliğinizi aktifleştirmeniz gerekmektedir. Emailinize gönderilen aktivasyon linkine tıklayarak aktifleştirme işlemini yapabilirsiniz. ";
                 return View(model);
             }
             var authManager = HttpContext.GetOwinContext().Authentication;
@@ -187,11 +198,12 @@ namespace RepairService.UI.MVC.Controllers
                 {
                     ViewBag.UserNameSonuc = "Bu kullanıcı adı başka biri tarafından kullanılmaktadır. Lütfen yeniden deneyiniz ya da mevcut kullanıcı adınızı kullanmaya devam ediniz";
                 }
-                var checkEmail = userManager.Users.Where(x => x.Email == model.Email && x.Id != user.Id).Count();
-                if (checkEmail > 0)
-                {
-                    ViewBag.EmailSonuc = "Bu email adresi başka kullanıcı adına sistemimizde zaten kayıtlıdır. Lütfen tekrar deneyiniz veya mevcut email adresinizi kullanmaya devam ediniz.";
-                }
+                //Localhostta çalıştığım için kendi emailimi kullandım. Bu nedenle bu satırları şimdilik yorum satırı yaptım.
+                //var checkEmail = userManager.Users.Where(x => x.Email == model.Email && x.Id != user.Id).Count();
+                //if (checkEmail > 0)
+                //{
+                //    ViewBag.EmailSonuc = "Bu email adresi başka kullanıcı adına sistemimizde zaten kayıtlıdır. Lütfen tekrar deneyiniz veya mevcut email adresinizi kullanmaya devam ediniz.";
+                //}
                 user.Name = model.Name;
                 user.Surname = model.Surname;
                 user.Email = model.Email;
@@ -243,7 +255,8 @@ namespace RepairService.UI.MVC.Controllers
                 await userStore.UpdateAsync(user);
                 await userStore.Context.SaveChangesAsync();
                 HttpContext.GetOwinContext().Authentication.SignOut();
-                return RedirectToAction("Profil");
+                ViewBag.updateSifre = "Şifreniz değiştirilmiştir.";
+                return RedirectToAction("Login");
             }
             catch (Exception ex)
             {
@@ -283,7 +296,7 @@ namespace RepairService.UI.MVC.Controllers
                         To = sonuc.Email,
                         Subject = "Şifreniz Değişti",
                         Message = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/>Yeni Şifreniz : <b>{randomPass}</b>" +
-                        $"Sisteme giriş yapmak için<b><a href='{siteUrl}/Account/Login?userName={sonuc.UserName}'>BURAYA</a></b> tıklayınız."
+                        $" Sisteme giriş yapmak için<b><a href='{siteUrl}/Account/Login?userName={sonuc.UserName}'>BURAYA</a></b> tıklayınız."
                     });
                     ViewBag.Sonuc = "Email adresinize yeni şifreniz gönderilmiştir";
                 }
@@ -304,13 +317,13 @@ namespace RepairService.UI.MVC.Controllers
             var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.ActivationCode == code);
             if (sonuc == null)
             {
-                ViewBag.sonuc = "Aktivasyon işlemi  başarısız";
+                ViewBag.Sonuc = "Aktivasyon işlemi  başarısız";
                 return View();
             }
 
             if (sonuc.EmailConfirmed)
             {
-                ViewBag.sonuc = "E-Posta adresiniz zaten onaylı";
+                ViewBag.Sonuc = "E-Posta adresiniz zaten onaylı";
                 return View();
             }
             sonuc.EmailConfirmed = true;
@@ -324,15 +337,131 @@ namespace RepairService.UI.MVC.Controllers
             {
                 userManager.RemoveFromRole(sonuc.Id, IdentityRoles.Passive.ToString());
                 userManager.AddToRole(sonuc.Id, IdentityRoles.Customer.ToString());
+                // Rol değişti.Artık Müşteri tablosuna eklenebilir.
+                // Müşteri modele ekleme yapılacak...
+                var yeniMusteri = new Musteri()
+                {
+                    UserID = sonuc.Id,
+                    TcNo = sonuc.PasifList.FirstOrDefault(x => x.UserID == sonuc.Id).TcNo
+                };
+                MusteriRepo musteriRepo = new MusteriRepo();
+                int musteriSonuc = musteriRepo.Insert(yeniMusteri);
+                //Rol değişti. Pasif rolden silinecek.
+                PasifRepo pasifRepo = new PasifRepo();
+                var pasifKisi = pasifRepo.GetAll().FirstOrDefault(x => x.UserID == sonuc.Id);
+                pasifRepo.Delete(pasifKisi);
             }
-            ViewBag.sonuc = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/> Aktivasyon işleminiz başarılı";
+            ViewBag.Sonuc = $"Merhaba {sonuc.Name} {sonuc.Surname}, Aktivasyon işleminiz başarılı. Sisteme giriş yapabilirsiniz.";
             await SiteSettings.SendMail(new MailModel()
             {
                 To = sonuc.Email,
-                Message = ViewBag.sonuc.ToString(),
-                Subject = "Uyelik - Aktivasyon"
+                Message = ViewBag.Sonuc.ToString(),
+                Subject = "Smart TV Teknik Servis - Aktivasyon"
             });
             return View();
+        }
+
+        //AktivasyonOperator
+        public async Task<ActionResult> OperatorActivation(string code)
+        {
+            var userStore = MembershipTools.NewUserStore();
+            var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.ActivationCode == code);
+            if (sonuc == null)
+            {
+                ViewBag.Sonuc = "Aktivasyon işlemi  başarısız";
+                return View();
+            }
+
+            if (sonuc.EmailConfirmed)
+            {
+                ViewBag.Sonuc = "E-Posta adresiniz zaten onaylı";
+                return View();
+            }
+            sonuc.EmailConfirmed = true;
+            await userStore.UpdateAsync(sonuc);
+            await userStore.Context.SaveChangesAsync();
+
+            var userManager = MembershipTools.NewUserManager();
+            var roleId = userManager.FindById(sonuc.Id)?.Roles.First().RoleId;
+            var roleName = MembershipTools.NewRoleManager().FindById(roleId).Name;
+            if (roleName == IdentityRoles.Passive.ToString())
+            {
+                userManager.RemoveFromRole(sonuc.Id, IdentityRoles.Passive.ToString());
+                userManager.AddToRole(sonuc.Id, IdentityRoles.Customer.ToString());
+                // Rol değişti.Artık Operator tablosuna eklenebilir.
+                // Operator modele ekleme yapılacak...
+                var yeniPasifOperator = new Operator()
+                {
+                    UserID = sonuc.Id,
+                    TcNo = sonuc.PasifList.FirstOrDefault(x => x.UserID == sonuc.Id).TcNo
+                };
+                OperatorRepo operatorRepo = new OperatorRepo();
+                int operatorSonuc = operatorRepo.Insert(yeniPasifOperator);
+                //Rol değişti. Pasif rolden silinecek.
+                PasifRepo pasifRepo = new PasifRepo();
+                var pasifKisi = pasifRepo.GetAll().FirstOrDefault(x => x.UserID == sonuc.Id);
+                pasifRepo.Delete(pasifKisi);
+            }
+            ViewBag.Sonuc = $"Merhaba Operatör {sonuc.Name} {sonuc.Surname}, Aktivasyon işleminiz başarılı. Sisteme giriş yapabilirsiniz.";
+            await SiteSettings.SendMail(new MailModel()
+            {
+                To = sonuc.Email,
+                Message = ViewBag.Sonuc.ToString(),
+                Subject = "Smart TV Teknik Servis - Aktivasyon"
+            });
+            return View();
+        }
+            //AktivasyonTeknisyen
+            public async Task<ActionResult> TeknisyenActivation(string code)
+        {
+            var userStore = MembershipTools.NewUserStore();
+            var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.ActivationCode == code);
+            if (sonuc == null)
+            {
+                ViewBag.Sonuc = "Aktivasyon işlemi  başarısız";
+                return View();
+            }
+
+            if (sonuc.EmailConfirmed)
+            {
+                ViewBag.Sonuc = "E-Posta adresiniz zaten onaylı";
+                return View();
+            }
+            sonuc.EmailConfirmed = true;
+            await userStore.UpdateAsync(sonuc);
+            await userStore.Context.SaveChangesAsync();
+
+            var userManager = MembershipTools.NewUserManager();
+            var roleId = userManager.FindById(sonuc.Id)?.Roles.First().RoleId;
+            var roleName = MembershipTools.NewRoleManager().FindById(roleId).Name;
+            if (roleName == IdentityRoles.Passive.ToString())
+            {
+                userManager.RemoveFromRole(sonuc.Id, IdentityRoles.Passive.ToString());
+                userManager.AddToRole(sonuc.Id, IdentityRoles.Customer.ToString());
+                // Rol değişti.Artık Teknisyen tablosuna eklenebilir.
+                // Teknisyen modele ekleme yapılacak...
+                var yeniPasifTeknisyen = new Teknisyen()
+                {
+                    userID = sonuc.Id,
+                    TcNo = sonuc.PasifList.FirstOrDefault(x => x.UserID == sonuc.Id).TcNo
+                };
+                TeknisyenRepo teknisyenRepo = new TeknisyenRepo();
+                int teknisyenSonuc = teknisyenRepo.Insert(yeniPasifTeknisyen);
+                //Rol değişti. Pasif rolden silinecek.
+                PasifRepo pasifRepo = new PasifRepo();
+                var pasifKisi = pasifRepo.GetAll().FirstOrDefault(x => x.UserID == sonuc.Id);
+                pasifRepo.Delete(pasifKisi);
+            }
+            ViewBag.Sonuc = $"Merhaba Teknisyen {sonuc.Name} {sonuc.Surname}, Aktivasyon işleminiz başarılı. Sisteme giriş yapabilirsiniz.";
+            await SiteSettings.SendMail(new MailModel()
+            {
+                To = sonuc.Email,
+                Message = ViewBag.Sonuc.ToString(),
+                Subject = "Smart TV Teknik Servis - Aktivasyon"
+            });
+            return View();
+
+
         }
         #endregion
     }

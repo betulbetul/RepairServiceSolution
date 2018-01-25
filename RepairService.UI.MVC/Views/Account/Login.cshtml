@@ -13,6 +13,14 @@
                     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
                     {
                         @Html.AntiForgeryToken()
+                         if (ViewBag.sonuc != null)
+                        {
+                            <h4 class="text-center text-danger">@ViewBag.Sonuc</h4> <br />
+                        }
+                        if (ViewBag.updateSifre != null)
+                        {
+                            <h4 class="text-center text-danger">@ViewBag.updateSifre</h4> <br />
+                        }
                         <div class="login-header margin-bottom-30">
                             <h2 class="text-center">Hemen Giriş Yapabilirsiniz</h2>
                         </div>

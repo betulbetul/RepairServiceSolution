@@ -1,6 +1,7 @@
 ﻿using RepairService.Entity.Kisi;
 using RepairService.Entity.Models;
 using RepairService.Entity.Models.Cihaz;
+using RepairService.Entity.Models.Kisi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace RepairService.BLL.Repository
     public class MusteriRepo : RepositoryBase<Musteri, string> { }
     public class OperatorRepo : RepositoryBase<Operator, string> { }
     public class TeknisyenRepo : RepositoryBase<Teknisyen, string> { }
+    public class PasifRepo : RepositoryBase<Pasif, string> { }
     public class ServisKaydiRepo : RepositoryBase<ServisKaydi, int> { }
     public class ServisKaydiIslemRepo : RepositoryBase<ServisKaydiIslem, int> { }
     public class CihazTuruRepo : RepositoryBase<CihazTuru, int> { }

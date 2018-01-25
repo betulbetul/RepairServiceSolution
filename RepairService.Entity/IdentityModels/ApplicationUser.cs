@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using RepairService.Entity.Kisi;
 using RepairService.Entity.Models;
+using RepairService.Entity.Models.Kisi;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,6 +25,7 @@ namespace RepairService.Entity.IdentityModels
         public virtual List<Musteri> MusteriList { get; set; } = new List<Musteri>();
         public virtual List<Operator> OperatorList { get; set; } = new List<Operator>();
         public virtual List<Teknisyen> TeknisyenList { get; set; } = new List<Teknisyen>();
+        public virtual List<Pasif> PasifList { get; set; } = new List<Pasif>();
     }
 }
 

@@ -414,6 +414,9 @@
     <Content Include="Views\Home\MusteriServisKayitlari.cshtml" />
     <Content Include="Views\Account\RecoverPassword.cshtml" />
     <Content Include="Views\Account\UpdatePassword.cshtml" />
+    <Content Include="Views\Account\Activation.cshtml" />
+    <Content Include="Views\Account\TeknisyenActivation.cshtml" />
+    <Content Include="Views\Account\OperatorActivation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

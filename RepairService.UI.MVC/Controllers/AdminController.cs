@@ -5,6 +5,7 @@ using RepairService.BLL.Settings;
 using RepairService.Entity.Enums;
 using RepairService.Entity.IdentityModels;
 using RepairService.Entity.Kisi;
+using RepairService.Entity.Models.Kisi;
 using RepairService.Entity.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -106,33 +107,33 @@ namespace RepairService.UI.MVC.Controllers
                 }
                 else
                 {
-                    userManager.AddToRole(user.Id, IdentityRoles.Operator.ToString());
-                    // Operator modele ekleme yapılacak...
-                    var yeniOperator = new Operator()
+                    userManager.AddToRole(user.Id, IdentityRoles.Passive.ToString());
+                    // Öncelikle pasif olarak eklenecek. Kendi emailini aktifleştirmeye tıklayınca Operator olacak.
+                    var yeniPasifKisi = new Pasif()
                     {
                         UserID = user.Id,
                         TcNo = model.TcNo
                     };
 
-                    int operaSonuc = await new OperatorRepo().InsertAsync(yeniOperator);
+                    int pasifSonuc = await new PasifRepo().InsertAsync(yeniPasifKisi);
                     string siteUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
                     await SiteSettings.SendMail(new MailModel()
                     {
                         To = user.Email,
-                        Subject = "Smart TV Repair Service - Aktivasyon",
-                        Message = $"Merhaba {user.Name} {user.Surname} | User Name: {user.UserName}<br/>Hesabınızı aktifleştirmek için <b><a href='{siteUrl}/Account/Activation?code={activationCode}'>Aktivasyon Kodu</a></b> tıklayınız."
+                        Subject = "Smart TV Repair Service - Operator Aktivasyon İşlemi",
+                        Message = $"Merhaba {user.Name} {user.Surname} | User Name: {user.UserName}<br/>Operatör hesabınızı aktifleştirmek için <b><a href='{siteUrl}/Account/OperatorActivation?code={activationCode}'>Operatör Aktivasyon Kodu</a></b> tıklayınız."
                     });
 
                     await SiteSettings.SendMail(new MailModel()
                     {
                         To = user.Email,
-                        Subject = "Smart TV Repair Service - Yeni Şifreniz ",
-                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Hesabınız admin tarafından oluşturuldu.<b> <br/>" +
+                        Subject = "Smart TV Teknis Servis - Yeni Şifreniz ",
+                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Pasif olan operatör hesabınız admin tarafından oluşturuldu.<b> <br/>" +
                         $"Şifreniz: {model.Password} <br/>  <a href='{siteUrl}/Account/Login?userName={user.UserName}'>Giriş Yapmak için tıklayınız.</a></b>"
                     });
-                    var operatorno = new OperatorRepo().GetById(yeniOperator.TcNo);
-                    ViewBag.Sonuc = $"{operatorno?.ApplicationUser.Name + " " + operatorno?.ApplicationUser.Surname} yeni operatör olarak eklenmiştir.";
+                    var operatorno = new OperatorRepo().GetById(yeniPasifKisi.TcNo);
+                    ViewBag.Sonuc = $"{operatorno?.ApplicationUser.Name + " " + operatorno?.ApplicationUser.Surname} yeni operatör (pasif hesap) olarak eklenmiştir.";
                 }
             }
             else
@@ -200,34 +201,34 @@ namespace RepairService.UI.MVC.Controllers
 
                 else
                 {
-                    userManager.AddToRole(user.Id, IdentityRoles.TecnicalPerson.ToString());
-                    // teknisyen modele ekleme yapılacak...
-                    var yeniTeknisyen = new Teknisyen()
+                    userManager.AddToRole(user.Id, IdentityRoles.Passive.ToString());
+                    // Öncelikle pasif olarak eklenecek. Kendi emailini aktifleştirmeye tıklayınca Teknisyen olacak.
+                    var yeniPasifKisi = new Pasif()
                     {
-                        userID = user.Id,
+                        UserID = user.Id,
                         TcNo = model.TcNo
                     };
 
-                    int teknisyenSonuc = await new TeknisyenRepo().InsertAsync(yeniTeknisyen);
+                    int pasifSonuc = await new PasifRepo().InsertAsync(yeniPasifKisi);
                     string siteUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
  (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
                     await SiteSettings.SendMail(new MailModel()
                     {
                         To = user.Email,
-                        Subject = "UyelikDB - Aktivasyon",
-                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Hesabınızı aktifleştirmek için <b><a href='{siteUrl}/Account/Activation?code={activationCode}'>Aktivasyon Kodu</a></b> tıklayınız."
+                        Subject = "Smart TV Teknik Servis - Teknik Personel Aktivasyon İşlemi",
+                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Pasif olan teknisyen hesabınızı aktifleştirmek için <b><a href='{siteUrl}/Account/TeknisyenActivation?code={activationCode}'>Teknisyen Aktivasyon Kodu</a></b> tıklayınız."
                     });
 
                     await SiteSettings.SendMail(new MailModel()
                     {
                         To = user.Email,
-                        Subject = "ServiceDB - Yeni Şifreniz ",
-                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Hesabınız admin tarafından oluşturuldu.<b> <br/>" +
+                        Subject = "Smart TV Teknik Servis - Yeni Şifreniz ",
+                        Message = $"Merhaba {user.Name} {user.Surname} <br/>Pasif olan teknisyen hesabınız admin tarafından oluşturuldu.<b> <br/>" +
                       $"Şifreniz: {model.Password} <br/>  <a href='{siteUrl}/Account/Login?userName={user.UserName}'>Giriş Yapmak için tıklayınız.</a></b>"
                     });
 
-                    var tekno = new TeknisyenRepo().GetById(yeniTeknisyen.TcNo);
-                    ViewBag.Sonuc = $"{tekno?.ApplicationUser.Name + " " + tekno?.ApplicationUser.Surname} yeni teknisyen olarak eklenmiştir.";
+                    var tekno = new TeknisyenRepo().GetById(yeniPasifKisi.TcNo);
+                    ViewBag.Sonuc = $"{tekno?.ApplicationUser.Name + " " + tekno?.ApplicationUser.Surname} yeni teknisyen (pasif hesap) olarak eklenmiştir.";
                 }
             }
             else

@@ -87,6 +87,7 @@
     <Compile Include="Models\Kisi\KisiTemel.cs" />
     <Compile Include="Models\Kisi\Musteri.cs" />
     <Compile Include="Models\Kisi\Operator.cs" />
+    <Compile Include="Models\Kisi\Pasif.cs" />
     <Compile Include="Models\Kisi\Teknisyen.cs" />
     <Compile Include="Models\AraTemel.cs" />
     <Compile Include="Models\Dosya.cs" />
