@@ -417,6 +417,7 @@
     <Content Include="Views\Account\Activation.cshtml" />
     <Content Include="Views\Account\TeknisyenActivation.cshtml" />
     <Content Include="Views\Account\OperatorActivation.cshtml" />
+    <Content Include="Views\Home\MusteriServisDetay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

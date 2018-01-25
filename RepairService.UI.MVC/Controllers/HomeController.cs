@@ -234,5 +234,18 @@ namespace RepairService.UI.MVC.Controllers
             ViewBag.Total = new ServisKaydiRepo().GetAll().Where(x => x.Musteri.UserID == user.Id).ToList().Count();
             return View(serviskayitlari);
         }
+        [HttpGet]
+        public ActionResult MusteriServisDetay(int? id)
+        {
+            if (id == null || id <= 0)
+            {
+                return RedirectToAction("MusteriServisKayitlari");
+            }
+            else
+            {
+                var serviskayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Id == id).ToList();
+                return View(serviskayitlari);
+            }
+        }
     }
 }

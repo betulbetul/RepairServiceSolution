@@ -20,82 +20,39 @@
             </blockquote>
     <!-- End Primary Blockquote -->
             <br />
-            for (int i = 0; i < Model.Count; i++)
-            {
-                <div class="row">
+            <div class="row">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+
                     <div class="col-md-4">
                         <!-- Info Panel -->
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Servis Numarası: @Model[i].ServisNumarasi</h3>
                             </div>
-                            <div class="panel-body">
+                            <div class="panel-body" style="height:240px; width:290px;">
                                 <ul>
                                     <li>
-                                        <h4>@Model[i].ArizaTuru.TurAdi bir arıza </h4>
+                                        <h5>@Model[i].ArizaTuru.TurAdi bir arıza </h5>
                                     </li>
-                                    <li> <h4>Tür: @Model[i].CihazModel.CihazTuru.Tur </h4></li>
-                                    <li> <h4> Marka:@Model[i].CihazModel.MarkaAdi  / Model: @Model[i].CihazModel.ModelAdi</h4></li>
-                                    <li> <h4>@Model[i].EklenmeTarihi.ToShortDateString() tarihinde oluşturulmuştur. </h4></li>
-                                </ul>
+                                    <li> <h5>Tür: @Model[i].CihazModel.CihazTuru.Tur </h5></li>
+                                    <li> <h5> Marka:@Model[i].CihazModel.MarkaAdi  / Model: @Model[i].CihazModel.ModelAdi</h5></li>
+                                    <li> <h5>@Model[i].EklenmeTarihi.ToShortDateString() tarihinde oluşturulmuştur. </h5></li>
+                                    @Html.ActionLink("Detaylara Git", "MusteriServisDetay", "Home", new { id = Model[i].Id })
+                               </ul>
                             </div>
                         </div>
                         <!-- End Info Panel -->
                     </div>
-                    <div class="col-md-8">
-                        <div class="tab-content">
-                            <div class="tab-pane active in fade" id="faq">
-                                <div class="panel-group" id="accordion">
-                                    <!-- FAQ Item -->
-                                    <div class="panel panel-default panel-faq">
-                                        <div class="panel-heading">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-@(i)">
-                                                <h4 class="panel-title">
-                                                    Servis Kaydı Durumu
-                                                    <span class="pull-right">
-                                                        <i class="glyphicon glyphicon-plus"></i>
-                                                    </span>
-                                                </h4>
-                                            </a>
-                                        </div>
-                                        <div id="#faq-sub-@(i)" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                Servis kaydınızın durumu <b> @Model[i].Durumu</b> şeklindedir.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End FAQ Item -->
-                                    <!-- Faq Item -->
-                                    <div class="panel panel-default panel-faq">
-                                        <div class="panel-heading">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-@(i+1)">
-                                                <h4 class="panel-title">
-                                                    Servis Nedeni
-                                                    <span class="pull-right">
-                                                        <i class="glyphicon glyphicon-plus"></i>
-                                                    </span>
-                                                </h4>
-                                            </a>
-                                        </div>
-                                        <div id="faq-sub-@(i+1)" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                Arıza nedeni  <b>"@Model[i].MusteriArizaTanimi"</b> şeklinde belirtilmiştir.
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End FAQ Item -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            }
+                }
+            </div>
         }
-        </div>
+    </div>
 
-    @if (ViewBag.Total>0) {
-    <div class="row">
+    @if (ViewBag.Total > 0)
+    {
+        <div class="row">
             <div class="text-center">
                 <ul class="pagination">
                     <li><a href="@Url.Action("MusteriServisKayitlari", "Home", new { page = ViewBag.Suan - 1 })" id="pageprevius">&laquo;</a></li>
@@ -112,7 +69,7 @@
                 </ul>
             </div>
         </div>
- }
+    }
 
 
     @section ScriptsCustomer{
@@ -127,4 +84,4 @@
         $("#pagenext").removeAttr("href");
         </script>
     }
-    </div>
+</div>

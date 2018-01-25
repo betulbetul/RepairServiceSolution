@@ -238,7 +238,7 @@ namespace RepairService.UI.MVC.Controllers
             if (model.NewPassword != model.ConfirmNewPassword)
             {
                 ModelState.AddModelError(string.Empty, "Şifreler uyuşmuyor");
-                return View("Profile");
+                return View("Profil");
             }
             try
             {
@@ -387,7 +387,7 @@ namespace RepairService.UI.MVC.Controllers
             if (roleName == IdentityRoles.Passive.ToString())
             {
                 userManager.RemoveFromRole(sonuc.Id, IdentityRoles.Passive.ToString());
-                userManager.AddToRole(sonuc.Id, IdentityRoles.Customer.ToString());
+                userManager.AddToRole(sonuc.Id, IdentityRoles.Operator.ToString());
                 // Rol değişti.Artık Operator tablosuna eklenebilir.
                 // Operator modele ekleme yapılacak...
                 var yeniPasifOperator = new Operator()
@@ -411,8 +411,8 @@ namespace RepairService.UI.MVC.Controllers
             });
             return View();
         }
-            //AktivasyonTeknisyen
-            public async Task<ActionResult> TeknisyenActivation(string code)
+        //AktivasyonTeknisyen
+        public async Task<ActionResult> TeknisyenActivation(string code)
         {
             var userStore = MembershipTools.NewUserStore();
             var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.ActivationCode == code);
@@ -437,7 +437,7 @@ namespace RepairService.UI.MVC.Controllers
             if (roleName == IdentityRoles.Passive.ToString())
             {
                 userManager.RemoveFromRole(sonuc.Id, IdentityRoles.Passive.ToString());
-                userManager.AddToRole(sonuc.Id, IdentityRoles.Customer.ToString());
+                userManager.AddToRole(sonuc.Id, IdentityRoles.TecnicalPerson.ToString());
                 // Rol değişti.Artık Teknisyen tablosuna eklenebilir.
                 // Teknisyen modele ekleme yapılacak...
                 var yeniPasifTeknisyen = new Teknisyen()
