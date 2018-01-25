@@ -6,9 +6,9 @@
 <div class="container">
     <div class="row margin-vert-30 col-md-12">
 
-        @using (Html.BeginForm("MusteriServisKayitlari", "Home"))
+        @using (Html.BeginForm("MusteriServisKayitlari","Home"))
         {
-                <!-- Primary Blockquote -->
+            <!-- Primary Blockquote -->
             <blockquote>
                 <p>
                     <em>"Size ait @ViewBag.Total adet servis kaydı bulunmaktadır. </em>
@@ -38,7 +38,7 @@
                                     <li> <h5>Tür: @Model[i].CihazModel.CihazTuru.Tur </h5></li>
                                     <li> <h5> Marka:@Model[i].CihazModel.MarkaAdi  / Model: @Model[i].CihazModel.ModelAdi</h5></li>
                                     <li> <h5>@Model[i].EklenmeTarihi.ToShortDateString() tarihinde oluşturulmuştur. </h5></li>
-                                    @Html.ActionLink("Detaylara Git", "MusteriServisDetay", "Home", new { id = Model[i].Id })
+                                    @Html.ActionLink("DETAYLARA GİT", "MusteriServisDetay", "Home", new { id = Model[i].Id }, null)
                                </ul>
                             </div>
                         </div>

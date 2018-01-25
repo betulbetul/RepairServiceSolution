@@ -1,4 +1,4 @@
-﻿
+﻿@model ServisKaydi
 @{
     ViewBag.Title = "MusteriServisDetay";
     Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
@@ -6,9 +6,147 @@
 <div class="container">
     <div class="row margin-vert-30 col-md-12">
 
-        @using (Html.BeginForm("MusteriServisDetay", "Home",FormMethod.Post, new {@class="form-horizontal" }))
-        {
+        @using (Html.BeginForm("MusteriServisDetay", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Default Panel</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            <li>
+                                @Model.ServisNumarasi <br />
+                            </li>
+                            <li> @Model.ArizaTuru</li> arıza nedeniyle
+                            <li>@Model.CihazModel.CihazTuru.Tur</li>,
+                            <li>@Model.CihazModel.MarkaAdi  marka / @Model.CihazModel.ModelAdi model</li> şeklindeki cihaz için @Model.EklenmeTarihi tarihinde servis kaydı açılmıştır.
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content">
+                    <div class="tab-pane active in fade" id="faq">
+                        <div class="panel-group" id="accordion">
+                            <!-- FAQ Item -->
+                            <div class="panel panel-default panel-faq">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-1">
+                                        <h4 class="panel-title">
+                                            Servis Kaydı Durumu
+                                            <span class="pull-right">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                            </span>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="#faq-sub-1" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Servis kaydınızın durumu <b> @Model.Durumu</b> şeklindedir.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End FAQ Item -->
+                            <!-- Faq Item -->
+                            <div class="panel panel-default panel-faq">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-2">
+                                        <h4 class="panel-title">
+                                            Servis Nedeni
+                                            <span class="pull-right">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                            </span>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="faq-sub-2" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Arıza nedeni  <b>"@Model.MusteriArizaTanimi"</b> şeklinde belirtilmiştir.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End FAQ Item -->
+                            <!-- Faq Item -->
+                            @if (ViewBag.ServisKaydiDetayList.Count > 0)
+                            {
+
+                                <div class="panel panel-default panel-faq">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-3">
+                                            <h4 class="panel-title">
+                                                Teknisyen Görüşleri
+                                                <span class="pull-right">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </span>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="faq-sub-3" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <ul>
+                                                @foreach (var item in ViewBag.ServisKaydiDetayList)
+                                                {
+                                                    <li>@item</li>
+                                                }
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            }
+                            <!-- End FAQ Item -->
+                            <!-- Faq Item -->
+                            @if (ViewBag.Dosyalar.Count > 0)
+                            {
+                                <div class="panel panel-default panel-faq">
+                                    <div class="panel-heading">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-4">
+                                            <h4 class="panel-title">
+                                                Arıza Fotoğraf/ları
+                                                <span class="pull-right">
+                                                    <i class="glyphicon glyphicon-plus"></i>
+                                                </span>
+                                            </h4>
+                                        </a>
+                                    </div>
+                                    <div id="faq-sub-4" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <!-- Thumbs Gallery -->
+                                            <div class="col-md-10">
+                                                <h3 class="margin-bottom-10">Servis kaydına ait @ViewBag.Dosyalar.Count adet fotoğraf bulunuyor.</h3>
+                                                <div class="thumbs-gallery">
+                                                    @foreach (Dosya foto in ViewBag.Dosyalar)
+                                                    {
+                                                        <a class="thumbBox" rel="lightbox-thumbs" href="@foto.DosyaYolu">
+                                                            <img src="@foto.DosyaYolu" alt="image1.jpg">
+                                                            <i></i>
+                                                        </a>
+                                                    }
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!-- End FAQ Item -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+                Ücret: @Model.Fiyat lira 
+            </div>
 
         }
     </div>
 </div>
+<!---->
+

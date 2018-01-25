@@ -207,7 +207,6 @@ namespace RepairService.UI.MVC.Controllers
         }
 
         [Authorize(Roles = "Customer")]
-
         public ActionResult MusteriServisKayitlari(int? page = 1)
         {
             //Musteri
@@ -235,6 +234,7 @@ namespace RepairService.UI.MVC.Controllers
             return View(serviskayitlari);
         }
         [HttpGet]
+        [Authorize(Roles = "Customer")]
         public ActionResult MusteriServisDetay(int? id)
         {
             if (id == null || id <= 0)
@@ -243,8 +243,12 @@ namespace RepairService.UI.MVC.Controllers
             }
             else
             {
-                var serviskayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Id == id).ToList();
-                return View(serviskayitlari);
+                var serviskaydi = new ServisKaydiRepo().GetAll().FirstOrDefault(x => x.Id == id);
+                var serviskaydiDetayList = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == id).ToList();
+                ViewBag.ServisKaydiDetayList = serviskaydiDetayList;
+                var dosyalar = new DosyaRepo().GetAll().Where(x=> x.arizaId==id).ToList();
+                ViewBag.Dosyalar = dosyalar;
+                return View(serviskaydi);
             }
         }
     }
