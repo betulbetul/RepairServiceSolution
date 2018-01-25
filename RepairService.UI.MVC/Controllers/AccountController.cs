@@ -42,13 +42,13 @@ namespace RepairService.UI.MVC.Controllers
                 ModelState.AddModelError(string.Empty, "Bu kullanıcı adı başka bir üye tarafından alınmıştır!");
                 return View(model);
             }
-            //Email tekrar etmesin! 
-            var checkUserEmail = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.Email == model.Email)?.Email;
-            if (checkUserEmail != null)
-            {
-                ModelState.AddModelError(string.Empty, "Bu email adresi sisteme zaten kayıtlıdır. Şifrenizi unuttuysanız Şifremi unuttum ile yeni şifre edinebilirsiniz.!");
-                return View(model);
-            }
+            //Email tekrar etmesin! //LocalHostta kendi mailimi yazarak çalıştığım için yorum satırı yaptım.
+            //var checkUserEmail = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.Email == model.Email)?.Email;
+            //if (checkUserEmail != null)
+            //{
+            //    ModelState.AddModelError(string.Empty, "Bu email adresi sisteme zaten kayıtlıdır. Şifrenizi unuttuysanız Şifremi unuttum ile yeni şifre edinebilirsiniz.!");
+            //    return View(model);
+            //}
             var checkUser = userManager.FindByName(model.Username);
             if (checkUser != null)
             {
@@ -232,19 +232,18 @@ namespace RepairService.UI.MVC.Controllers
             {
                 var userStore = MembershipTools.NewUserStore();
                 var userManager = new UserManager<ApplicationUser>(userStore);
-
                 var user = userManager.FindById(HttpContext.User.Identity.GetUserId());
                 user = userManager.Find(user.UserName, model.OldPassword);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Mevcut şifreniz yanlış girildi");
-                    return View("Profile");
+                    return View("Profil");
                 }
                 await userStore.SetPasswordHashAsync(user, userManager.PasswordHasher.HashPassword(model.NewPassword));
                 await userStore.UpdateAsync(user);
                 await userStore.Context.SaveChangesAsync();
                 HttpContext.GetOwinContext().Authentication.SignOut();
-                return RedirectToAction("Profile");
+                return RedirectToAction("Profil");
             }
             catch (Exception ex)
             {
@@ -257,30 +256,38 @@ namespace RepairService.UI.MVC.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        public async Task<ActionResult> RecoverthePassword(string userName /*string email*/)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //Localhostta çalışırken kendi emaili herkese yazdığım için username ile devam ettim. NOT: normalde email alanı benzersiz olarak tasarladım. Gerekli yerleri yorum satırına çektim.(şimdilik localhost)
+        public async Task<ActionResult> RecoverPassword(ProfileViewModel model /*string email*/)
         {
             var userStore = MembershipTools.NewUserStore();
             var userManager = new UserManager<ApplicationUser>(userStore);
             try
             {
-                var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.UserName == userName);
+                var sonuc = userStore.Context.Set<ApplicationUser>().FirstOrDefault(x => x.UserName == model.Username);
                 if (sonuc == null)
                 {
-                    ViewBag.sonuc = "Sistemde kayıtlı değilsiniz. Lütfen önce kayıt olunuz.";
+                    ViewBag.Sonuc = "Sistemde bir kaydınız bulunmuyor. Önce kayıt olmanız gerekmektedir.";
                     return View();
                 }
-                var randomPass = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
-                await userStore.SetPasswordHashAsync(sonuc, userManager.PasswordHasher.HashPassword(randomPass));
-                await userStore.UpdateAsync(sonuc);
-                await SiteSettings.SendMail(new MailModel()
+                else
                 {
-                    To = sonuc.Email,
-                    Subject = "Şifreniz Değişti",
-                    Message = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/>Yeni Şifreniz : <b>{randomPass}</b>"
-                });
-                ViewBag.Sonuc = "Email adresinize yeni şifreniz gönderilmiştir";
-                return RedirectToAction("RecoverPassword");
+                    var randomPass = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6);
+                    await userStore.SetPasswordHashAsync(sonuc, userManager.PasswordHasher.HashPassword(randomPass));
+                    await userStore.UpdateAsync(sonuc);
+                    string siteUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
+    (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+                    await SiteSettings.SendMail(new MailModel()
+                    {
+                        To = sonuc.Email,
+                        Subject = "Şifreniz Değişti",
+                        Message = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/>Yeni Şifreniz : <b>{randomPass}</b>" +
+                        $"Sisteme giriş yapmak için<b><a href='{siteUrl}/Account/Login?userName={sonuc.UserName}'>BURAYA</a></b> tıklayınız."
+                    });
+                    ViewBag.Sonuc = "Email adresinize yeni şifreniz gönderilmiştir";
+                }
+                return View();
             }
             catch (Exception ex)
             {
