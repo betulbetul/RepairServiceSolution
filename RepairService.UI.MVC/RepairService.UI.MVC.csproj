@@ -418,6 +418,8 @@
     <Content Include="Views\Account\TeknisyenActivation.cshtml" />
     <Content Include="Views\Account\OperatorActivation.cshtml" />
     <Content Include="Views\Home\MusteriServisDetay.cshtml" />
+    <Content Include="Views\Admin\TumOperatorler.cshtml" />
+    <Content Include="Views\Admin\TumTeknisyenler.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

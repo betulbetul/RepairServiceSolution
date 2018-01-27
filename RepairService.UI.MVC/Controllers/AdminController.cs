@@ -240,6 +240,33 @@ namespace RepairService.UI.MVC.Controllers
 
         }
 
+        public ActionResult TumOperatorler(int? page=1)
+        {
+            OperatorRepo repoOperator = new OperatorRepo();
+            var operatorler = repoOperator.GetAll()
+                .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var total = repoOperator.GetAll().Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+            ViewBag.Suan = page;
+            return View(operatorler);
+        }
+        public ActionResult TumTeknisyenler(int? page=1)
+        {
+            TeknisyenRepo repoTeknisyen = new TeknisyenRepo();
+            var teknisyenler = repoTeknisyen.GetAll()
+                .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var total = repoTeknisyen.GetAll().Count();
+            ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
+            ViewBag.Suan = page;
+            return View(teknisyenler);
+
+        }
     }
 
 
