@@ -17,10 +17,16 @@
                 <a href="#sample-1b" data-toggle="tab">Fotoğraflar</a>
             </li>
             <li>
-                <a href="#sample-1c" data-toggle="tab">İşlemler</a>
+                <a href="#sample-1c" data-toggle="tab">Açıklamalar</a>
             </li>
             <li>
                 <a href="#sample-1d" data-toggle="tab">Adres Bilgisi</a>
+            </li>
+            <li>
+                <a href="#sample-1e" data-toggle="tab">Fiyat Bilgisi</a>
+            </li>
+            <li>
+                <a href="#sample-1f" data-toggle="tab">Fatura İşlemi</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -68,24 +74,19 @@
                         @if (ViewBag.servisNumarasi != null)
                         {
                             <h3 class="text-info"> @ViewBag.servisNumarasi için değişiklikler kaydedilmiştir.</h3> <br />
-                            <h5 class="text-danger"> <b>Fiyat: </b> <span style="color:black;"> @Model.Fiyat</span></h5> <br />
-                            <h5 class="text-danger"> <b>Teknisyen Açıklaması: </b> <span style="color:black;"> @Model.TeknisyenAciklamasi</span></h5> <br />
                         }
                         else
                         {
                             <h4>Teknisyen açıklaması yazınız...</h4>
                             @Html.TextAreaFor(x => x.TeknisyenAciklamasi, new { @class = "form-control" }) <br />
-                            if (Model.Fiyat == 0)
-                            {
-                                <h4>Servis Ücretini Giriniz...</h4>
-                                @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" }) <br /> <br />
 
-                            }
                             @Html.HiddenFor(x => x.ServisId)
                             <button type="submit" class="btn btn-lg btn-blue">DEĞİŞİKLİKLERİ KAYDET</button>
                         }
                     </div>
+                    <table></table>
                 </div>
+
                 <div class="clearfix"></div>
             </div>
             <div id="sample-1d" class="tab-pane fade in">
@@ -98,6 +99,21 @@
                 @Html.HiddenFor(x => x.KonumLng, new { id = "long" })
 
 
+            </div>
+            <div id="sample-1e" class="tab-pane fade-in">
+                @if (Model.Fiyat == 0)
+                {
+                    <h4>Servis Ücretini Giriniz...</h4>
+                    @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" }) <br /> <br />
+
+                    @Html.HiddenFor(x => x.ServisId)
+                    <button type="submit" class="btn btn-lg btn-blue">DEĞİŞİKLİKLERİ KAYDET</button>
+                }
+                else
+                {
+                    <label> Ücret: </label> <br />
+                    <label>@Model.Fiyat lira</label>
+                }
             </div>
         </div>
     </div>

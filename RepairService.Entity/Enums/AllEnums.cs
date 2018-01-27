@@ -24,7 +24,9 @@ namespace RepairService.Entity.Enums
         parcaBekliyor = 3, // parça bekliyor
         teknisyenServiseCikti = 4, // Teknisyen yerinde servise gitti.
         musteriOnayiBekleniyor = 5, // Müşteriye sunulan para teklifini müşteri kabul ediyor mu?
-        Cozuldu = 6// Arıza çözümlendi
+        Cozuldu = 6,// Arıza çözümlendi
+        IptalEdildi=7 //Arıza İptal edildi.
+
     }
 
     public enum ArizaTurleri

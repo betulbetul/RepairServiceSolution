@@ -10,18 +10,16 @@
             {
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Default Panel</h3>
-                    </div>
                     <div class="panel-body">
-                        <ul>
-                            <li>
-                                @Model.ServisNumarasi <br />
-                            </li>
-                            <li> @Model.ArizaTuru</li> arıza nedeniyle
-                            <li>@Model.CihazModel.CihazTuru.Tur</li>,
-                            <li>@Model.CihazModel.MarkaAdi  marka / @Model.CihazModel.ModelAdi model</li> şeklindeki cihaz için @Model.EklenmeTarihi tarihinde servis kaydı açılmıştır.
-                        </ul>
+                        <p>
+                            <h5 class="text-danger"> <b>Servis Numarası: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
+                            <h5 class="text-danger"> <b>Eklenme Tarihi: </b> <span style="color:black;"> @Model.EklenmeTarihi.ToShortDateString()</span></h5> <br />
+                            <h5 class="text-danger"> <b>Servis ID: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
+                            <h5 class="text-danger"> <b>Arıza Türü: </b> <span style="color:black;"> @Model.ArizaTuru.TurAdi.ToString()</span></h5> <br />
+                            <h5 class="text-danger"> <b>Cihaz Türü: </b> <span style="color:black;"> @Model.CihazModel.ModelAdi.ToString()</span></h5> <br />
+                            <h5 class="text-danger"> <b>Marka: </b> <span style="color:black;"> @Model.CihazModel.MarkaAdi</span></h5> <br />
+                            <h5 class="text-danger"> <b>Model: </b> <span style="color:black;"> @Model.CihazModel.ModelAdi</span></h5> <br />
+                        </p>
                     </div>
                 </div>
             </div>
@@ -29,21 +27,21 @@
                 <div class="tab-content">
                     <div class="tab-pane active in fade" id="faq">
                         <div class="panel-group" id="accordion">
-                            <!-- FAQ Item -->
+                            <!-- Faq Item -->
                             <div class="panel panel-default panel-faq">
                                 <div class="panel-heading">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-1">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-2">
                                         <h4 class="panel-title">
-                                            Servis Kaydı Durumu
+                                            Servis Kaydının Durumu
                                             <span class="pull-right">
                                                 <i class="glyphicon glyphicon-plus"></i>
                                             </span>
                                         </h4>
                                     </a>
                                 </div>
-                                <div id="#faq-sub-1" class="panel-collapse collapse">
+                                <div id="faq-sub-2" class="panel-collapse collapse">
                                     <div class="panel-body">
-                                        Servis kaydınızın durumu <b> @Model.Durumu</b> şeklindedir.
+                                        Arıza nedeni  <b>"@Model.Durumu"</b> şeklinde belirtilmiştir.
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +49,7 @@
                             <!-- Faq Item -->
                             <div class="panel panel-default panel-faq">
                                 <div class="panel-heading">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-2">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-3">
                                         <h4 class="panel-title">
                                             Servis Nedeni
                                             <span class="pull-right">
@@ -60,7 +58,7 @@
                                         </h4>
                                     </a>
                                 </div>
-                                <div id="faq-sub-2" class="panel-collapse collapse">
+                                <div id="faq-sub-3" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         Arıza nedeni  <b>"@Model.MusteriArizaTanimi"</b> şeklinde belirtilmiştir.
                                     </div>
@@ -73,7 +71,7 @@
 
                                 <div class="panel panel-default panel-faq">
                                     <div class="panel-heading">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-3">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-4">
                                             <h4 class="panel-title">
                                                 Teknisyen Görüşleri
                                                 <span class="pull-right">
@@ -82,12 +80,12 @@
                                             </h4>
                                         </a>
                                     </div>
-                                    <div id="faq-sub-3" class="panel-collapse collapse">
+                                    <div id="faq-sub-4" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul>
-                                                @foreach (var item in ViewBag.ServisKaydiDetayList)
+                                                @foreach (ServisKaydiIslem item in ViewBag.ServisKaydiDetayList)
                                                 {
-                                                    <li>@item</li>
+                                                    <li>@item.Aciklama</li>
                                                 }
                                             </ul>
                                         </div>
@@ -102,7 +100,7 @@
                             {
                                 <div class="panel panel-default panel-faq">
                                     <div class="panel-heading">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-4">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-5">
                                             <h4 class="panel-title">
                                                 Arıza Fotoğraf/ları
                                                 <span class="pull-right">
@@ -111,7 +109,7 @@
                                             </h4>
                                         </a>
                                     </div>
-                                    <div id="faq-sub-4" class="panel-collapse collapse">
+                                    <div id="faq-sub-5" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <!-- Thumbs Gallery -->
                                             <div class="col-md-10">
@@ -142,11 +140,25 @@
             </div>
 
             <div class="col-md-4">
-                Ücret: @Model.Fiyat lira 
+                <div class="panel-group">
+                    <h3 class="text-danger"> <b> Ücret: @Model.Fiyat lira </b></h3> <br />
+                    @if (Model.Fiyat > 0)
+                    {
+                        if (!Model.MusteriUcretiOnayladiMi)
+                        {
+                            <button class="btn-green btn btn-lg" value="@Model.MusteriUcretiOnayladiMi" name="musterOnay">ÜCRETİ ONAYLA</button> <br />
+                            <span class="small text-justify">Ücret için onay verdiğiniz zaman faturanız oluşturulabilecek ve  ekibimiz en kısa süre içinde yerinde servis hizmetini gerçekleştirebilecektir.</span>
+                        }
+                        else if (Model.MusteriUcretiOnayladiMi)
+                        {
+                            <h4 class="text-info">ÜCRET ONAYLANMIŞ.</h4>
+                        }
+                    }
+
+                </div>
             </div>
 
         }
     </div>
 </div>
 <!---->
-
