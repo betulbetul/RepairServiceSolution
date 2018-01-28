@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using RepairService.BLL.Account;
 using RepairService.BLL.Repository;
+using RepairService.Entity.Enums;
 using RepairService.Entity.IdentityModels;
 using RepairService.Entity.Models.Cihaz;
 using RepairService.Entity.ViewModels;
@@ -79,6 +80,8 @@ namespace RepairService.UI.MVC.Controllers
             };
             var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == servisKaydi.Id).ToList();
             dosyalar.ForEach(x => model.FotoUrList.Add($"{x.DosyaYolu}"));
+            var aciklamalar = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == id).ToList();
+            ViewBag.Aciklamalar = aciklamalar;
             return View(model);
         }
         [HttpPost]
@@ -125,6 +128,8 @@ namespace RepairService.UI.MVC.Controllers
             };
             var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == servisKaydi.Id).ToList();
             dosyalar.ForEach(x => model.FotoUrList.Add($"{x.DosyaYolu}"));
+            var aciklamalar = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == gelenModel.ServisId).ToList();
+            ViewBag.Aciklamalar = aciklamalar;
             return View(model);
         }
     }
