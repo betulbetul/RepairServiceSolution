@@ -145,6 +145,21 @@ namespace RepairService.UI.MVC.Controllers
             {
                 IsPersistent = model.RememberMe
             }, userIdentity);
+            if (user.Roles.FirstOrDefault().RoleId == roleManager.FindByName("Admin").Id)
+            {
+                return RedirectToAction("Index", "Admin");
+
+            }
+            if (user.Roles.FirstOrDefault().RoleId == roleManager.FindByName("Operator").Id)
+            {
+                return RedirectToAction("Index", "Operator");
+
+            }
+            if (user.Roles.FirstOrDefault().RoleId == roleManager.FindByName("TecnicalPerson").Id)
+            {
+                return RedirectToAction("Index", "Teknisyen");
+
+            }
             if (string.IsNullOrEmpty(model.ReturnUrl))
                 return RedirectToAction("Index", "Home");
             try

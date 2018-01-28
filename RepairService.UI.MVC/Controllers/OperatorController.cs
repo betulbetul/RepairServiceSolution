@@ -116,14 +116,15 @@ namespace RepairService.UI.MVC.Controllers
                 var tumServisler = new ServisKaydiRepo().GetAll().ToList();
                 var tumTeknisyenler = new TeknisyenRepo().GetAll().ToList();
                 List<Teknisyen> bostakiTeknisyenler = tumTeknisyenler;
-                for (int i = 0; i < tumTeknisyenler.Count; i++)
-                {
+
+                    for (int i = 0; i < tumTeknisyenler.Count; i++)
+                    {
                     for (int k = 0; k < tumServisler.Count; k++)
                     {
                         if (tumServisler[k].TeknisyenTCNo == tumTeknisyenler[i].TcNo)
                         {
-                            if (tumServisler[k].Durumu != Entity.Enums.ArizaDurum.Cozuldu)
-                                bostakiTeknisyenler.Remove(tumTeknisyenler[i]);
+                            if (tumServisler[k].Durumu != Entity.Enums.ArizaDurum.Cozuldu && tumTeknisyenler[i].ServisKaydiList.Count >= 3)
+                                bostakiTeknisyenler.Remove(tumTeknisyenler[i]); break;
 
                         }
                     }

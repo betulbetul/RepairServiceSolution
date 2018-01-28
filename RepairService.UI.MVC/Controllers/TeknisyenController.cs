@@ -82,15 +82,26 @@ namespace RepairService.UI.MVC.Controllers
             dosyalar.ForEach(x => model.FotoUrList.Add($"{x.DosyaYolu}"));
             var aciklamalar = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == id).ToList();
             ViewBag.Aciklamalar = aciklamalar;
+            //Enum
+            var durumList = Enum.GetValues(typeof(ArizaDurum)).Cast<ArizaDurum>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).Where(x=> Convert.ToInt32(x.Value) > Convert.ToInt32(servisKaydi.Durumu)).ToList();
+
+           
+            ViewBag.DurumList = durumList;
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult TeknisyenServisDetayIslemi(ServisKaydiViewModel gelenModel)
         {
             ServisKaydiRepo repoServisKaydi = new ServisKaydiRepo();
             var servisKaydi = repoServisKaydi.GetAll().Where(x => gelenModel.ServisId == x.Id).FirstOrDefault();
             servisKaydi.Fiyat = gelenModel.Fiyat;
-            if (servisKaydi.Fiyat > 0)
+            servisKaydi.Durumu = gelenModel.Durumu;
+            if (servisKaydi.Fiyat > 0 && servisKaydi.Durumu != ArizaDurum.musteriOnayiBekleniyor)
             {
                 servisKaydi.Durumu = Entity.Enums.ArizaDurum.musteriOnayiBekleniyor;
                 repoServisKaydi.Update();

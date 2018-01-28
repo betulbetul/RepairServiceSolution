@@ -8,6 +8,7 @@
 
     @using (Html.BeginForm("TeknisyenServisDetayIslemi", "Teknisyen", FormMethod.Post, new { @class = "from-horizontal" }))
     {
+        @Html.AntiForgeryToken()
         <div class="row">
             <!-- Tab v1 -->
             <div class="tabs">
@@ -36,6 +37,7 @@
                                 <h5 class="text-danger"> <b>Marka: </b> <span style="color:black;"> @Model.CihazMarka</span></h5> <br />
                                 <h5 class="text-danger"> <b>Model: </b> <span style="color:black;"> @Model.CihazModel</span></h5> <br />
                                 <h5 class="text-danger"> <b>Müşteri Açıklaması: </b> <span style="color:black;"> @Model.musteriArizaTanimi</span></h5> <br />
+                                <h5 class="text-danger"> <b>Durum: </b> <span style="color:black;"> @Model.Durumu</span></h5> <br />
 
                                 @if (Model.Fiyat > 0)
                                 {
@@ -118,8 +120,7 @@
                         <label>Servis Ücreti:</label> <br />
                         @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" }) <br /> <br />
                         @Html.HiddenFor(x => x.ServisId)
-                        @Html.HiddenFor(x => x.Durumu)
-                        @Html.DropDownList("Arıza Durumu", EnumHelper.GetSelectList(typeof(ArizaDurum)), "Arıza Durumu Seçiniz...", new { @class = "form-control" })   <br />
+                        @Html.DropDownListFor(x=>x.Durumu, (List<SelectListItem>)ViewBag.durumList, "Arıza Durumu Seçiniz...", new { @class = "form-control" })   <br />
                         <button type="submit" id="btnKaydet" class="btn btn-blue">KAYDET</button>
                     </div>
                 </div>
