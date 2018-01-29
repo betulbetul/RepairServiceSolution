@@ -101,17 +101,22 @@ namespace RepairService.UI.MVC.Controllers
             var servisKaydi = repoServisKaydi.GetAll().Where(x => gelenModel.ServisId == x.Id).FirstOrDefault();
             servisKaydi.Fiyat = gelenModel.Fiyat;
             servisKaydi.Durumu = gelenModel.Durumu;
-            if (servisKaydi.Fiyat > 0 && servisKaydi.Durumu != ArizaDurum.MusteriOnayiBekleniyor)
+            repoServisKaydi.Update();
+            if (servisKaydi.Fiyat > 0 && servisKaydi.Durumu == ArizaDurum.Teknisyene_Aktarildi)
             {
                 servisKaydi.Durumu = Entity.Enums.ArizaDurum.MusteriOnayiBekleniyor;
                 repoServisKaydi.Update();
             }
-            //işlemi ilişkili tabloya kaydet
-            ServisKaydiIslem islem = new ServisKaydiIslem();
-            islem.ServisId = servisKaydi.Id;
-            islem.Aciklama = gelenModel.TeknisyenAciklamasi;
-            islem.EklenmeTarihi = DateTime.Now;
-            new ServisKaydiIslemRepo().Insert(islem);
+            if(gelenModel.TeknisyenAciklamasi!=null)
+            {
+                //işlemi ilişkili tabloya kaydet
+                ServisKaydiIslem islem = new ServisKaydiIslem();
+                islem.ServisId = servisKaydi.Id;
+                islem.Aciklama = gelenModel.TeknisyenAciklamasi;
+                islem.EklenmeTarihi = DateTime.Now;
+                new ServisKaydiIslemRepo().Insert(islem);
+            }
+          
             ViewBag.servisNumarasi = servisKaydi.ServisNumarasi;
             //Modeli doldur ve geri gönder
             ServisKaydiViewModel model = new ServisKaydiViewModel()
@@ -141,6 +146,14 @@ namespace RepairService.UI.MVC.Controllers
             dosyalar.ForEach(x => model.FotoUrList.Add($"{x.DosyaYolu}"));
             var aciklamalar = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == gelenModel.ServisId).ToList();
             ViewBag.Aciklamalar = aciklamalar;
+            //Enum
+            var durumList = Enum.GetValues(typeof(ArizaDurum)).Cast<ArizaDurum>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).Where(x => Convert.ToInt32(x.Value) > Convert.ToInt32(servisKaydi.Durumu)).ToList();
+
+            ViewBag.DurumList = durumList;
             return View(model);
         }
 

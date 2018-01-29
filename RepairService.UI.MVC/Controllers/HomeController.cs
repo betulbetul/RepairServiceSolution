@@ -259,8 +259,21 @@ namespace RepairService.UI.MVC.Controllers
             ServisKaydiRepo repoServis = new ServisKaydiRepo();
             var servis = repoServis.GetAll().FirstOrDefault(x => x.Id == id);
             servis.Durumu = Entity.Enums.ArizaDurum.Musteri_Onayladi;
+            servis.MusteriUcretiOnayladiMi = true;
             repoServis.Update();
             return RedirectToAction("MusteriServisDetay");
+
+        }
+
+        public ActionResult MusteriServisIptal(int? id)
+        {
+            if (id == null || id == 0)
+                return RedirectToAction("MusteriServisDetay");
+            ServisKaydiRepo repoServis = new ServisKaydiRepo();
+            var servis = repoServis.GetAll().FirstOrDefault(x => x.Id == id);
+            servis.Durumu = Entity.Enums.ArizaDurum.Iptal_Edildi;
+            repoServis.Update();
+            return RedirectToAction("MusteriServisKayitlari");
 
         }
     }

@@ -43,14 +43,14 @@
             <a data-toggle="collapse" data-parent="#sidebar-nav" href="#collapse-icons">Servis Kayıtları</a>
             <ul id="collapse-icons" class="collapse">
                 <li>
-                    <span class="badge badge-u">@Model.Count(x => x.TeknisyenTCNo==TempData["TeknisyenTCNo"].ToString())</span> 
+                    <span class="badge badge-u">@Model.Count(x => x.TeknisyenTCNo == TempData["TeknisyenTCNo"].ToString())</span>
                     <a href="@Url.Action("TeknisyeninServisleri","Teknisyen")">
                         <i class="fa fa-chevron-circle-right"></i> @TempData["Teknisyen"] Servisleri
                     </a>
                 </li>
 
                 <li>
-                    <span class="badge badge-u">@Model.Count(x => x.Durumu != ArizaDurum.Cozuldu || x.Durumu != ArizaDurum.Onay_Bekliyor)</span>
+                    <span class="badge badge-u">@Model.Count(x => x.Durumu != ArizaDurum.Cozuldu && x.Durumu != ArizaDurum.Onay_Bekliyor && x.Durumu != ArizaDurum.Iptal_Edildi)</span>
                     <a href="features-icons-social.html">
                         <i class="fa fa-chevron-circle-right"></i>Çözüm Bekleyen Kayıtlar
                     </a>
@@ -62,6 +62,14 @@
                         <i class="fa fa-chevron-circle-right"></i>Çözümlenen Kayıtlar
                     </a>
                 </li>
+                <li>
+                    <span class="badge badge-u">@Model.Count(x => x.Durumu == ArizaDurum.Iptal_Edildi)</span>
+
+                    <a href="features-icons-glyphicons.html">
+                        <i class="fa fa-chevron-circle-right"></i>İptal Edilen Kayıtlar
+                    </a>
+                </li>
+
             </ul>
         </li>
         <!-- End Icons -->
