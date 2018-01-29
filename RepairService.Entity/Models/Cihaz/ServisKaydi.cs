@@ -51,8 +51,7 @@ namespace RepairService.Entity.Models.Cihaz
 
         public virtual List<ServisKaydiIslem> ArizaKaydiIslemList { get; set; } = new List<ServisKaydiIslem>();
         public virtual List<Dosya> DosyaList { get; set; } = new List<Dosya>();
-        [ForeignKey("FaturaId")]
-        public virtual Fatura Fatura { get; set; }
+        public virtual List<Fatura> FaturaList { get; set; } = new List<Fatura>();
 
     }
 

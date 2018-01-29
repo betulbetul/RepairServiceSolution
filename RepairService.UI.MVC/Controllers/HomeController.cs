@@ -291,7 +291,16 @@ namespace RepairService.UI.MVC.Controllers
             if (id == null || id == 0)
                 return RedirectToAction("MusteriServisDetay");
             var fatura = new FaturaRepo().GetAll().FirstOrDefault(x => x.Id == id);
-            return new ActionAsPdf("Index", fatura); // Buraya bir View gelecek!
+            //return new ActionAsPdf("ServisFatura",fatura); 
+            return View(fatura);
+        }
+        public ActionAsPdf Fatura(int? id)
+        {
+            if (id == null || id == 0)
+                return new ActionAsPdf("ServisFatura", new Fatura());
+            var fatura = new FaturaRepo().GetAll().FirstOrDefault(x => x.Id == id);
+            return new ActionAsPdf("ServisFatura", fatura);
+
         }
     }
 }

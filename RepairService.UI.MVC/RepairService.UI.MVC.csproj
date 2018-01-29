@@ -432,6 +432,7 @@
     <Content Include="Views\Admin\TumOperatorler.cshtml" />
     <Content Include="Views\Admin\TumTeknisyenler.cshtml" />
     <Content Include="Views\Admin\Istatistikler.cshtml" />
+    <Content Include="Views\Home\ServisFatura.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

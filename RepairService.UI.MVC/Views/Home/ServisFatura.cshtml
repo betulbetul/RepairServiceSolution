@@ -1,0 +1,43 @@
+﻿@model Fatura
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ServisFatura</title>
+</head>
+<body>
+    <div class="row margin-vert-60"> 
+        <div class="row">
+            <img src="~/assets/img/logo.png"/>
+        </div>
+        <div class="row">
+            <div class="col-md-7"><h4>Smart TV Teknik Servis Fatura</h4></div>
+           <div class="col-md-5">Tarih: @Model.EklenmeTarihi</div>
+        </div>
+        <div class="row">
+            <div class="col-md-9 text-center">
+                <table>
+                   <thead>
+                       <tr>
+                           <th> Cihaz </th>
+                       </tr>
+                   </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @(Model.ServisKaydi.CihazModel.ModelAdi + " / " + Model.ServisKaydi.CihazModel.MarkaAdi)
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

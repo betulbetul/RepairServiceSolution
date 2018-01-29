@@ -15,6 +15,6 @@ namespace RepairService.Entity.Models.Cihaz
         [Required]
         public decimal Tutar { get; set; } = 0m;
         [ForeignKey("ServisID")]
-        public virtual List<ServisKaydi> ServisKaydiList { get; set; } = new List<ServisKaydi>();
+        public virtual ServisKaydi ServisKaydi { get; set; }
     }
 }
