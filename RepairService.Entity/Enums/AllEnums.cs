@@ -18,14 +18,15 @@ namespace RepairService.Entity.Enums
 
     public enum ArizaDurum
     {
-        onayBekliyor = 0, //Yeni arıza kaydı açılmış
-        operatoreAktarildi = 1, // Operator üzerine aldı.
-        teknisyeneAktarildi = 2, // Teknisyen üzerine aldı ve inceliyor.
-        parcaBekliyor = 3, // parça bekliyor
-        teknisyenServiseCikti = 4, // Teknisyen yerinde servise gitti.
-        musteriOnayiBekleniyor = 5, // Müşteriye sunulan para teklifini müşteri kabul ediyor mu?
-        Cozuldu = 6,// Arıza çözümlendi
-        IptalEdildi=7 //Arıza İptal edildi.
+        Onay_Bekliyor = 0, //Yeni arıza kaydı açılmış
+        Operatore_Aktarildi = 1, // Operator üzerine aldı.
+        Teknisyene_Aktarildi = 2, // Teknisyen üzerine aldı ve inceliyor.
+        ParcaBekliyor = 3, // parça bekliyor
+        TeknisyenServiseCikti = 4, // Teknisyen yerinde servise gitti.
+        MusteriOnayiBekleniyor = 5, // Müşteriye sunulan para teklifini müşteri kabul ediyor mu?
+        Musteri_Onayladi=6,
+        Cozuldu = 7,// Arıza çözümlendi
+        Iptal_Edildi = 8 //Arıza İptal edildi.
 
     }
 

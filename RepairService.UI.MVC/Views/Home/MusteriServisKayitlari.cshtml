@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row margin-vert-30 col-md-12">
 
-        @using (Html.BeginForm("MusteriServisKayitlari","Home"))
+        @using (Html.BeginForm("MusteriServisKayitlari", "Home"))
         {
             <!-- Primary Blockquote -->
             <blockquote>
@@ -30,7 +30,7 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">Servis Numarası: @Model[i].ServisNumarasi</h3>
                             </div>
-                            <div class="panel-body" style="height:240px; width:290px;">
+                            <div class="panel-body" style="height:280px; width:290px;">
                                 <ul>
                                     <li>
                                         <h5>@Model[i].ArizaTuru.TurAdi bir arıza </h5>
@@ -38,10 +38,12 @@
                                     <li> <h5>Tür: @Model[i].CihazModel.CihazTuru.Tur </h5></li>
                                     <li> <h5> Marka:@Model[i].CihazModel.MarkaAdi  / Model: @Model[i].CihazModel.ModelAdi</h5></li>
                                     <li> <h5>@Model[i].EklenmeTarihi.ToShortDateString() tarihinde oluşturulmuştur. </h5></li>
-                                    @Html.ActionLink("DETAYLARA GİT", "MusteriServisDetay", "Home", new { id = Model[i].Id },new {@class="btn btn-blue",style="width:160px" }) <br />
-                                    
-                                    @Html.ActionLink("SERVİSİ İPTALET", "MusteriServisIptal", "Home", new { id = Model[i].Id }, new { @class = "btn btn-danger", style = "width:160px" })
-                               </ul>
+                                    <span>
+                                        @Html.ActionLink("DETAYLARA GİT", "MusteriServisDetay", "Home", new { id = Model[i].Id }, new { @class = "btn btn-blue", style = "width:160px" }) <br /> <br />
+                                        @Html.ActionLink("SERVİSİ İPTALET", "MusteriServisIptal", "Home", new { id = Model[i].Id }, new { @class = "btn btn-danger", style = "width:160px" })
+                                    </span>
+                                </ul>
+                               
                             </div>
                         </div>
                         <!-- End Info Panel -->

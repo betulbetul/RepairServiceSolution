@@ -43,11 +43,11 @@ namespace RepairService.UI.MVC.Controllers
         public ActionResult YeniServisKayitlari(int? page = 1)
         {
             //onay bekliyor olan servis kayıtları 
-            var yeniServisKayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.onayBekliyor)
+            var yeniServisKayitlari = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.Onay_Bekliyor)
                 .Skip((page.Value < 1 ? 1 : page.Value - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
-            var total = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.onayBekliyor).Count();
+            var total = new ServisKaydiRepo().GetAll().Where(x => x.Durumu == Entity.Enums.ArizaDurum.Onay_Bekliyor).Count();
             ViewBag.ToplamSayfa = (int)Math.Ceiling(total / (double)pageSize);
             ViewBag.Suan = page;
             return View(yeniServisKayitlari);
@@ -65,7 +65,7 @@ namespace RepairService.UI.MVC.Controllers
             var operaSonuc = new OperatorRepo().GetAll().FirstOrDefault(x => x.UserID == user.Id);
 
             servisKaydi.OperatorTCNo = operaSonuc.TcNo;
-            servisKaydi.Durumu = Entity.Enums.ArizaDurum.operatoreAktarildi;
+            servisKaydi.Durumu = Entity.Enums.ArizaDurum.Operatore_Aktarildi;
             new ServisKaydiRepo().Update();
             TempData["Sonuc"] = true;
             TempData["ServisNo"] = servisKaydi.ServisNumarasi;
@@ -157,7 +157,7 @@ namespace RepairService.UI.MVC.Controllers
             if (teknisyen == null)
                 return RedirectToAction("TeknisyeneServisKaydiGonder");
             servis.TeknisyenTCNo = teknisyen.TcNo;
-            servis.Durumu = Entity.Enums.ArizaDurum.teknisyeneAktarildi;
+            servis.Durumu = Entity.Enums.ArizaDurum.Teknisyene_Aktarildi;
             await repoServisKaydi.UpdateAsync();
 
             return RedirectToAction("TeknisyeneServisKaydiGonder", "Operator", new { servisNo = servis.ServisNumarasi, tekUser = teknisyen.ApplicationUser.UserName });

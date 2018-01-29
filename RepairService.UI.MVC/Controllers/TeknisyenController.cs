@@ -87,9 +87,9 @@ namespace RepairService.UI.MVC.Controllers
             {
                 Text = v.ToString(),
                 Value = ((int)v).ToString()
-            }).Where(x=> Convert.ToInt32(x.Value) > Convert.ToInt32(servisKaydi.Durumu)).ToList();
+            }).Where(x => Convert.ToInt32(x.Value) > Convert.ToInt32(servisKaydi.Durumu)).ToList();
 
-           
+
             ViewBag.DurumList = durumList;
             return View(model);
         }
@@ -101,9 +101,9 @@ namespace RepairService.UI.MVC.Controllers
             var servisKaydi = repoServisKaydi.GetAll().Where(x => gelenModel.ServisId == x.Id).FirstOrDefault();
             servisKaydi.Fiyat = gelenModel.Fiyat;
             servisKaydi.Durumu = gelenModel.Durumu;
-            if (servisKaydi.Fiyat > 0 && servisKaydi.Durumu != ArizaDurum.musteriOnayiBekleniyor)
+            if (servisKaydi.Fiyat > 0 && servisKaydi.Durumu != ArizaDurum.MusteriOnayiBekleniyor)
             {
-                servisKaydi.Durumu = Entity.Enums.ArizaDurum.musteriOnayiBekleniyor;
+                servisKaydi.Durumu = Entity.Enums.ArizaDurum.MusteriOnayiBekleniyor;
                 repoServisKaydi.Update();
             }
             //işlemi ilişkili tabloya kaydet
@@ -142,6 +142,17 @@ namespace RepairService.UI.MVC.Controllers
             var aciklamalar = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == gelenModel.ServisId).ToList();
             ViewBag.Aciklamalar = aciklamalar;
             return View(model);
+        }
+
+        public ActionResult AciklamaSil(int? islemID)
+        {
+            if (islemID == null || islemID == 0)
+                return RedirectToAction("TeknisyenServisDetayIslemi");
+            ServisKaydiIslemRepo repoServisIslem = new ServisKaydiIslemRepo();
+            var servisDetayIslem = repoServisIslem.GetAll().FirstOrDefault(x => x.Id == islemID);
+            repoServisIslem.Delete(servisDetayIslem);
+            //Fatura Oluşacak!
+            return RedirectToAction("TeknisyenServisDetayIslemi", new { @class = servisDetayIslem.ServisId });
         }
     }
 

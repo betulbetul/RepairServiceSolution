@@ -1,92 +1,92 @@
 ﻿@using RepairService.Entity.Enums
-    @model ServisKaydiViewModel
-    @{
-        ViewBag.Title = "TeknisyenServisDetayIslemi";
-        Layout = "~/Views/Shared/_LayoutPageTeknisyen.cshtml";
-    }
+@model ServisKaydiViewModel
+@{
+    ViewBag.Title = "TeknisyenServisDetayIslemi";
+    Layout = "~/Views/Shared/_LayoutPageTeknisyen.cshtml";
+}
 
 
-    @using (Html.BeginForm("TeknisyenServisDetayIslemi", "Teknisyen", FormMethod.Post, new { @class = "from-horizontal" }))
-    {
-        @Html.AntiForgeryToken()
-        <div class="row">
-            <!-- Tab v1 -->
-            <div class="tabs">
-                <ul class="nav nav-tabs">
-                    <li class="active">
-                        <a href="#sample-1a" data-toggle="tab">Bilgiler</a>
-                    </li>
-                    <li>
-                        <a href="#sample-1b" data-toggle="tab">Fotoğraflar</a>
-                    </li>
-                    <li>
-                        <a href="#sample-1d" data-toggle="tab">Adres Bilgisi</a>
-                    </li>
-                    <li>
-                        <a href="#sample-1e" data-toggle="tab">Fatura İşlemi</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade in active" id="sample-1a">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h5 class="text-danger"> <b>Servis Numarası: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
-                                <h5 class="text-danger"> <b>Servis ID: </b> <span style="color:black;"> @Model.ServisId</span></h5> <br />
-                                <h5 class="text-danger"> <b>Arıza Türü: </b> <span style="color:black;"> @Model.ArizaTurAdi</span></h5> <br />
-                                <h5 class="text-danger"> <b>Cihaz Türü: </b> <span style="color:black;"> @Model.CihazTuru</span></h5> <br />
-                                <h5 class="text-danger"> <b>Marka: </b> <span style="color:black;"> @Model.CihazMarka</span></h5> <br />
-                                <h5 class="text-danger"> <b>Model: </b> <span style="color:black;"> @Model.CihazModel</span></h5> <br />
-                                <h5 class="text-danger"> <b>Müşteri Açıklaması: </b> <span style="color:black;"> @Model.musteriArizaTanimi</span></h5> <br />
-                                <h5 class="text-danger"> <b>Durum: </b> <span style="color:black;"> @Model.Durumu</span></h5> <br />
+@using (Html.BeginForm("TeknisyenServisDetayIslemi", "Teknisyen", FormMethod.Post, new { @class = "from-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <!-- Tab v1 -->
+        <div class="tabs">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#sample-1a" data-toggle="tab">Bilgiler</a>
+                </li>
+                <li>
+                    <a href="#sample-1b" data-toggle="tab">Fotoğraflar</a>
+                </li>
+                <li>
+                    <a href="#sample-1d" data-toggle="tab">Adres Bilgisi</a>
+                </li>
+                <li>
+                    <a href="#sample-1e" data-toggle="tab">Fatura İşlemi</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="sample-1a">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 class="text-danger"> <b>Servis Numarası: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
+                            <h5 class="text-danger"> <b>Servis ID: </b> <span style="color:black;"> @Model.ServisId</span></h5> <br />
+                            <h5 class="text-danger"> <b>Arıza Türü: </b> <span style="color:black;"> @Model.ArizaTurAdi</span></h5> <br />
+                            <h5 class="text-danger"> <b>Cihaz Türü: </b> <span style="color:black;"> @Model.CihazTuru</span></h5> <br />
+                            <h5 class="text-danger"> <b>Marka: </b> <span style="color:black;"> @Model.CihazMarka</span></h5> <br />
+                            <h5 class="text-danger"> <b>Model: </b> <span style="color:black;"> @Model.CihazModel</span></h5> <br />
+                            <h5 class="text-danger"> <b>Müşteri Açıklaması: </b> <span style="color:black;"> @Model.musteriArizaTanimi</span></h5> <br />
+                            <h5 class="text-danger"> <b>Durum: </b> <span style="color:black;"> @Model.Durumu</span></h5> <br />
 
-                                @if (Model.Fiyat > 0)
-                                {
-                                    <h5 class="text-danger"> <b>Servis Ücreti: </b> <span style="color:black;"> @Model.Fiyat</span></h5> <br />
-                                }
-
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade in" id="sample-1b">
-                        <!-- Thumbs Gallery -->
-                        <div class="col-md-10">
-                            <h3 class="margin-bottom-10">Servis kaydına ait @Model.FotoUrList.Count() adet fotoğraf bulunuyor.</h3>
-                            <div class="thumbs-gallery">
-                                @foreach (string foto in Model.FotoUrList)
-                                {
-                                    <a class="thumbBox" rel="lightbox-thumbs" href="@foto">
-                                        <img src="@foto" alt="image1.jpg">
-                                        <i></i>
-                                    </a>
-                                }
-                            </div>
+                            @if (Model.Fiyat > 0)
+                            {
+                                <h5 class="text-danger"> <b>Servis Ücreti: </b> <span style="color:black;"> @Model.Fiyat</span></h5> <br />
+                            }
 
                         </div>
-
                         <div class="clearfix"></div>
                     </div>
-                    <div id="sample-1d" class="tab-pane fade in">
-                        <h5 class="text-danger"> <b>Müşteri Telefon: </b> <span style="color:black;"> @Model.Telefon</span></h5> <br />
-                        <h5 class="text-danger"> <b>Müşteri Açık Adres: </b> <span style="color:black;"> @Model.AcikAdres</span></h5> <br />
-
-                        <div id="map">
+                </div>
+                <div class="tab-pane fade in" id="sample-1b">
+                    <!-- Thumbs Gallery -->
+                    <div class="col-md-10">
+                        <h3 class="margin-bottom-10">Servis kaydına ait @Model.FotoUrList.Count() adet fotoğraf bulunuyor.</h3>
+                        <div class="thumbs-gallery">
+                            @foreach (string foto in Model.FotoUrList)
+                            {
+                                <a class="thumbBox" rel="lightbox-thumbs" href="@foto">
+                                    <img src="@foto" alt="image1.jpg">
+                                    <i></i>
+                                </a>
+                            }
                         </div>
-                        @Html.HiddenFor(x => x.KonumLat, new { id = "lat" })
-                        @Html.HiddenFor(x => x.KonumLng, new { id = "long" })
-
 
                     </div>
-                    <div id="sample-1e" class="tab-pane fade in">
-                        <h5 class="text-danger"> Fatura</h5> <br />
 
+                    <div class="clearfix"></div>
+                </div>
+                <div id="sample-1d" class="tab-pane fade in">
+                    <h5 class="text-danger"> <b>Müşteri Telefon: </b> <span style="color:black;"> @Model.Telefon</span></h5> <br />
+                    <h5 class="text-danger"> <b>Müşteri Açık Adres: </b> <span style="color:black;"> @Model.AcikAdres</span></h5> <br />
+
+                    <div id="map">
                     </div>
+                    @Html.HiddenFor(x => x.KonumLat, new { id = "lat" })
+                    @Html.HiddenFor(x => x.KonumLng, new { id = "long" })
+
 
                 </div>
-            </div>
-            <!-- End Tab v1 -->
+                <div id="sample-1e" class="tab-pane fade in">
+                    <h5 class="text-danger"> Fatura</h5> <br />
 
+                </div>
+
+            </div>
         </div>
+        <!-- End Tab v1 -->
+
+    </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
@@ -109,7 +109,7 @@
                                     <tr>
                                         <td>@aciklama.EklenmeTarihi.ToShortDateString()</td>
                                         <td> @aciklama.Aciklama</td>
-                                        <td>@Html.ActionLink("SİL", "AciklamaSil", "Teknisyen")</td>
+                                        <td>@Html.ActionLink("SİL", "AciklamaSil", "Teknisyen", new { islemID = aciklama.Id},null)</td>
                                     </tr>
                                 }
                             </tbody>
@@ -120,17 +120,17 @@
                         <label>Servis Ücreti:</label> <br />
                         @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" }) <br /> <br />
                         @Html.HiddenFor(x => x.ServisId)
-                        @Html.DropDownListFor(x=>x.Durumu, (List<SelectListItem>)ViewBag.durumList, "Arıza Durumu Seçiniz...", new { @class = "form-control" })   <br />
+                        @Html.DropDownListFor(x => x.Durumu, (List<SelectListItem>)ViewBag.durumList, "Arıza Durumu Seçiniz...", new { @class = "form-control" })   <br />
                         <button type="submit" id="btnKaydet" class="btn btn-blue">KAYDET</button>
                     </div>
                 </div>
             </div>
         </div>
-    }
+}
 
-    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSxepBaABo8eKxMxHGL_eRqVD90opEdQ" type="text/javascript"></script>
-    <script type="text/javascript">
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZSxepBaABo8eKxMxHGL_eRqVD90opEdQ" type="text/javascript"></script>
+<script type="text/javascript">
     var lat = $("#lat").val();
     var long = $("#long").val();
     console.log(lat);
@@ -154,4 +154,4 @@
     });
 
 
-    </script>
+</script>

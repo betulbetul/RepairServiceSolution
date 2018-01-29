@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row margin-vert-30 col-md-12">
 
-        @using (Html.BeginForm("MusteriServisDetay", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("MusteriServisDetay", "Home"))
             {
             <div class="col-md-12">
                 <div class="panel panel-default">
@@ -14,7 +14,6 @@
                         <p>
                             <h5 class="text-danger"> <b>Servis Numarası: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
                             <h5 class="text-danger"> <b>Eklenme Tarihi: </b> <span style="color:black;"> @Model.EklenmeTarihi.ToShortDateString()</span></h5> <br />
-                            <h5 class="text-danger"> <b>Servis ID: </b> <span style="color:black;"> @Model.ServisNumarasi</span></h5> <br />
                             <h5 class="text-danger"> <b>Arıza Türü: </b> <span style="color:black;"> @Model.ArizaTuru.TurAdi.ToString()</span></h5> <br />
                             <h5 class="text-danger"> <b>Cihaz Türü: </b> <span style="color:black;"> @Model.CihazModel.ModelAdi.ToString()</span></h5> <br />
                             <h5 class="text-danger"> <b>Marka: </b> <span style="color:black;"> @Model.CihazModel.MarkaAdi</span></h5> <br />
@@ -69,66 +68,66 @@
                             @if (ViewBag.ServisKaydiDetayList.Count > 0)
                             {
 
-                                <div class="panel panel-default panel-faq">
-                                    <div class="panel-heading">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-4">
-                                            <h4 class="panel-title">
-                                                Teknisyen Görüşleri
-                                                <span class="pull-right">
-                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                </span>
-                                            </h4>
-                                        </a>
-                                    </div>
-                                    <div id="faq-sub-4" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <ul>
-                                                @foreach (ServisKaydiIslem item in ViewBag.ServisKaydiDetayList)
+                            <div class="panel panel-default panel-faq">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-4">
+                                        <h4 class="panel-title">
+                                            Teknisyen Görüşleri
+                                            <span class="pull-right">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                            </span>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="faq-sub-4" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <ul>
+                                            @foreach (ServisKaydiIslem item in ViewBag.ServisKaydiDetayList)
                                                 {
-                                                    <li>@item.Aciklama</li>
+                                                <li>@item.Aciklama</li>
                                                 }
-                                            </ul>
-                                        </div>
-
+                                        </ul>
                                     </div>
 
                                 </div>
+
+                            </div>
                             }
                             <!-- End FAQ Item -->
                             <!-- Faq Item -->
                             @if (ViewBag.Dosyalar.Count > 0)
                             {
-                                <div class="panel panel-default panel-faq">
-                                    <div class="panel-heading">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-5">
-                                            <h4 class="panel-title">
-                                                Arıza Fotoğraf/ları
-                                                <span class="pull-right">
-                                                    <i class="glyphicon glyphicon-plus"></i>
-                                                </span>
-                                            </h4>
-                                        </a>
-                                    </div>
-                                    <div id="faq-sub-5" class="panel-collapse collapse">
-                                        <div class="panel-body">
-                                            <!-- Thumbs Gallery -->
-                                            <div class="col-md-10">
-                                                <h3 class="margin-bottom-10">Servis kaydına ait @ViewBag.Dosyalar.Count adet fotoğraf bulunuyor.</h3>
-                                                <div class="thumbs-gallery">
-                                                    @foreach (Dosya foto in ViewBag.Dosyalar)
+                            <div class="panel panel-default panel-faq">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#faq-sub-5">
+                                        <h4 class="panel-title">
+                                            Arıza Fotoğraf/ları
+                                            <span class="pull-right">
+                                                <i class="glyphicon glyphicon-plus"></i>
+                                            </span>
+                                        </h4>
+                                    </a>
+                                </div>
+                                <div id="faq-sub-5" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <!-- Thumbs Gallery -->
+                                        <div class="col-md-10">
+                                            <h3 class="margin-bottom-10">Servis kaydına ait @ViewBag.Dosyalar.Count adet fotoğraf bulunuyor.</h3>
+                                            <div class="thumbs-gallery">
+                                                @foreach (Dosya foto in ViewBag.Dosyalar)
                                                     {
-                                                        <a class="thumbBox" rel="lightbox-thumbs" href="@foto.DosyaYolu">
-                                                            <img src="@foto.DosyaYolu" alt="image1.jpg">
-                                                            <i></i>
-                                                        </a>
+                                                    <a class="thumbBox" rel="lightbox-thumbs" href="@foto.DosyaYolu">
+                                                        <img src="@foto.DosyaYolu" alt="image1.jpg">
+                                                        <i></i>
+                                                    </a>
                                                     }
-                                                </div>
-
                                             </div>
 
                                         </div>
+
                                     </div>
                                 </div>
+                            </div>
                             }
                             <!-- End FAQ Item -->
                         </div>
@@ -144,9 +143,9 @@
                     <h3 class="text-danger"> <b> Ücret: @Model.Fiyat lira </b></h3> <br />
                     @if (Model.Fiyat > 0)
                     {
-                        if (!Model.MusteriUcretiOnayladiMi)
+                        if (!Model.MusteriUcretiOnayladiMi && Model.Durumu!=RepairService.Entity.Enums.ArizaDurum.Musteri_Onayladi)
                         {
-                            <button class="btn-green btn btn-lg" value="@Model.MusteriUcretiOnayladiMi" name="musterOnay">ÜCRETİ ONAYLA</button> <br />
+                            @Html.ActionLink("ÜCRETİ ONAYLA","UcretOnay","Home",new {id=Model.Id },new { @class = "btn-green btn btn-lg" }) <br /> <br /> 
                             <span class="small text-justify">Ücret için onay verdiğiniz zaman faturanız oluşturulabilecek ve  ekibimiz en kısa süre içinde yerinde servis hizmetini gerçekleştirebilecektir.</span>
                         }
                         else if (Model.MusteriUcretiOnayladiMi)

@@ -89,7 +89,7 @@ namespace RepairService.UI.MVC.Controllers
                             CihazModelId = yeniCihazModel.Id,
                             MusteriArizaTanimi = model.musteriArizaTanimi,
                             MusteriUcretiOnayladiMi = false,
-                            Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
+                            Durumu = Entity.Enums.ArizaDurum.Onay_Bekliyor,
                             Fiyat = 0m,
                             EklenmeTarihi = DateTime.Now,
                             KonumLat = model.KonumLat,
@@ -119,7 +119,7 @@ namespace RepairService.UI.MVC.Controllers
                             MusteriTCNo = musteri.TcNo,
                             ArizaTuruId = arizaTuru.Id,
                             CihazModelId = cihazModel.Id,
-                            Durumu = Entity.Enums.ArizaDurum.onayBekliyor,
+                            Durumu = Entity.Enums.ArizaDurum.Onay_Bekliyor,
                             EklenmeTarihi = DateTime.Now,
                             MusteriArizaTanimi = model.musteriArizaTanimi,
                             MusteriUcretiOnayladiMi = false,
@@ -246,10 +246,22 @@ namespace RepairService.UI.MVC.Controllers
                 var serviskaydi = new ServisKaydiRepo().GetAll().FirstOrDefault(x => x.Id == id);
                 var serviskaydiDetayList = new ServisKaydiIslemRepo().GetAll().Where(x => x.ServisId == id).ToList();
                 ViewBag.ServisKaydiDetayList = serviskaydiDetayList;
-                var dosyalar = new DosyaRepo().GetAll().Where(x=> x.arizaId==id).ToList();
+                var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == id).ToList();
                 ViewBag.Dosyalar = dosyalar;
                 return View(serviskaydi);
             }
+        }
+
+        public ActionResult UcretOnay(int? id)
+        {
+            if (id == null || id == 0)
+                return RedirectToAction("MusteriServisDetay");
+            ServisKaydiRepo repoServis = new ServisKaydiRepo();
+            var servis = repoServis.GetAll().FirstOrDefault(x => x.Id == id);
+            servis.Durumu = Entity.Enums.ArizaDurum.Musteri_Onayladi;
+            repoServis.Update();
+            return RedirectToAction("MusteriServisDetay");
+
         }
     }
 }
