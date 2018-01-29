@@ -143,17 +143,20 @@
                     <h3 class="text-danger"> <b> Ücret: @Model.Fiyat lira </b></h3> <br />
                     @if (Model.Fiyat > 0)
                     {
-                        if (Model.Durumu==RepairService.Entity.Enums.ArizaDurum.MusteriOnayiBekleniyor && Model.MusteriUcretiOnayladiMi!=true)
+                        if (Model.Durumu == RepairService.Entity.Enums.ArizaDurum.MusteriOnayiBekleniyor && Model.MusteriUcretiOnayladiMi != true)
                         {
                             @Html.ActionLink("ÜCRETİ ONAYLA", "UcretOnay", "Home", new { id = Model.Id }, new { @class = "btn-green btn btn-lg" }) <br /> <br />
                             <span class="small text-justify">Ücret için onay verdiğiniz zaman faturanız oluşturulabilecek ve  ekibimiz en kısa süre içinde yerinde servis hizmetini gerçekleştirebilecektir.</span>
                         }
                         if (Model.MusteriUcretiOnayladiMi)
                         {
-                            <h4 class="text-info">MÜŞTERİ ÜCRETE ONAY VERMİŞTİR..</h4>
+                            <h4 class="text-info">MÜŞTERİ ÜCRETE ONAY VERMİŞTİR..</h4> <br />
+                        }
+                        if (Model.Durumu == RepairService.Entity.Enums.ArizaDurum.Cozuldu)
+                        {
+                            @Html.ActionLink("FATURA GÖRÜNTÜLE", "ServisFatura", "Home",new { id = ((Fatura)ViewBag.Fatura).Id }, new { @class = "btn btn-green" })
                         }
                     }
-
                 </div>
             </div>
 

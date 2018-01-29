@@ -95,7 +95,7 @@
                 @Html.TextAreaFor(x => x.TeknisyenAciklamasi, new { @class = "form-control" }) <br />
             </div>
             }
-            @if (ViewBag.Aciklamalar.Count ==0)
+            @if (ViewBag.Aciklamalar.Count ==0 && Model.Durumu == ArizaDurum.Iptal_Edildi && Model.Durumu == ArizaDurum.Cozuldu)
             {
                 <h4 class="text-info"> TEKNİSYEN AÇIKLAMASI BULUNMUYOR.</h4>
             }

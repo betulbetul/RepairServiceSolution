@@ -32,7 +32,7 @@ namespace RepairService.Entity.ViewModels
         public string musteriArizaTanimi { get; set; } //Müşteri kendisi yazacak
         public decimal Fiyat { get; set; } = 0m;
         public bool MusteriUcretiOnayladiMi { get; set; } = false;
-        public ArizaDurum Durumu { get; set; } = ArizaDurum.Onay_Bekliyor;
+        public ArizaDurum Durumu { get; set; }
         public List<string> FotoUrList { get; set; } = new List<string>();
         public List<HttpPostedFileBase> Dosyalar { get; set; } = new List<HttpPostedFileBase>();
 

@@ -87,7 +87,7 @@ namespace RepairService.UI.MVC.Controllers
             {
                 Text = v.ToString(),
                 Value = ((int)v).ToString()
-            }).Where(x => Convert.ToInt32(x.Value) > Convert.ToInt32(servisKaydi.Durumu)).ToList();
+            }).Where(x => Convert.ToInt32(x.Value) >= Convert.ToInt32(servisKaydi.Durumu)).ToList();
 
 
             ViewBag.DurumList = durumList;
@@ -151,7 +151,7 @@ namespace RepairService.UI.MVC.Controllers
             {
                 Text = v.ToString(),
                 Value = ((int)v).ToString()
-            }).Where(x => Convert.ToInt32(x.Value) > Convert.ToInt32(servisKaydi.Durumu)).ToList();
+            }).Where(x => Convert.ToInt32(x.Value) >= Convert.ToInt32(servisKaydi.Durumu)).ToList();
 
             ViewBag.DurumList = durumList;
             return View(model);

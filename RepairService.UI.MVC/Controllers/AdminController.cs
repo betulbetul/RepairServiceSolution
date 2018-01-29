@@ -240,7 +240,7 @@ namespace RepairService.UI.MVC.Controllers
 
         }
 
-        public ActionResult TumOperatorler(int? page=1)
+        public ActionResult TumOperatorler(int? page = 1)
         {
             OperatorRepo repoOperator = new OperatorRepo();
             var operatorler = repoOperator.GetAll()
@@ -253,7 +253,7 @@ namespace RepairService.UI.MVC.Controllers
             ViewBag.Suan = page;
             return View(operatorler);
         }
-        public ActionResult TumTeknisyenler(int? page=1)
+        public ActionResult TumTeknisyenler(int? page = 1)
         {
             TeknisyenRepo repoTeknisyen = new TeknisyenRepo();
             var teknisyenler = repoTeknisyen.GetAll()
@@ -266,6 +266,17 @@ namespace RepairService.UI.MVC.Controllers
             ViewBag.Suan = page;
             return View(teknisyenler);
 
+        }
+        public ActionResult Istatistikler()
+        {
+            ServisKaydiRepo repoServisKaydi = new ServisKaydiRepo();
+            //Çözümlenen kayıt oranı
+            var successServisler = repoServisKaydi.GetAll().Where(x=>x.Durumu==ArizaDurum.Cozuldu);
+            var servisToplamSayi = repoServisKaydi.GetAll().Count;
+            var successToplamSayi = successServisler.Count();
+            double successOran = (successToplamSayi * 100) / successToplamSayi;
+            ViewBag.SuccessOran = successOran;
+            return View();
         }
     }
 

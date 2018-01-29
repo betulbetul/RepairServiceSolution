@@ -6,6 +6,7 @@ using RepairService.Entity.IdentityModels;
 using RepairService.Entity.Models;
 using RepairService.Entity.Models.Cihaz;
 using RepairService.Entity.ViewModels;
+using Rotativa;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -248,6 +249,8 @@ namespace RepairService.UI.MVC.Controllers
                 ViewBag.ServisKaydiDetayList = serviskaydiDetayList;
                 var dosyalar = new DosyaRepo().GetAll().Where(x => x.arizaId == id).ToList();
                 ViewBag.Dosyalar = dosyalar;
+                var fatura = new FaturaRepo().GetAll().FirstOrDefault(x => x.ServisID == serviskaydi.Id);
+                ViewBag.Fatura = fatura;
                 return View(serviskaydi);
             }
         }
@@ -261,6 +264,13 @@ namespace RepairService.UI.MVC.Controllers
             servis.Durumu = Entity.Enums.ArizaDurum.Musteri_Onayladi;
             servis.MusteriUcretiOnayladiMi = true;
             repoServis.Update();
+            //Fatura Oluştur!
+            new FaturaRepo().Insert(new Fatura()
+            {
+                EklenmeTarihi = DateTime.Now,
+                ServisID = servis.Id,
+                Tutar = servis.Fiyat
+            });
             return RedirectToAction("MusteriServisDetay");
 
         }
@@ -275,6 +285,13 @@ namespace RepairService.UI.MVC.Controllers
             repoServis.Update();
             return RedirectToAction("MusteriServisKayitlari");
 
+        }
+        public ActionResult ServisFatura(int? id)
+        {
+            if (id == null || id == 0)
+                return RedirectToAction("MusteriServisDetay");
+            var fatura = new FaturaRepo().GetAll().FirstOrDefault(x => x.Id == id);
+            return new ActionAsPdf("Index", fatura); // Buraya bir View gelecek!
         }
     }
 }

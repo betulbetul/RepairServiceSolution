@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Istatistikler";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h3 class="progress-label">
+    Bootstrap
+    <span class="pull-right">@ViewBag.SuccessOran</span>
+</h3>
+<div class="progress progress-xxs">
+    <div class="progress-bar progress-bar-blue"
+         role="progressbar" aria-valuenow=@ViewBag.SuccessOran
+         aria-valuemin="0" aria-valuemax="100"
+         style="width: @ViewBag.SuccessOran%">
+    </div>
+</div>
