@@ -67,6 +67,11 @@ namespace RepairService.UI.MVC.Controllers
             return $"SRVS" + sayi;
         }
 
+        [NonAction]
+        public string AnketIcerigiOlustur()
+        {
+            return string.Empty;
+        }
     }
 
 }

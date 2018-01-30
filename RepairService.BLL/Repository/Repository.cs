@@ -24,7 +24,8 @@ namespace RepairService.BLL.Repository
     public class DosyaRepo : RepositoryBase<Dosya, long> { }
     public class FaturaRepo : RepositoryBase<Fatura, int> { }
 
-    
-
+    public class AnketRepo : RepositoryBase<Anket, int> { }
+    public class AnketSoruRepo : RepositoryBase<AnketSoru, int> { }
+    public class AnketSorusununCevapRepo : RepositoryBase<AnketSorusununCevap, int> { }
 
 }

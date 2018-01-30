@@ -26,6 +26,7 @@ namespace RepairService.Entity.IdentityModels
         public virtual List<Operator> OperatorList { get; set; } = new List<Operator>();
         public virtual List<Teknisyen> TeknisyenList { get; set; } = new List<Teknisyen>();
         public virtual List<Pasif> PasifList { get; set; } = new List<Pasif>();
+        public virtual List<Anket> AnketList { get; set; } = new List<Anket>();
     }
 }
 

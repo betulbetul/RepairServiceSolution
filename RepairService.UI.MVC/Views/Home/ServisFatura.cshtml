@@ -11,30 +11,37 @@
     <title>ServisFatura</title>
 </head>
 <body>
-    <div class="row margin-vert-60"> 
+    <div class="row" style="margin:100px">
         <div class="row">
-            <img src="~/assets/img/logo.png"/>
+            <img src="~/assets/img/logo.png" style="width:250px; height:85px;" />
         </div>
         <div class="row">
             <div class="col-md-7"><h4>Smart TV Teknik Servis Fatura</h4></div>
-           <div class="col-md-5">Tarih: @Model.EklenmeTarihi</div>
+            <div class="col-md-5">Tarih: @Model.EklenmeTarihi</div>
         </div>
         <div class="row">
             <div class="col-md-9 text-center">
+                <h4> Fatura ID: @Model.Id</h4>
                 <table>
-                   <thead>
-                       <tr>
-                           <th> Cihaz </th>
-                       </tr>
-                   </thead>
+                    <thead>
+                        <tr>
+                            <th> Cihaz Bilgileri </th>
+                            <th> Tutar </th>
+                        </tr>
+                    </thead>
                     <tbody>
                         <tr>
                             <td>
                                 @(Model.ServisKaydi.CihazModel.ModelAdi + " / " + Model.ServisKaydi.CihazModel.MarkaAdi)
-
                             </td>
+                            <td>@Model.Tutar</td>
                         </tr>
-                    </tbody>
+                    </tbody>7
+                    <tfoot>
+                        <tr>
+                            <td> Servisin oluşturulduğu Tarih: @Model.ServisKaydi.EklenmeTarihi.ToShortDateString()</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

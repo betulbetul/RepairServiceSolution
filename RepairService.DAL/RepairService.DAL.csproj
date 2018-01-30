@@ -117,6 +117,10 @@
     <Compile Include="Migrations\201801291459472_bb1.Designer.cs">
       <DependentUpon>201801291459472_bb1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801300823399_ankt.cs" />
+    <Compile Include="Migrations\201801300823399_ankt.Designer.cs">
+      <DependentUpon>201801300823399_ankt.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801291459472_bb1.resx">
       <DependentUpon>201801291459472_bb1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801300823399_ankt.resx">
+      <DependentUpon>201801300823399_ankt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
