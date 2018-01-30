@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 namespace RepairService.Entity.Models
 {
     [Table("AnketSorulari")]
-    public class AnketSoru
+    public class AnketSoru : Temel<int>
     {
-        [Key]
-        [Column(Order = 1)]
-        public int id { get; set; }
         public int AnketID { get; set; } //FK
         public string SoruMetni { get; set; }
 

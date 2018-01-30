@@ -1,0 +1,18 @@
+﻿@model Anket
+@{
+    ViewBag.Title = "AnketEkle";
+    Layout = "~/Views/Shared/_LayoutPageBase.cshtml";
+}
+
+<div id="content">
+    <div class="container">
+        <div class="row margin-vert-30">
+            <h5>Yeni Bir Anket Ekle</h5>
+            @using (Html.BeginForm("AnketEkle", "Anket", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.Label("Anket Başlığı Giriniz") <br />
+               
+            }
+        </div>
+    </div>
+</div>

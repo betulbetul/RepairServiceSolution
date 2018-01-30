@@ -27,5 +27,5 @@ namespace RepairService.BLL.Repository
     public class AnketRepo : RepositoryBase<Anket, int> { }
     public class AnketSoruRepo : RepositoryBase<AnketSoru, int> { }
     public class AnketSorusununCevapRepo : RepositoryBase<AnketSorusununCevap, int> { }
-
+    public class AnketMusteriRepo : RepositoryBase<AnketMusteri, int> { }
 }

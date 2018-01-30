@@ -106,6 +106,7 @@
     <Compile Include="IdentityModels\ApplicationRole.cs" />
     <Compile Include="IdentityModels\ApplicationUser.cs" />
     <Compile Include="Models\Anket.cs" />
+    <Compile Include="Models\AnketMusteri.cs" />
     <Compile Include="Models\AnketSoru.cs" />
     <Compile Include="Models\AnketSorusununCevap.cs" />
     <Compile Include="Models\Cihaz\ArizaTuru.cs" />

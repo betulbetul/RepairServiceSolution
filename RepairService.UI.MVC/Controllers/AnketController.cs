@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RepairService.Entity.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,10 +14,17 @@ namespace RepairService.UI.MVC.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult AnketGonder()
+
+        public ActionResult AnketEkle()
         {
-            return View();
+            Anket model = new Anket();
+            return View(model);
         }
+        [HttpPost]
+        public ActionResult AnketEkle(Anket model)
+        {
+            return View(model);
+        }
+
     }
 }

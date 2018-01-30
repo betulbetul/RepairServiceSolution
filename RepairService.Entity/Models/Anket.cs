@@ -13,10 +13,6 @@ namespace RepairService.Entity.Models
     public class Anket : Temel<int>
     {
         public string AnketBaslik { get; set; }
-        public string MusteriUserID { get; set; }
-
-        [ForeignKey("MusteriUserID")]
-        public virtual ApplicationUser ApplicationUser { get; set; }
         //Virtual Soru Listesi
         public virtual List<AnketSoru> AnketSoruList { get; set; }
     }

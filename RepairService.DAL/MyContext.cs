@@ -33,8 +33,8 @@ namespace RepairService.DAL
         public virtual DbSet<ServisKaydiIslem> ServisKaydiIslemleri { get; set; }
         public virtual DbSet<Fatura> Faturalar { get; set; }
         public virtual DbSet<Anket> Anketler { get; set; }
+        public virtual DbSet<AnketMusteri> AnketMusteriler { get; set; }
         public virtual DbSet<AnketSoru> AnketSorulari { get; set; }
-
         public virtual DbSet<AnketSorusununCevap> AnketSorusununCevaplari { get; set; }
 
     }

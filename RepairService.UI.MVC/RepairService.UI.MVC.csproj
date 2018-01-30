@@ -434,7 +434,7 @@
     <Content Include="Views\Admin\TumTeknisyenler.cshtml" />
     <Content Include="Views\Admin\Istatistikler.cshtml" />
     <Content Include="Views\Home\ServisFatura.cshtml" />
-    <Content Include="Views\Anket\AnketGonder.cshtml" />
+    <Content Include="Views\Anket\AnketEkle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
