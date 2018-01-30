@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "Anketler";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<div>
+    Yeni anket ekle
+    @Html.ActionLink("EKLE", "AnketEkle", "Anket", null, new { @class = "btn btn-blue" })
+</div>

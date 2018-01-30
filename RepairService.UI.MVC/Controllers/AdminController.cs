@@ -271,11 +271,17 @@ namespace RepairService.UI.MVC.Controllers
         {
             ServisKaydiRepo repoServisKaydi = new ServisKaydiRepo();
             //Çözümlenen kayıt oranı
-            var successServisler = repoServisKaydi.GetAll().Where(x=>x.Durumu==ArizaDurum.Cozuldu);
+            var successServisler = repoServisKaydi.GetAll().Where(x => x.Durumu == ArizaDurum.Cozuldu);
             var servisToplamSayi = repoServisKaydi.GetAll().Count;
             var successToplamSayi = successServisler.Count();
             double successOran = (successToplamSayi * 100) / successToplamSayi;
             ViewBag.SuccessOran = successOran;
+            return View();
+        }
+
+        public ActionResult Anketler()
+        {
+            ViewBag.Anketler = new AnketRepo().GetAll().ToList();
             return View();
         }
     }

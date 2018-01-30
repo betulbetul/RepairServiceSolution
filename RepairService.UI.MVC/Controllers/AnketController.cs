@@ -1,4 +1,5 @@
-﻿using RepairService.Entity.Models;
+﻿using RepairService.BLL.Repository;
+using RepairService.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace RepairService.UI.MVC.Controllers
         public ActionResult AnketEkle()
         {
             Anket model = new Anket();
+            ViewBag.Anketler = new AnketRepo().GetAll().ToList();
             return View(model);
         }
         [HttpPost]
         public ActionResult AnketEkle(Anket model)
         {
+            ViewBag.Anketler = new AnketRepo().GetAll().ToList();
             return View(model);
         }
 

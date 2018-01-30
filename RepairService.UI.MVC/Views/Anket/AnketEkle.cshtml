@@ -5,14 +5,41 @@
 }
 
 <div id="content">
-    <div class="container">
-        <div class="row margin-vert-30">
-            <h5>Yeni Bir Anket Ekle</h5>
-            @using (Html.BeginForm("AnketEkle", "Anket", FormMethod.Post, new { @class = "form-horizontal" }))
+    <div class="container" style="background-color:papayawhip">
+        <div class="row">
+            <div class="col-md-7 margin-vert-30">
+                <h4> Anketler</h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Anket Başlık</td>
+                            <td>Soru Sayısı</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ int sayac = 0;}
+                        @foreach (Anket item in ViewBag.Anketler)
+                        {
+                            sayac++;
+                            <tr>
+                                <td>@sayac</td>
+                                <td>@item.AnketBaslik</td>
+                                <td>  @*@item.AnketSoruList.Count*@</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-5 margin-vert-30">
+                <h5>Yeni Bir Anket Ekle</h5>
+                @using (Html.BeginForm("AnketEkle", "Anket", FormMethod.Post, new { @class = "form-horizontal" }))
             {
-                @Html.Label("Anket Başlığı Giriniz") <br />
-               
-            }
+                    @Html.Label("Anket Başlığı Giriniz") <br />
+                    @Html.TextBoxFor(x => x.AnketBaslik, new { @class = "form-control" }) <br />
+                    <button type="submit" class="btn btn-blue">EKLE</button>
+                }
+            </div>
         </div>
     </div>
 </div>
