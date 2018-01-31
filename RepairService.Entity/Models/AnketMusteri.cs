@@ -12,6 +12,8 @@ namespace RepairService.Entity.Models
     [Table("AnketMusteriler")]
     public class AnketMusteri : AraTemel<int, string>
     {
+        [Index(IsUnique =true)]
+        public int servisID { get; set; } //FK DEĞİL!! Unique ile tekrar etmesi önlenecek!
         public DateTime AnketeKatilmaTarihi { get; set; }
         public int AnketSonucPuani { get; set; }
         [ForeignKey("Id1")]

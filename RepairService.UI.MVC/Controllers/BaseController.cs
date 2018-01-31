@@ -1,6 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using RepairService.BLL.Account;
+using RepairService.BLL.Repository;
+using RepairService.BLL.Settings;
+using RepairService.Entity.IdentityModels;
+using RepairService.Entity.Kisi;
+using RepairService.Entity.Models;
+using RepairService.Entity.Models.Cihaz;
+using RepairService.Entity.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -68,9 +78,22 @@ namespace RepairService.UI.MVC.Controllers
         }
 
         [NonAction]
-        public string AnketIcerigiOlustur()
+        public async Task AnketMailiGonder(int servisID, int anketID) //Müşteri kim servisten bulunur
         {
-            return string.Empty;
+            //servis
+            ServisKaydi servis = new ServisKaydiRepo().GetById(servisID);
+            //Anket 
+            Anket anket = new AnketRepo().GetById(anketID);
+            //mail
+            string siteUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Host +
+   (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+            await SiteSettings.SendMail(new MailModel()
+            {
+                To = servis.Musteri.ApplicationUser.Email,
+                Subject = $"Smart TV Teknik Servis - {servis.ServisNumarasi} ile ilgili {anket.AnketBaslik}",
+                Message=$"Sayın {servis.Musteri.ApplicationUser.Name+ " "+ servis.Musteri.ApplicationUser.Surname}, <br /> {servis.EklenmeTarihi + " tarihindeki " + "ServisNO: " + servis.ServisNumarasi } servisiniz çözüme ulaşmıştır. <br /> Servis ile ilgili bir ankete katılıp değerlendirmek için <b><a href='{siteUrl}/Anket/AnketeKatil?servisID={servisID}&anketID={anketID}'>BURAYA</a></b> tıklayınız."
+
+            });
         }
     }
 

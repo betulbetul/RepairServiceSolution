@@ -101,33 +101,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201801241612272_a1.cs" />
-    <Compile Include="Migrations\201801241612272_a1.Designer.cs">
-      <DependentUpon>201801241612272_a1.cs</DependentUpon>
+    <Compile Include="Migrations\201801311856402_s1.cs" />
+    <Compile Include="Migrations\201801311856402_s1.Designer.cs">
+      <DependentUpon>201801311856402_s1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201801250856226_b1.cs" />
-    <Compile Include="Migrations\201801250856226_b1.Designer.cs">
-      <DependentUpon>201801250856226_b1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801251640062_b2.cs" />
-    <Compile Include="Migrations\201801251640062_b2.Designer.cs">
-      <DependentUpon>201801251640062_b2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801291459472_bb1.cs" />
-    <Compile Include="Migrations\201801291459472_bb1.Designer.cs">
-      <DependentUpon>201801291459472_bb1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801300823399_ankt.cs" />
-    <Compile Include="Migrations\201801300823399_ankt.Designer.cs">
-      <DependentUpon>201801300823399_ankt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801300840532_ankt1.cs" />
-    <Compile Include="Migrations\201801300840532_ankt1.Designer.cs">
-      <DependentUpon>201801300840532_ankt1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201801300857562_ankt2.cs" />
-    <Compile Include="Migrations\201801300857562_ankt2.Designer.cs">
-      <DependentUpon>201801300857562_ankt2.cs</DependentUpon>
+    <Compile Include="Migrations\201801312048513_s2.cs" />
+    <Compile Include="Migrations\201801312048513_s2.Designer.cs">
+      <DependentUpon>201801312048513_s2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyContext.cs" />
@@ -145,33 +125,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201801241612272_a1.resx">
-      <DependentUpon>201801241612272_a1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801250856226_b1.resx">
-      <DependentUpon>201801250856226_b1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801251640062_b2.resx">
-      <DependentUpon>201801251640062_b2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801291459472_bb1.resx">
-      <DependentUpon>201801291459472_bb1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801300823399_ankt.resx">
-      <DependentUpon>201801300823399_ankt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801300840532_ankt1.resx">
-      <DependentUpon>201801300840532_ankt1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201801300857562_ankt2.resx">
-      <DependentUpon>201801300857562_ankt2.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
     <Content Include="Rotativa\wkhtmltoimage.exe" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201801311856402_s1.resx">
+      <DependentUpon>201801311856402_s1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801312048513_s2.resx">
+      <DependentUpon>201801312048513_s2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,6 +8,7 @@ using RepairService.Entity.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,7 +16,7 @@ namespace RepairService.UI.MVC.Controllers
 {
     // Sadece Teknisyen erişebilir. // 
     [Authorize(Roles = "TecnicalPerson")]
-    public class TeknisyenController : Controller
+    public class TeknisyenController : BaseController
     {
         const int pageSize = 24;
         // GET: Teknisyen
@@ -95,7 +96,7 @@ namespace RepairService.UI.MVC.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TeknisyenServisDetayIslemi(ServisKaydiViewModel gelenModel)
+        public async Task<ActionResult> TeknisyenServisDetayIslemi(ServisKaydiViewModel gelenModel)
         {
             ServisKaydiRepo repoServisKaydi = new ServisKaydiRepo();
             var servisKaydi = repoServisKaydi.GetAll().Where(x => gelenModel.ServisId == x.Id).FirstOrDefault();
@@ -107,7 +108,7 @@ namespace RepairService.UI.MVC.Controllers
                 servisKaydi.Durumu = Entity.Enums.ArizaDurum.MusteriOnayiBekleniyor;
                 repoServisKaydi.Update();
             }
-            if(gelenModel.TeknisyenAciklamasi!=null)
+            if (gelenModel.TeknisyenAciklamasi != null)
             {
                 //işlemi ilişkili tabloya kaydet
                 ServisKaydiIslem islem = new ServisKaydiIslem();
@@ -116,7 +117,7 @@ namespace RepairService.UI.MVC.Controllers
                 islem.EklenmeTarihi = DateTime.Now;
                 new ServisKaydiIslemRepo().Insert(islem);
             }
-          
+
             ViewBag.servisNumarasi = servisKaydi.ServisNumarasi;
             //Modeli doldur ve geri gönder
             ServisKaydiViewModel model = new ServisKaydiViewModel()
@@ -154,6 +155,11 @@ namespace RepairService.UI.MVC.Controllers
             }).Where(x => Convert.ToInt32(x.Value) >= Convert.ToInt32(servisKaydi.Durumu)).ToList();
 
             ViewBag.DurumList = durumList;
+            //Eğer arıza çözüldü ya da iptal edildiyse ANKET GÖNDER
+            if (servisKaydi.Durumu == ArizaDurum.Cozuldu || servisKaydi.Durumu == ArizaDurum.Iptal_Edildi)
+            {
+               await AnketMailiGonder(servisKaydi.Id, 1);
+            }
             return View(model);
         }
 
