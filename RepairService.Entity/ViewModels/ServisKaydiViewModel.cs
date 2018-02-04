@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using RepairService.Entity.Enums;
+using RepairService.Entity.Models.Cihaz;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,7 @@ namespace RepairService.Entity.ViewModels
         public string TeknisyenUserID { get; set; }
         public string ServisNumarasi { get; set; }
 
-        [StringLength(10,ErrorMessage ="Telefon numaranızı başında sıfır olmadan 10 haneli olacak şekilde yazınız.")] //216 666 66 66 // 536 666 66 66
+        [StringLength(10, ErrorMessage = "Telefon numaranızı başında sıfır olmadan 10 haneli olacak şekilde yazınız.")] //216 666 66 66 // 536 666 66 66
         public string Telefon { get; set; }
         public string AcikAdres { get; set; }
         public string CihazTuru { get; set; } //Tablodan gelecek (Smart Tv ya da kumanda)  
@@ -42,6 +43,6 @@ namespace RepairService.Entity.ViewModels
         public DateTime EklenmeTarihi { get; set; } = DateTime.Now;
 
         public string TeknisyenAciklamasi { get; set; }
-
+        public Fatura Fatura { get; set; }
     }
 }

@@ -78,8 +78,11 @@
 
                 </div>
                 <div id="sample-1e" class="tab-pane fade in">
-                    <h5 class="text-danger"> Fatura</h5> <br />
-
+                    @if (Model.Fatura != null)
+                    {
+                        <span class="h4">Fatura oluşturulmuştur.</span> <br />
+                        @Html.ActionLink("Fatura Görüntüle", "ServisFatura", "Home", new { id = Model.Fatura.Id }, null)
+                    }
                 </div>
 
             </div>
@@ -90,56 +93,57 @@
     <div class="row">
         <div class="col-md-12">
             @if (Model.Durumu != ArizaDurum.Iptal_Edildi && Model.Durumu != ArizaDurum.Cozuldu)
-            {    <div class="row">
-                <label>Teknisyen Açıklaması Giriniz</label> <br />
-                @Html.TextAreaFor(x => x.TeknisyenAciklamasi, new { @class = "form-control" }) <br />
-            </div>
+            {<div class="row">
+                    <label>Teknisyen Açıklaması Giriniz</label> <br />
+                    @Html.TextAreaFor(x => x.TeknisyenAciklamasi, new { @class = "form-control" }) <br />
+                </div>
             }
-            @if (ViewBag.Aciklamalar.Count ==0 && Model.Durumu == ArizaDurum.Iptal_Edildi && Model.Durumu == ArizaDurum.Cozuldu)
+            @if (ViewBag.Aciklamalar.Count == 0 && Model.Durumu == ArizaDurum.Iptal_Edildi && Model.Durumu == ArizaDurum.Cozuldu)
             {
                 <h4 class="text-info"> TEKNİSYEN AÇIKLAMASI BULUNMUYOR.</h4>
             }
-            else {
-            <div class="row">
-                <div class="col-md-8">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Tarih</th>
-                                <th>Açıklama</th>
-                                @if (Model.Durumu != ArizaDurum.Iptal_Edildi && Model.Durumu != ArizaDurum.Cozuldu)
-                                {
-                                    <th>İşlem</th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (ServisKaydiIslem aciklama in ViewBag.Aciklamalar)
-                            {
+            else
+            {
+                <div class="row">
+                    <div class="col-md-8">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>@aciklama.EklenmeTarihi.ToShortDateString()</td>
-                                    <td> @aciklama.Aciklama</td>
+                                    <th>Tarih</th>
+                                    <th>Açıklama</th>
                                     @if (Model.Durumu != ArizaDurum.Iptal_Edildi && Model.Durumu != ArizaDurum.Cozuldu)
                                     {
-                                        <td>@Html.ActionLink("SİL", "AciklamaSil", "Teknisyen", new { islemID = aciklama.Id }, null)</td>
+                                        <th>İşlem</th>
                                     }
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach (ServisKaydiIslem aciklama in ViewBag.Aciklamalar)
+                                {
+                                    <tr>
+                                        <td>@aciklama.EklenmeTarihi.ToShortDateString()</td>
+                                        <td> @aciklama.Aciklama</td>
+                                        @if (Model.Durumu != ArizaDurum.Iptal_Edildi && Model.Durumu != ArizaDurum.Cozuldu)
+                                        {
+                                            <td>@Html.ActionLink("SİL", "AciklamaSil", "Teknisyen", new { islemID = aciklama.Id }, null)</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
 
+                    </div>
+                    <div class="col-md-4">
+                        @Html.HiddenFor(x => x.ServisId)
+                        @if (Model.Durumu != ArizaDurum.Iptal_Edildi && Model.Durumu != ArizaDurum.Cozuldu)
+                        {
+                            <label>Servis Ücreti:</label> <br />
+                            @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" }) <br /> <br />
+                            @Html.DropDownListFor(x => x.Durumu, (List<SelectListItem>)ViewBag.durumList, "Arıza Durumu Seçiniz...", new { @class = "form-control" }) <br />
+                            <button type="submit" id="btnKaydet" class="btn btn-blue">KAYDET</button>
+                        }
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    @Html.HiddenFor(x => x.ServisId)
-                    @if (Model.Durumu != ArizaDurum.Iptal_Edildi && Model.Durumu != ArizaDurum.Cozuldu)
-                    {
-                        <label>Servis Ücreti:</label> <br />
-                        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control" }) <br /> <br />
-                        @Html.DropDownListFor(x => x.Durumu, (List<SelectListItem>)ViewBag.durumList, "Arıza Durumu Seçiniz...", new { @class = "form-control" })   <br />
-                        <button type="submit" id="btnKaydet" class="btn btn-blue">KAYDET</button>
-                    }
-                </div>
-            </div>
             }
         </div>
     </div>

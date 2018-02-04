@@ -92,6 +92,8 @@ namespace RepairService.UI.MVC.Controllers
 
 
             ViewBag.DurumList = durumList;
+            if (servisKaydi.FaturaList.Count > 0)
+                model.Fatura = servisKaydi.FaturaList.Where(x => x.ServisID == model.ServisId).FirstOrDefault();
             return View(model);
         }
         [HttpPost]
@@ -158,7 +160,7 @@ namespace RepairService.UI.MVC.Controllers
             //Eğer arıza çözüldü ya da iptal edildiyse ANKET GÖNDER
             if (servisKaydi.Durumu == ArizaDurum.Cozuldu || servisKaydi.Durumu == ArizaDurum.Iptal_Edildi)
             {
-               await AnketMailiGonder(servisKaydi.Id, 1);
+                await AnketMailiGonder(servisKaydi.Id, 1);
             }
             return View(model);
         }

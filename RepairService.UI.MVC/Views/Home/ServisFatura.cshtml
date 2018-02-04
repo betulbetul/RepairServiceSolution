@@ -30,23 +30,22 @@
 
 </head>
 <body>
-    <div id="content">
         <div class="container">
             <div class="row margin-vert-30">
-
                 <div class="row" style="margin-top:80px;">
                     <div class="row">
                         <img src="~/assets/img/logo.png" style="width:250px; height:85px;" />
                     </div>
                     <div class="row">
-                        <div class="col-md-7"><h4>Servis Faturası</h4></div>
-                        <div class="col-md-5 text-danger"><b>Tarih: </b>@Model.EklenmeTarihi </div>
+                        <div class="col-sm-6"><h4>Servis Faturası</h4></div>
+                        <div class="col-sm-6 text-danger"><b>Tarih: </b>@Model.EklenmeTarihi </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-sm-12">
                             <h4> Fatura No: @Model.Id</h4> <br />
                         </div>
-                        <table class="table">
+                      <div class="row">
+                        <table class="table col-sm-8 ">
                             <thead>
                                 <tr>
                                     <th> Cihaz Bilgileri </th>
@@ -65,7 +64,7 @@
                             </tr>
                         </tbody>
                     </table>
-
+                          </div>
                     <br />
                     <br />
                     <span> Servisin oluşturulduğu Tarih:   </span>
@@ -77,6 +76,6 @@
             </div>
         </div>
     </div>
-</div>
+
 </body>
 </html>
