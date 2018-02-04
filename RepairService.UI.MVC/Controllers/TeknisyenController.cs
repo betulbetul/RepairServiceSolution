@@ -59,7 +59,7 @@ namespace RepairService.UI.MVC.Controllers
             ServisKaydiViewModel model = new ServisKaydiViewModel()
             {
                 ServisId = servisKaydi.Id,
-                ArizaTurAdi = servisKaydi.ArizaTuru.TurAdi,
+                ArizaTurAdi = servisKaydi.ArizaTuru.TurAdi.ToString(),
                 CihazMarka = servisKaydi.CihazModel.MarkaAdi,
                 CihazModel = servisKaydi.CihazModel.ModelAdi,
                 CihazTuru = servisKaydi.CihazModel.CihazTuru.Tur,
@@ -123,7 +123,7 @@ namespace RepairService.UI.MVC.Controllers
             ServisKaydiViewModel model = new ServisKaydiViewModel()
             {
                 ServisId = servisKaydi.Id,
-                ArizaTurAdi = servisKaydi.ArizaTuru.TurAdi,
+                ArizaTurAdi = servisKaydi.ArizaTuru.TurAdi.ToString(),
                 CihazMarka = servisKaydi.CihazModel.MarkaAdi,
                 CihazModel = servisKaydi.CihazModel.ModelAdi,
                 CihazTuru = servisKaydi.CihazModel.CihazTuru.Tur,

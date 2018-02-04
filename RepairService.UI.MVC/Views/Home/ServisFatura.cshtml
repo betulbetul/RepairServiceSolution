@@ -7,44 +7,76 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>ServisFatura</title>
+    <meta charset="utf-8">
+    <title> Repair Tv Service | SERVİS FATURA</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <!-- Favicon -->
+    <link href="favicon.ico" rel="shortcut icon">
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="~/assets/css/animate.css">
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css">
+    <link rel="stylesheet" href="~/assets/css/nexus.css">
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+    <link rel="stylesheet" href="~/assets/css/custom.css">
+    <link href="~/assets/css/mySiteCss.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-    <div class="row" style="margin:100px">
-        <div class="row">
-            <img src="~/assets/img/logo.png" style="width:250px; height:85px;" />
-        </div>
-        <div class="row">
-            <div class="col-md-7"><h4>Smart TV Teknik Servis Fatura</h4></div>
-            <div class="col-md-5">Tarih: @Model.EklenmeTarihi</div>
-        </div>
-        <div class="row">
-            <div class="col-md-9 text-center">
-                <h4> Fatura ID: @Model.Id</h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th> Cihaz Bilgileri </th>
-                            <th> Tutar </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                @(Model.ServisKaydi.CihazModel.ModelAdi + " / " + Model.ServisKaydi.CihazModel.MarkaAdi)
-                            </td>
-                            <td>@Model.Tutar</td>
-                        </tr>
-                    </tbody>7
-                    <tfoot>
-                        <tr>
-                            <td> Servisin oluşturulduğu Tarih: @Model.ServisKaydi.EklenmeTarihi.ToShortDateString()</td>
-                        </tr>
-                    </tfoot>
-                </table>
+    <div id="content">
+        <div class="container">
+            <div class="row margin-vert-30">
+
+                <div class="row" style="margin-top:80px;">
+                    <div class="row">
+                        <img src="~/assets/img/logo.png" style="width:250px; height:85px;" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7"><h4>Servis Faturası</h4></div>
+                        <div class="col-md-5 text-danger"><b>Tarih: </b>@Model.EklenmeTarihi </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4> Fatura No: @Model.Id</h4> <br />
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th> Cihaz Bilgileri </th>
+                                    <th>Servis Nedeni</th>
+                                    <th> Tutar </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @(Model.ServisKaydi.CihazModel.ModelAdi + " / " + Model.ServisKaydi.CihazModel.MarkaAdi)
+                                    </td>
+                                    <td>
+                                        @Model.ServisKaydi.ArizaTuru.TurAdi Arıza  </td>
+                                <td>@Model.Tutar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <br />
+                    <br />
+                    <span> Servisin oluşturulduğu Tarih:   </span>
+                    <span>@Model.ServisKaydi.EklenmeTarihi.ToShortDateString()</span>
+
+
+
+                </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

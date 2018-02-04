@@ -310,8 +310,8 @@ namespace RepairService.UI.MVC.Controllers
                     {
                         To = sonuc.Email,
                         Subject = "Şifreniz Değişti",
-                        Message = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/>Yeni Şifreniz : <b>{randomPass}</b>" +
-                        $" Sisteme giriş yapmak için<b><a href='{siteUrl}/Account/Login?userName={sonuc.UserName}'>BURAYA</a></b> tıklayınız."
+                        Message = $"Merhaba {sonuc.Name} {sonuc.Surname} <br/>Yeni Şifreniz :<b>{randomPass}</b>" +
+                        $"Sisteme giriş yapmak için<b><a href='{siteUrl}/Account/Login?userName={sonuc.UserName}'>BURAYA</a></b> tıklayınız."
                     });
                     ViewBag.Sonuc = "Email adresinize yeni şifreniz gönderilmiştir";
                 }

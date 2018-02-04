@@ -22,11 +22,11 @@ namespace RepairService.Entity.Enums
         Operatore_Aktarildi = 1, // Operator üzerine aldı.
         Teknisyene_Aktarildi = 2, // Teknisyen üzerine aldı ve inceliyor.
         ParcaBekliyor = 3, // parça bekliyor
-        TeknisyenServiseCikti = 4, // Teknisyen yerinde servise gitti.
         MusteriOnayiBekleniyor = 5, // Müşteriye sunulan para teklifini müşteri kabul ediyor mu?
-        Musteri_Onayladi=6,
-        Cozuldu = 7,// Arıza çözümlendi
-        Iptal_Edildi = 8 //Arıza İptal edildi.
+        Musteri_Onayladi = 6,
+        TeknisyenServiseCikti = 7, // Teknisyen yerinde servise gitti.        
+        Cozuldu = 8,// Arıza çözümlendi
+        Iptal_Edildi = 9 //Arıza İptal edildi.
 
     }
 

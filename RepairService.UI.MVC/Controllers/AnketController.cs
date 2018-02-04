@@ -1,6 +1,7 @@
 ﻿using RepairService.BLL.Repository;
 using RepairService.Entity.Models;
 using RepairService.Entity.Models.Cihaz;
+using RepairService.Entity.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,14 +39,31 @@ namespace RepairService.UI.MVC.Controllers
             //Anket 
             Anket anket = new AnketRepo().GetById(anketID);
             //mail
-            return View();
+            AnketViewModel model = new AnketViewModel()
+            {
+                AnketBaslik = anket.AnketBaslik,
+                AnketID = anket.Id,
+                Servis = servis,
+                Musteri = servis.Musteri
+            };
+            anket.AnketSoruList.ForEach(x => model.Sorular.Add(new AnketSoru()
+            {
+                AnketID = x.AnketID,
+                Id = x.Id,
+                SoruMetni = x.SoruMetni,
+                AnketSorusununCevapList = x.AnketSorusununCevapList
+            }));
+            return View(model);
 
         }
-       [HttpPost]
-       public ActionResult AnketeKatil()
+        [HttpPost]
+        public ActionResult AnketeKatil()
         {
+
             return View();
         }
+
+       
 
     }
 }

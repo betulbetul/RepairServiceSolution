@@ -27,7 +27,7 @@ namespace RepairService.Entity.ViewModels
 
         public string CihazModel { get; set; } // Müşteri kendisi yazacak 
 
-        public ArizaTurleri ArizaTurAdi { get; set; } //Tablodan gelecek (Yazılımsal ya da Donanimsal) 
+        public string ArizaTurAdi { get; set; } //Tablodan gelecek (Yazılımsal ya da Donanimsal) 
         [MinLength(5, ErrorMessage = "Arıza kaydı ile ilgili tanım yazmalısınız!")]
         public string musteriArizaTanimi { get; set; } //Müşteri kendisi yazacak
         public decimal Fiyat { get; set; } = 0m;

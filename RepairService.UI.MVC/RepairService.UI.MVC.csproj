@@ -436,6 +436,8 @@
     <Content Include="Views\Home\ServisFatura.cshtml" />
     <Content Include="Views\Anket\AnketEkle.cshtml" />
     <Content Include="Views\Admin\Anketler.cshtml" />
+    <Content Include="Views\Shared\_LayoutPageAnket.cshtml" />
+    <Content Include="Views\Anket\AnketeKatil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

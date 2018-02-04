@@ -1,0 +1,82 @@
+﻿@model AnketViewModel
+@{
+    ViewBag.Title = "AnketeKatil";
+    Layout = Layout = "~/Views/Shared/_LayoutPageAnket.cshtml";
+}
+<div class="container">
+    <div class="row" style="margin-top:50px; margin-right:30px; margin-right:30px; margin-bottom:30px;">
+        <div class="col-md-12">
+            <h4>Ankete katılarak görüşlerinizi bizimle paylaşabilirsiniz...</h4>
+            @using (Html.BeginForm("AnketeKatil", "Anket ", FormMethod.Post, new { @class = "form-horizontal", name = "myForm" }))
+            {
+                int sayac = 0;
+                <h4 class="text-info">@Model.AnketBaslik </h4> <br />
+                @Html.Label($"{Model.Servis.ServisNumarasi} numaralı Servis ile ilgili anket soruları aşağıdaki gibidir.", new { @class = "form-control" }) <br />
+                foreach (AnketSoru soru in Model.Sorular)
+                {
+                    sayac++;
+                    <div class="questions">
+                        <p><b>Soru @sayac)  @soru.SoruMetni </b></p>
+                        @foreach (AnketSorusununCevap cevap in soru.AnketSorusununCevapList)
+                        {
+                            @cevap.CevapMetni <input class="option" type="radio" name="@cevap.Id" value=@cevap.CevapPuani /> <br />
+                        }
+                    </div> <br />
+                }
+                <br />
+                <input type="button" id='next' value="Next" onlick="sum_values()">
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    //Store the total number of questions
+    var totalQuestions = $('.questions').size();
+    console.log(totalQuestions);
+    //Set the current question to display to 1
+    var currentQuestion = 0;
+    console.log(currentQuestion);
+    //Store the selector in a variable.
+    //It is good practice to prefix jQuery selector variables with a $
+    $questions = $('.questions');
+
+    //Hide all the questions
+    $questions.hide();
+
+    //Show the first question
+    $($questions.get(currentQuestion)).fadeIn();
+
+    //attach a click listener to the HTML element with the id of 'next'
+    $('#next').click(function () {
+
+        //fade out the current question,
+        //putting a function inside of fadeOut calls that function
+        //immediately after fadeOut is completed,
+        //this is for a smoother transition animation
+        $($questions.get(currentQuestion)).fadeOut(function () {
+
+            //increment the current question by one
+            currentQuestion = currentQuestion + 1;
+
+            //if there are no more questions do stuff
+            if (currentQuestion == totalQuestions) {
+
+                var result = sum_values()
+
+                //do stuff with the result
+                alert(result);
+
+            } else {
+
+                //otherwise show the next question
+                $($questions.get(currentQuestion)).fadeIn();
+
+            }
+        });
+
+    });
+
+
+</script>
+    
