@@ -5,7 +5,7 @@
 }
 
 <div id="content">
-    <div class="container" style="background-color:papayawhip">
+    <div class="container">
         <div class="row">
             <div class="col-md-7 margin-vert-30">
                 <h4> Anketler</h4>
@@ -25,7 +25,17 @@
                             <tr>
                                 <td>@sayac</td>
                                 <td>@item.AnketBaslik</td>
-                                <td>  @*@item.AnketSoruList.Count*@</td>
+                                <td>
+                                    @if (item.AnketSoruList.Count > 0)
+                                    {
+                                        @item.AnketSoruList.Count
+                                    }
+                                    else
+                                    {
+                                        <span> Henüz Soru Eklenmemiş!</span>
+                                    }
+
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -34,7 +44,7 @@
             <div class="col-md-5 margin-vert-30">
                 <h5>Yeni Bir Anket Ekle</h5>
                 @using (Html.BeginForm("AnketEkle", "Anket", FormMethod.Post, new { @class = "form-horizontal" }))
-            {
+                {
                     @Html.Label("Anket Başlığı Giriniz") <br />
                     @Html.TextBoxFor(x => x.AnketBaslik, new { @class = "form-control" }) <br />
                     <button type="submit" class="btn btn-blue">EKLE</button>

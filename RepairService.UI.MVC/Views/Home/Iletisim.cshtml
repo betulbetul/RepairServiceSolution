@@ -6,7 +6,7 @@
 <div id="content">
     <div class="container">
         <div class="row margin-vert-30">
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <h2 class="headline">İletişim Formu</h2> <br />
                 <div class="form-group">
                     <div class="col-md-12">
@@ -21,7 +21,7 @@
                     </div>
                     }
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-10">
                     @using (Html.BeginForm("Iletisim", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
                     {
                         @Html.AntiForgeryToken()
@@ -66,7 +66,7 @@
             </div>
 
             <!-- Side Column -->
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <!-- Recent Posts -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -79,7 +79,7 @@
                                 <i class="fa-phone color-primary"></i>(216)555 55 55
                             </li>
                             <li>
-                                <i class="fa-envelope color-primary"></i>info@smarttvrepairservice.com
+                                <i class="fa-envelope color-primary"></i>info@repairservice.com
                             </li>
                             
                         </ul>
